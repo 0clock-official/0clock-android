@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">OClock</string>
+    <string name="terms_conditions">이용 약관 및 방침</string>
+    <string name="do_sign_up">회원가입하기</string>
+    <string name="sign_up">회원가입</string>
+    <string name="do_login">로그인하기</string>
+    <string name="find_password">비밀번호 찾기</string>
+    <string name="email_or_password_do_not_match">이메일 혹은 비밀번호가 일치하지 않아요</string>
+    <string name="please_enter_password">비밀번호를 입력해주세요</string>
+    <string name="please_enter_email">이메일을 입력해주세요</string>
+    <string name="next">다음</string>
+    <string name="sign_up_enter_email">사용하실 이메일을 입력해주세요</string>
+    <string name="sign_up_enter_verify_code">인증번호를 입력해주세요</string>
+    <string name="error_email_format">올바른 이메일 형식을 입력해주세요</string>
+    <string name="verify">인증</string>
+    <string name="verify_char">인증번호 6자</string>
+</resources>
