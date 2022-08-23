@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
         classpath Navigation.NAVIGATION_SAFE_ARGS
+        classpath Hilt.HILT_ANDROID_GRADLE_PLUGIN
     }
 }
 

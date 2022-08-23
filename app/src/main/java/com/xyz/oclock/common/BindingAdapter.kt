@@ -1,4 +1,4 @@
-package com.xyz.oclock
+package com.xyz.oclock.common
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
