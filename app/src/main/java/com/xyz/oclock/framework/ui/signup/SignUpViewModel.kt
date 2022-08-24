@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.presentation.signup
+package com.xyz.oclock.framework.ui.signup
 
 import androidx.lifecycle.ViewModel
 

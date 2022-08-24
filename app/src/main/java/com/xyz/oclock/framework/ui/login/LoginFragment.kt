@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.presentation.login
+package com.xyz.oclock.framework.ui.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

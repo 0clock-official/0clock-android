@@ -2,6 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:paddingStart="16dp"
+    android:paddingTop="48dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="51dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,37 +19,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/materialTextView4"
         app:lineHeight="21sp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="10dp"
         android:text="@string/please_upload_std_card"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sign_up_std_card_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView3" />
 
 
     <LinearLayout
+        android:id="@+id/sign_up_std_card_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="w,1:1"
         android:layout_marginTop="25dp"
-        android:gravity="center"
+        android:layout_marginBottom="44dp"
         android:background="@drawable/dash_border"
+        android:gravity="center"
+        app:bind_square_layout="@{null}"
+        app:layout_constraintBottom_toTopOf="@+id/sign_up_viewpager_std_card_next"
+        app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView4">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -56,9 +66,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:textSize="14sp"
+                android:text="@string/upload_std_card"
                 android:textColor="@color/white"
-                android:text="@string/upload_std_card"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
     </LinearLayout>

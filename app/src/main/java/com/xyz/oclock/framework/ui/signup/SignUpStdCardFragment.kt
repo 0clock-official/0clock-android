@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.presentation.signup
+package com.xyz.oclock.framework.ui.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.oclock.R
-import com.example.oclock.databinding.FragmentSignUpEmailBinding
+import com.example.oclock.databinding.FragmentSignUpStdCardBinding
 
-class SignUpEmailFragment: Fragment() {
+class SignUpStdCardFragment: Fragment() {
 
-    private lateinit var binding: FragmentSignUpEmailBinding
+    private lateinit var binding: FragmentSignUpStdCardBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_email, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_std_card, container, false)
         return binding.root
     }
 }

@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.xyz.oclock.framework.presentation.login.LoginFragment"
+        android:name="com.xyz.oclock.framework.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -15,16 +15,19 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.xyz.oclock.framework.presentation.signup.SignUpFragment"
+        android:name="com.xyz.oclock.framework.ui.signup.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signUpFragment_to_signUpPendingFragment"
             app:destination="@id/signUpPendingFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpPendingFragment"
-        android:name="com.xyz.oclock.framework.presentation.signup.SignUpPendingFragment"
+        android:name="com.xyz.oclock.framework.ui.signup.SignUpPendingFragment"
         android:label="fragment_sign_up_pending"
         tools:layout="@layout/fragment_sign_up_pending" />
 </navigation>
