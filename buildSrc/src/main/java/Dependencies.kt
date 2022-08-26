@@ -1,3 +1,4 @@
+import Versions.BINDABLES_VERSION
 import Versions.GLIDE_VERSION
 import Versions.HILT_VERSION
 import Versions.NAV_VERSION
@@ -8,6 +9,7 @@ object Versions {
     const val GLIDE_VERSION = "4.13.2"
     const val HILT_VERSION = "2.38.1"
     const val VIEW_PAGER_VERSION = "1.0.0"
+    const val BINDABLES_VERSION = "1.1.0"
 }
 
 object Glide {
@@ -34,4 +36,8 @@ object Hilt {
 
 object ViewPager{
     const val VIEW_PAGER = "androidx.viewpager2:viewpager2:$VIEW_PAGER_VERSION"
+}
+
+object Bindables {
+    const val BINDABLES = "com.github.skydoves:bindables:$BINDABLES_VERSION"
 }

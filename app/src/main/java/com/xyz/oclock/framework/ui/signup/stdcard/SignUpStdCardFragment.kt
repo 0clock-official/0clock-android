@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.signup
+package com.xyz.oclock.framework.ui.signup.stdcard
 
 import android.os.Bundle
 import android.view.LayoutInflater

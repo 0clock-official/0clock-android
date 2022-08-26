@@ -12,12 +12,16 @@
     <string name="sign_up_enter_email">사용하실 이메일을 입력해주세요</string>
     <string name="sign_up_enter_verify_code">인증번호를 입력해주세요</string>
     <string name="error_email_format">올바른 이메일 형식을 입력해주세요</string>
+    <string name="error_verify_code">인증번호가 일치하지 않아요</string>
     <string name="verify">인증</string>
+    <string name="retry_verify">재인증</string>
     <string name="verify_char">인증번호 6자</string>
     <string name="example_email">0clock@clock.com</string>
     <string name="include_alphabet_number_8char">영문, 숫자 포함 8자 이상</string>
     <string name="password_confirm">비밀번호 확인</string>
-    <string name="error_password_format_1">숫자를 포함해주세요</string>
+    <string name="error_password_format_1">8자 이상 20자 이하를 입력해주세요</string>
+    <string name="error_password_format_2">숫자를 포함해주세요</string>
+    <string name="error_password_format_3">영문을 포함해주세요</string>
     <string name="error_password_confirm_format">비밀번호가 일치하지 않아요</string>
     <string name="sign_up_std_card_description">대학생을 위한 서비스인만큼 대학생 인증이 필요해요\n학생증에는 이름, 대학교명, 전공, 학번이 포함되어야 해요\n실물 학생증 사진 혹은 모바일 학생증 스크린샷을 제출해주세요</string>
     <string name="please_upload_std_card">학생증 사진을 첨부해주세요</string>

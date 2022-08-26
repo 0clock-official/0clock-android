@@ -66,4 +66,5 @@ dependencies {
     kapt Hilt.HILT_COMPILER
 
     implementation ViewPager.VIEW_PAGER
+    implementation Bindables.BINDABLES
 }

@@ -1,10 +1,14 @@
 package com.xyz.oclock.common
 
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.example.oclock.R
+import java.util.regex.Pattern
 
 
 object BindingAdapter {
@@ -35,6 +39,34 @@ object BindingAdapter {
             layoutParams.width = (this.display.width * 0.5).toInt()
             layoutParams.height = 0
             this.layoutParams = layoutParams
+        }
+    }
+
+    @BindingAdapter("bind_password_format")
+    @JvmStatic
+    fun TextView.bindPasswordFormat(pw: String) {
+        var pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{8,20}$"
+        var pattern = Pattern.compile(pwPattern)
+        if (pattern.matcher(pw).matches()) {
+            this.visibility = View.GONE
+        } else {
+            this.visibility = View.VISIBLE
+            if (pw.length < 8 || pw.length > 20) {
+                this.text = context.getText(R.string.error_password_format_1)
+                return
+            }
+            pwPattern = "([A-Za-z])"
+            pattern = Pattern.compile(pwPattern)
+            if (!pattern.matcher(pw).find()) {
+                this.text = context.getText(R.string.error_password_format_3)
+                return
+            }
+            pwPattern = "([0-9])"
+            pattern = Pattern.compile(pwPattern)
+            if (!pattern.matcher(pw).find()) {
+                this.text = context.getText(R.string.error_password_format_2)
+                return
+            }
         }
     }
 }

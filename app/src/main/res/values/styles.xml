@@ -5,16 +5,17 @@
         <item name="rippleColor">@color/white_ripple</item>
         <item name="android:textColor">@color/white</item>
         <item name="cornerRadius">18dp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
     </style>
     <style name="OutlinedLoginInputTextLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:textColorHint">@color/gray</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/activated_white_unactivated_gray</item>
         <item name="hintEnabled">false</item>
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
         <item name="boxBackgroundMode">outline</item>
     </style>
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
     </style>
 </resources>
