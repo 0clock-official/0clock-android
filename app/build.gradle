@@ -5,13 +5,14 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.oclock"
+        applicationId "com.xyz.oclock"
         minSdk 26
         targetSdk 32
         versionCode 1
@@ -67,4 +68,6 @@ dependencies {
 
     implementation ViewPager.VIEW_PAGER
     implementation Bindables.BINDABLES
+
+    implementation Firebase.MESSAGING
 }

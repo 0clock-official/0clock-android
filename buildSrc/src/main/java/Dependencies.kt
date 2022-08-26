@@ -1,5 +1,7 @@
 import Versions.BINDABLES_VERSION
+import Versions.FIREBASE_MESSAGING
 import Versions.GLIDE_VERSION
+import Versions.GOOGLE_SERVICE_VERSION
 import Versions.HILT_VERSION
 import Versions.NAV_VERSION
 import Versions.VIEW_PAGER_VERSION
@@ -10,6 +12,8 @@ object Versions {
     const val HILT_VERSION = "2.38.1"
     const val VIEW_PAGER_VERSION = "1.0.0"
     const val BINDABLES_VERSION = "1.1.0"
+    const val GOOGLE_SERVICE_VERSION = "4.3.5"
+    const val FIREBASE_MESSAGING = "23.0.7"
 }
 
 object Glide {
@@ -40,4 +44,12 @@ object ViewPager{
 
 object Bindables {
     const val BINDABLES = "com.github.skydoves:bindables:$BINDABLES_VERSION"
+}
+
+object Google {
+    const val SERVICE = "com.google.gms:google-services:$GOOGLE_SERVICE_VERSION"
+}
+
+object Firebase {
+    const val MESSAGING = "com.google.firebase:firebase-messaging:$FIREBASE_MESSAGING"
 }

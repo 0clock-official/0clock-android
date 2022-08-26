@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.example.oclock.R
+import com.xyz.oclock.R
 import java.util.regex.Pattern
 
 

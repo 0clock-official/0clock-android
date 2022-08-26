@@ -1,0 +1,60 @@
+package com.xyz.oclock.network
+
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+import com.xyz.oclock.R
+
+
+const val CHANNEL_NAME = "0Clock"
+const val CHANNEL_ID = "OClock_channel_id"
+
+class OClockFirebaseMessagingService: FirebaseMessagingService() {
+
+    init {
+        val token =  FirebaseMessaging.getInstance().token
+        token.addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.d("FCM Token", it.result)
+            }
+        }
+    }
+
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        Log.d("FCM new Token", token)
+    }
+
+    override fun onMessageReceived(message: RemoteMessage) {
+        super.onMessageReceived(message)
+        val notificationManager = NotificationManagerCompat.from(applicationContext)
+
+        if (notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+
+        val title = message.notification?.title
+        val body = message.notification?.body
+
+        builder.setContentTitle(title)
+            .setContentText(body)
+            .setSmallIcon(R.drawable.ic_oclock_face_logo)
+
+        val notification: Notification = builder.build()
+        notificationManager.notify(1, notification)
+    }
+}

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.oclock.R
-import com.example.oclock.databinding.FragmentSignUpPasswordBinding
+import com.xyz.oclock.R
+import com.xyz.oclock.databinding.FragmentSignUpPasswordBinding
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.common.onThrottleClick
 import com.xyz.oclock.framework.ui.signup.SignUpViewPagerFragmentListener

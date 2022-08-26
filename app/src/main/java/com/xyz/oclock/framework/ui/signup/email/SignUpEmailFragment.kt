@@ -1,19 +1,15 @@
 package com.xyz.oclock.framework.ui.signup.email
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import com.example.oclock.R
-import com.example.oclock.databinding.FragmentSignUpEmailBinding
+import com.xyz.oclock.R
+import com.xyz.oclock.databinding.FragmentSignUpEmailBinding
 import com.skydoves.bindables.BindingFragment
-import com.skydoves.bindables.binding
-import com.xyz.oclock.common.OnThrottleClickListener
 import com.xyz.oclock.common.onThrottleClick
 import com.xyz.oclock.framework.ui.signup.SignUpViewPagerFragmentListener
 

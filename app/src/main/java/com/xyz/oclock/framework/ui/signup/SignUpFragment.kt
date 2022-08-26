@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.example.oclock.R
-import com.example.oclock.databinding.FragmentSignUpBinding
+import com.xyz.oclock.R
+import com.xyz.oclock.databinding.FragmentSignUpBinding
 import com.xyz.oclock.common.smoothProgress
 import com.xyz.oclock.framework.ui.signup.email.SignUpEmailFragment
 import com.xyz.oclock.framework.ui.signup.password.SignUpPasswordFragment

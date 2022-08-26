@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.example.oclock.R
-import com.example.oclock.databinding.FragmentSignUpStdCardBinding
+import com.xyz.oclock.R
+import com.xyz.oclock.databinding.FragmentSignUpStdCardBinding
 
 class SignUpStdCardFragment: Fragment() {
 
