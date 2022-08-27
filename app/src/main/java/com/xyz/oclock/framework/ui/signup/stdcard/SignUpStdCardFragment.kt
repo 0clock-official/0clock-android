@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
@@ -78,13 +79,24 @@ class SignUpStdCardFragment: BindingFragment<FragmentSignUpStdCardBinding>(R.lay
 
     private fun showImagePickerDialog() {
         PickImageDialog
-            .build(PickSetup())
-            .setOnPickResult {
+            .build(PickSetup()
+                .setTitle(requireContext().getString(R.string.choose_image))
+                .setCameraButtonText(requireContext().getString(R.string.camera))
+                .setGalleryButtonText(requireContext().getString(R.string.gallery))
+                .setCancelText(requireContext().getString(R.string.cancel))
+                .setCameraIcon(R.drawable.ic_camera)
+                .setGalleryIcon(R.drawable.ic_garllery)
+                .setCancelTextColor(requireContext().getColor(R.color.error))
+                .setTitleColor(requireContext().getColor(R.color.main))
+                .setProgressTextColor(requireContext().getColor(R.color.main))
+                .setButtonTextColor(requireContext().getColor(R.color.main))
+                .setButtonOrientation(LinearLayout.HORIZONTAL)
+            ).setOnPickResult {
                 if (it.error == null) {
                     binding.signUpStdCardImageview.setImageBitmap(it.bitmap)
                     viewModel.stdCardImage = it.bitmap.copy(it.bitmap.config, it.bitmap.isMutable)
                 } else {
-                    activity?.toast(it.error?.message?: "엥")
+                    activity?.toast(it.error?.message?: "image picker error")
                 }
             }
             .show(fragmentManager)

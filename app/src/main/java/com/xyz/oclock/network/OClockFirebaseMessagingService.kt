@@ -11,24 +11,34 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.xyz.oclock.R
+import com.xyz.oclock.datasource.SharedPreferences
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
-const val CHANNEL_NAME = "0Clock"
+const val CHANNEL_NAME = "OClock"
 const val CHANNEL_ID = "OClock_channel_id"
 
+@AndroidEntryPoint
 class OClockFirebaseMessagingService: FirebaseMessagingService() {
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     init {
         val token =  FirebaseMessaging.getInstance().token
         token.addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.d("FCM Token", it.result)
+                sharedPreferences.setFcmToken(it.result)
+            } else {
+                Log.d("FCM Token", "failed")
             }
         }
     }
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+        sharedPreferences.setFcmToken(token)
         Log.d("FCM new Token", token)
     }
 
@@ -52,7 +62,7 @@ class OClockFirebaseMessagingService: FirebaseMessagingService() {
 
         builder.setContentTitle(title)
             .setContentText(body)
-            .setSmallIcon(R.drawable.ic_oclock_face_logo)
+            .setSmallIcon(R.drawable.ic_oclock_fcm)
 
         val notification: Notification = builder.build()
         notificationManager.notify(1, notification)

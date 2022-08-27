@@ -74,4 +74,5 @@ dependencies {
 
     implementation PickImage.PICK_IMAGE
 
+    implementation Security.CRYPTO_KTX
 }

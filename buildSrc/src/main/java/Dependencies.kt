@@ -5,6 +5,7 @@ import Versions.GOOGLE_SERVICE_VERSION
 import Versions.HILT_VERSION
 import Versions.NAV_VERSION
 import Versions.PICK_IMAGE_VERSION
+import Versions.SECURITY_CRYPTO_VERSION
 import Versions.VIEW_PAGER_VERSION
 
 object Versions {
@@ -16,6 +17,7 @@ object Versions {
     const val GOOGLE_SERVICE_VERSION = "4.3.5"
     const val FIREBASE_MESSAGING = "23.0.7"
     const val PICK_IMAGE_VERSION = "3.0.01"
+    const val SECURITY_CRYPTO_VERSION = "1.1.0-alpha03"
 }
 
 object Glide {
@@ -58,4 +60,8 @@ object Firebase {
 
 object PickImage {
     const val PICK_IMAGE = "com.github.jrvansuita:PickImage:$PICK_IMAGE_VERSION"
+}
+
+object Security {
+    const val CRYPTO_KTX = "androidx.security:security-crypto-ktx:$SECURITY_CRYPTO_VERSION"
 }
