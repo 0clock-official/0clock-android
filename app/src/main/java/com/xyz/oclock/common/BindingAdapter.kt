@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.xyz.oclock.R
@@ -19,7 +20,7 @@ object BindingAdapter {
 
     @BindingAdapter("bind_square_layout")
     @JvmStatic
-    fun LinearLayout.setSquareLayout(dummy: Any?) {
+    fun CardView.setSquareLayout(dummy: Any?) {
         val width = this.display.width
         val height = this.display.height
         val ratio = if (width > height) {
@@ -28,7 +29,6 @@ object BindingAdapter {
             height.toFloat()/width
         }
 
-        println("test $ratio")
         if (ratio > 1.8) {
             val layoutParams: ViewGroup.LayoutParams = this.layoutParams
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT

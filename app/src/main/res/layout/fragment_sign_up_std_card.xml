@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.xyz.oclock.framework.ui.signup.stdcard.SignUpStdCardViewModel" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:paddingStart="16dp"
     android:paddingTop="48dp"
@@ -36,14 +43,16 @@
         app:layout_constraintTop_toBottomOf="@+id/materialTextView3" />
 
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/sign_up_std_card_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="44dp"
-        android:background="@drawable/dash_border"
-        android:gravity="center"
+        app:rippleColor="@color/white_ripple"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardElevation="0dp"
         app:bind_square_layout="@{null}"
         app:layout_constraintBottom_toTopOf="@+id/sign_up_viewpager_std_card_next"
         app:layout_constraintDimensionRatio="w,1:1"
@@ -52,8 +61,22 @@
         app:layout_constraintTop_toBottomOf="@+id/materialTextView4">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/dash_border" />
+        
+        <ImageView
+            android:id="@+id/sign_up_std_card_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
+        
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{vm.stdCardImage == null ? View.VISIBLE : View.GONE}"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -71,7 +94,7 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_up_viewpager_std_card_next"
