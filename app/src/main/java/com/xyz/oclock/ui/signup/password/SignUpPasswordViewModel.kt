@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.signup.password
+package com.xyz.oclock.ui.signup.password
 
 import androidx.databinding.Bindable
 import com.skydoves.bindables.BindingViewModel

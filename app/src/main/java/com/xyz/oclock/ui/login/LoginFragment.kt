@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.login
+package com.xyz.oclock.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentLoginBinding
-import com.xyz.oclock.datasource.SharedPreferences
+import com.xyz.oclock.datasource.database.SharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

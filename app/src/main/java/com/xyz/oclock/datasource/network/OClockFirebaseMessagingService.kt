@@ -1,4 +1,4 @@
-package com.xyz.oclock.network
+package com.xyz.oclock.datasource.network
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -6,12 +6,11 @@ import android.app.NotificationManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.xyz.oclock.R
-import com.xyz.oclock.datasource.SharedPreferences
+import com.xyz.oclock.datasource.database.SharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

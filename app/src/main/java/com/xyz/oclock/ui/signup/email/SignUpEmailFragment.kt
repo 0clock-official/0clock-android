@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.signup.email
+package com.xyz.oclock.ui.signup.email
 
 import android.os.Bundle
 import android.util.Patterns
@@ -11,7 +11,7 @@ import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpEmailBinding
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.common.onThrottleClick
-import com.xyz.oclock.framework.ui.signup.SignUpViewPagerFragmentListener
+import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 
 class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.fragment_sign_up_email) {
 

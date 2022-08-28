@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.signup
+package com.xyz.oclock.ui.signup
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,9 +12,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpBinding
 import com.xyz.oclock.common.smoothProgress
-import com.xyz.oclock.framework.ui.signup.email.SignUpEmailFragment
-import com.xyz.oclock.framework.ui.signup.password.SignUpPasswordFragment
-import com.xyz.oclock.framework.ui.signup.stdcard.SignUpStdCardFragment
+import com.xyz.oclock.ui.signup.email.SignUpEmailFragment
+import com.xyz.oclock.ui.signup.password.SignUpPasswordFragment
+import com.xyz.oclock.ui.signup.stdcard.SignUpStdCardFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

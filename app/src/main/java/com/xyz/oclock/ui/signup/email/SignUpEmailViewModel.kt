@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.signup.email
+package com.xyz.oclock.ui.signup.email
 
 import androidx.databinding.Bindable
 import com.skydoves.bindables.BindingViewModel

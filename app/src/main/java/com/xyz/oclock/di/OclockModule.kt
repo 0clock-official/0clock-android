@@ -2,7 +2,7 @@ package com.xyz.oclock.di
 
 import android.content.Context
 import com.xyz.oclock.OClockApplication
-import com.xyz.oclock.datasource.SharedPreferences
+import com.xyz.oclock.datasource.database.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

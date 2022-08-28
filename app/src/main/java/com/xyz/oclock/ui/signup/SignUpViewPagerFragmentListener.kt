@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.signup
+package com.xyz.oclock.ui.signup
 
 interface SignUpViewPagerFragmentListener {
     fun onNextButtonClicked()

@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.signup.stdcard
+package com.xyz.oclock.ui.signup.stdcard
 
 import android.graphics.Bitmap
 import androidx.databinding.Bindable

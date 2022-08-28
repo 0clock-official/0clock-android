@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.signup.password
+package com.xyz.oclock.ui.signup.password
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpPasswordBinding
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.common.onThrottleClick
-import com.xyz.oclock.framework.ui.signup.SignUpViewPagerFragmentListener
+import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 
 class SignUpPasswordFragment: BindingFragment<FragmentSignUpPasswordBinding>(R.layout.fragment_sign_up_password) {
 

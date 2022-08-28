@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.login
+package com.xyz.oclock.ui.login
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

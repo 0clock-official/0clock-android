@@ -1,4 +1,4 @@
-package com.xyz.oclock.framework.ui.signup.pending
+package com.xyz.oclock.ui.signup.pending
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
