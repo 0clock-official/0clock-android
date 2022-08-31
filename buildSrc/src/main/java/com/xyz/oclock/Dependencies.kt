@@ -1,12 +1,21 @@
-import Versions.BINDABLES_VERSION
-import Versions.FIREBASE_MESSAGING
-import Versions.GLIDE_VERSION
-import Versions.GOOGLE_SERVICE_VERSION
-import Versions.HILT_VERSION
-import Versions.NAV_VERSION
-import Versions.PICK_IMAGE_VERSION
-import Versions.SECURITY_CRYPTO_VERSION
-import Versions.VIEW_PAGER_VERSION
+package com.xyz.oclock
+
+import com.xyz.oclock.Versions.APPCOMPAT_VERSION
+import com.xyz.oclock.Versions.BINDABLES_VERSION
+import com.xyz.oclock.Versions.CONSTRAINT_LAYOUT_VERSION
+import com.xyz.oclock.Versions.CORE_KTX_VERSION
+import com.xyz.oclock.Versions.FIREBASE_MESSAGING
+import com.xyz.oclock.Versions.GLIDE_VERSION
+import com.xyz.oclock.Versions.GOOGLE_SERVICE_VERSION
+import com.xyz.oclock.Versions.HILT_VERSION
+import com.xyz.oclock.Versions.LEGACY_SUPPORT_VERSION
+import com.xyz.oclock.Versions.LIFECYCLE_VERSION
+import com.xyz.oclock.Versions.MATERIAL_VERSION
+import com.xyz.oclock.Versions.NAV_VERSION
+import com.xyz.oclock.Versions.PICK_IMAGE_VERSION
+import com.xyz.oclock.Versions.PLAY_SERVICE_CAST_VERSION
+import com.xyz.oclock.Versions.SECURITY_CRYPTO_VERSION
+import com.xyz.oclock.Versions.VIEW_PAGER_VERSION
 
 object Versions {
     const val NAV_VERSION = "2.5.1"
@@ -18,6 +27,13 @@ object Versions {
     const val FIREBASE_MESSAGING = "23.0.7"
     const val PICK_IMAGE_VERSION = "3.0.01"
     const val SECURITY_CRYPTO_VERSION = "1.1.0-alpha03"
+    const val CORE_KTX_VERSION = "1.8.0"
+    const val APPCOMPAT_VERSION = "1.5.0"
+    const val MATERIAL_VERSION = "1.6.1"
+    const val CONSTRAINT_LAYOUT_VERSION = "2.1.4"
+    const val LEGACY_SUPPORT_VERSION = "1.0.0"
+    const val LIFECYCLE_VERSION = "2.5.1"
+    const val PLAY_SERVICE_CAST_VERSION = "20.0.0"
 }
 
 object Glide {
@@ -64,4 +80,39 @@ object PickImage {
 
 object Security {
     const val CRYPTO_KTX = "androidx.security:security-crypto-ktx:$SECURITY_CRYPTO_VERSION"
+}
+
+object Core {
+    const val CORE_KTX = "androidx.core:core-ktx:$CORE_KTX_VERSION"
+}
+
+object Appcompat {
+    const val APPCOMPAT = "androidx.appcompat:appcompat:$APPCOMPAT_VERSION"
+}
+
+object Material {
+    const val MATERIAL = "com.google.android.material:material:$MATERIAL_VERSION"
+}
+
+object ConstraintLayout {
+    const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:$CONSTRAINT_LAYOUT_VERSION"
+}
+
+object Legacy {
+    const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:$LEGACY_SUPPORT_VERSION"
+}
+
+object Lifecycle {
+    const val LIVEDATA_KTX= "androidx.lifecycle:lifecycle-livedata-ktx:$LIFECYCLE_VERSION"
+    const val VIEWMODEL_KTX= "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
+}
+
+object Gms {
+    const val PLAY_SERVICE_CAST = "com.google.android.gms:play-services-cast-framework:$PLAY_SERVICE_CAST_VERSION"
+}
+
+object Test{
+    const val JUNIT = "junit:junit:4.13.2"
+    const val EXT_JUNIT = "androidx.test.ext:junit:1.1.3"
+    const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.4.0"
 }

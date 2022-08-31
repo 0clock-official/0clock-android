@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.xyz.oclock.framework.ui.signup.email.SignUpEmailViewModel" />
+            type="com.xyz.oclock.ui.signup.email.SignUpEmailViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:paddingStart="16dp"

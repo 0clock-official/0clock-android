@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.xyz.oclock.framework.ui.signup.stdcard.SignUpStdCardViewModel" />
+            type="com.xyz.oclock.ui.signup.stdcard.SignUpStdCardViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:paddingStart="16dp"
