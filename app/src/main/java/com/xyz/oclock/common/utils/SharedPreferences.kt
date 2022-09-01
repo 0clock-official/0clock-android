@@ -1,4 +1,4 @@
-package com.xyz.oclock.datasource.database
+package com.xyz.oclock.common.utils
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences

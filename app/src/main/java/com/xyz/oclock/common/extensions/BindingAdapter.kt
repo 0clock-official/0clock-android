@@ -1,10 +1,10 @@
-package com.xyz.oclock.common
+package com.xyz.oclock.common.extensions
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -13,6 +13,15 @@ import java.util.regex.Pattern
 
 
 object BindingAdapter {
+
+    @JvmStatic
+    @BindingAdapter("toast")
+    fun View.bindToast(text: String?) {
+        if(!text.isNullOrEmpty()) {
+            Toast.makeText(this.context, text, Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     @BindingAdapter("load_image")
     @JvmStatic

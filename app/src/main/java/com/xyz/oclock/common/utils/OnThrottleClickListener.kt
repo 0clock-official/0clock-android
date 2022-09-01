@@ -1,4 +1,4 @@
-package com.xyz.oclock.common
+package com.xyz.oclock.common.utils
 
 import android.view.View
 

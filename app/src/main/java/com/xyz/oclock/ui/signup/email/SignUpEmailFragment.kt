@@ -12,12 +12,14 @@ import com.xyz.oclock.databinding.FragmentSignUpEmailBinding
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.common.onThrottleClick
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
+@AndroidEntryPoint
 class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.fragment_sign_up_email) {
 
     private val viewModel: SignUpEmailViewModel by viewModels()
     private lateinit var listener: SignUpViewPagerFragmentListener
-    private var clickable = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,10 +59,10 @@ class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.
         }
 
         binding.signUpViewpagerEmailVerifyButton.onThrottleClick {
-            viewModel.isEmailBlocked = true
-            binding.signUpViewpagerEmail.setBoxBackgroundColorResource(R.color.unactivated_gray)
+            viewModel.checkEnabledEmail {
+                binding.signUpViewpagerEmail.setBoxBackgroundColorResource(R.color.unactivated_gray)
+            }
         }
-
     }
 
     private fun setVerifyCodeLayoutStyle(isError: Boolean) {

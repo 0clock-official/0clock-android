@@ -12,6 +12,7 @@
     <string name="sign_up_enter_email">사용하실 이메일을 입력해주세요</string>
     <string name="sign_up_enter_verify_code">인증번호를 입력해주세요</string>
     <string name="error_email_format">올바른 이메일 형식을 입력해주세요</string>
+    <string name="error_already_signed_up_email">이미 가입 된 이메일 입니다</string>
     <string name="error_verify_code">인증번호가 일치하지 않아요</string>
     <string name="verify">인증</string>
     <string name="retry_verify">재인증</string>
@@ -34,5 +35,6 @@
     <string name="gallery">갤러리</string>
     <string name="cancel">취소</string>
     <string name="confirm">확인</string>
+    <string name="unknownError">알 수 없는 오류가 발생하였습니다.</string>
     <string name="sign_up_complete_description">개발자 승인 이후 회원가입이 완료돼요!\n올바른 형식의 학생증 사진이 아니거나 알아보기 어려운 경우 승인이 거부될 수 있어요.\n승인 여부는 알림으로 안내해 드릴게요.</string>
 </resources>

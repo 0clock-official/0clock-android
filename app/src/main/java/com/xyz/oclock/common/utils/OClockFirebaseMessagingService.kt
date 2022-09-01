@@ -1,4 +1,4 @@
-package com.xyz.oclock.datasource.network
+package com.xyz.oclock.common.utils
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -10,7 +10,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.xyz.oclock.R
-import com.xyz.oclock.datasource.database.SharedPreferences
+import com.xyz.oclock.common.utils.SharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

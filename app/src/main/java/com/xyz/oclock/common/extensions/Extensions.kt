@@ -1,4 +1,4 @@
-package com.xyz.oclock.common
+package com.xyz.oclock.common.extensions
 
 import android.animation.ObjectAnimator
 import android.app.Activity

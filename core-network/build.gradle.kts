@@ -18,4 +18,27 @@ android {
 
 dependencies {
     implementation(project(":core-model"))
+
+    // coroutines
+    implementation(libs.coroutines)
+    testImplementation(libs.coroutines)
+    testImplementation(libs.coroutines.test)
+
+    // network
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.moshi)
+    implementation(libs.okhttp.interceptor)
+    testImplementation(libs.okhttp.mockserver)
+    implementation(libs.sandwich)
+
+    // json parsing
+    implementation(libs.moshi)
+    kapt(libs.moshi.codegen)
+
+    // di
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    // logger
+    api(libs.timber)
 }

@@ -11,7 +11,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpBinding
-import com.xyz.oclock.common.smoothProgress
+import com.xyz.oclock.common.extensions.smoothProgress
 import com.xyz.oclock.ui.signup.email.SignUpEmailFragment
 import com.xyz.oclock.ui.signup.password.SignUpPasswordFragment
 import com.xyz.oclock.ui.signup.stdcard.SignUpStdCardFragment

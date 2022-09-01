@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentLoginBinding
-import com.xyz.oclock.datasource.database.SharedPreferences
+import com.xyz.oclock.common.utils.SharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

@@ -2,7 +2,8 @@ package com.xyz.oclock.di
 
 import android.content.Context
 import com.xyz.oclock.OClockApplication
-import com.xyz.oclock.datasource.database.SharedPreferences
+import com.xyz.oclock.common.utils.ResourceProvider
+import com.xyz.oclock.common.utils.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,5 +24,11 @@ object OclockModule {
     @Provides
     fun provideSharedPreferences(@ApplicationContext app: Context): SharedPreferences {
         return SharedPreferences(app)
+    }
+
+    @Singleton
+    @Provides
+    fun provideResourceProvider(@ApplicationContext app: Context): ResourceProvider {
+        return ResourceProvider(app)
     }
 }

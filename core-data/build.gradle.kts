@@ -20,4 +20,16 @@ dependencies {
     api(project(":core-model"))
     implementation(project(":core-network"))
     implementation(project(":core-database"))
+
+    // coroutines
+    implementation(libs.coroutines)
+    testImplementation(libs.coroutines)
+    testImplementation(libs.coroutines.test)
+
+    // network
+    implementation(libs.sandwich)
+
+    // di
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }
