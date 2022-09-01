@@ -18,4 +18,18 @@ android {
 
 dependencies {
     implementation(project(":core-model"))
+
+    // coroutines
+    implementation(libs.coroutines)
+    testImplementation(libs.coroutines)
+    testImplementation(libs.coroutines.test)
+
+    // di
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    // logger
+    api(libs.timber)
+
+    implementation(libs.androidx.crypto.ktx)
 }

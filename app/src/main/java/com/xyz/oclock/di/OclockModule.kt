@@ -3,7 +3,6 @@ package com.xyz.oclock.di
 import android.content.Context
 import com.xyz.oclock.OClockApplication
 import com.xyz.oclock.common.utils.ResourceProvider
-import com.xyz.oclock.common.utils.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,11 +19,11 @@ object OclockModule {
         return app as OClockApplication
     }
 
-    @Singleton
-    @Provides
-    fun provideSharedPreferences(@ApplicationContext app: Context): SharedPreferences {
-        return SharedPreferences(app)
-    }
+//    @Singleton
+//    @Provides
+//    fun provideSharedPreferences(@ApplicationContext app: Context): SharedPreferences {
+//        return SharedPreferences(app)
+//    }
 
     @Singleton
     @Provides

@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentLoginBinding
-import com.xyz.oclock.common.utils.SharedPreferences
+import com.xyz.oclock.core.data.repository.LocalRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
 
     @Inject
-    lateinit var shardPreferences: SharedPreferences
+    lateinit var localRepository: LocalRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +64,7 @@ class LoginFragment : Fragment() {
 
     private suspend fun fcmToken() {
         delay(3000)
-        val token = shardPreferences.getFcmToken()?: "토큰없음"
+        val token = localRepository.getFcmToken()?: "토큰없음"
         binding.fcmSample.setText(token)
     }
 }

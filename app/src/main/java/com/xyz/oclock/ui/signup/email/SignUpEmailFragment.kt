@@ -10,10 +10,9 @@ import androidx.fragment.app.viewModels
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpEmailBinding
 import com.skydoves.bindables.BindingFragment
-import com.xyz.oclock.common.onThrottleClick
+import com.xyz.oclock.common.utils.onThrottleClick
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.fragment_sign_up_email) {

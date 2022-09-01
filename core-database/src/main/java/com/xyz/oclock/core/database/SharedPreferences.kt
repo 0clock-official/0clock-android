@@ -1,10 +1,14 @@
-package com.xyz.oclock.common.utils
+package com.xyz.oclock.core.database
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SharedPreferences constructor(context: Context) {
+@Singleton
+class SharedPreferences @Inject constructor(@ApplicationContext context : Context){
 
     companion object {
         private const val FILE_NAME = "oclock_encrypted_settings"
@@ -36,5 +40,4 @@ class SharedPreferences constructor(context: Context) {
     fun getFcmToken(): String? {
         return sharedPreferences.getString(FCM_TOKEN, null)
     }
-
 }
