@@ -5,6 +5,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="android.graphics.Color"/>
         <variable
             name="vm"
             type="com.xyz.oclock.ui.signup.email.SignUpEmailViewModel" />
@@ -41,6 +42,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="15dp"
         android:enabled="@{!vm.isEmailBlocked}"
+        app:boxBackgroundColor="@{vm.isEmailBlocked? @color/unactivated_gray : @color/main}"
         app:layout_constraintEnd_toStartOf="@+id/sign_up_viewpager_email_verify_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView">
@@ -50,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/example_email"
-            android:text="@{vm.inputEmail}"
+            android:text="@={vm.inputEmail}"
             android:enabled="@{!vm.isEmailBlocked}"
             android:fontFamily="@font/pretendard_semibold"
             android:inputType="textEmailAddress"/>
@@ -69,7 +71,8 @@
         android:text="@{vm.emailBlocked? @string/retry_verify : @string/verify}"
         android:textSize="16sp"
         app:cornerRadius="18dp"
-        android:enabled="false"
+        android:enabled='@{vm.emailErrorHint.equals("")? true : false}'
+        app:onThrottleClick="@{()->vm.checkEnabledEmail()}"
         app:layout_constraintBottom_toBottomOf="@+id/sign_up_viewpager_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sign_up_viewpager_email" />
@@ -79,7 +82,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="@string/error_email_format"
+        android:text="@{vm.emailErrorHint}"
+        tools:text="@string/error_email_format"
         android:visibility="@{vm.emailErrorHint.empty? View.INVISIBLE : View.VISIBLE}"
         android:textColor="@color/error"
         android:textSize="14sp"
@@ -124,7 +128,7 @@
                 android:hint="@string/verify_char"
                 android:text="@={vm.inputVerifyCode}"
                 android:fontFamily="@font/pretendard_semibold"
-                android:inputType="textEmailAddress" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView

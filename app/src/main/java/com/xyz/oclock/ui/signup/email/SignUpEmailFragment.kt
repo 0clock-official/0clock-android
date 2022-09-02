@@ -36,33 +36,9 @@ class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        setListener()
         return binding {
             vm = viewModel
         }.root
-    }
-
-    private fun setListener() {
-
-        binding.signUpViewpagerEmailEditText.addTextChangedListener {
-            val pattern = Patterns.EMAIL_ADDRESS
-            if (pattern.matcher(it.toString()).matches()) {
-                binding.signUpViewpagerEmailVerifyButton.isEnabled = true
-                viewModel.emailErrorHint = ""
-            } else {
-                viewModel.emailErrorHint = context?.getString(R.string.error_email_format)?: ""
-            }
-        }
-
-        binding.signUpViewpagerVerifyEditText.addTextChangedListener {
-            println("vm ${viewModel.inputVerifyCode}")
-        }
-
-        binding.signUpViewpagerEmailVerifyButton.onThrottleClick {
-            viewModel.checkEnabledEmail {
-                binding.signUpViewpagerEmail.setBoxBackgroundColorResource(R.color.unactivated_gray)
-            }
-        }
     }
 
 }
