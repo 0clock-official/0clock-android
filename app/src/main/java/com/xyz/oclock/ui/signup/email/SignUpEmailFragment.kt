@@ -5,20 +5,30 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpEmailBinding
 import com.skydoves.bindables.BindingFragment
-import com.xyz.oclock.common.utils.onThrottleClick
+import com.xyz.oclock.common.extensions.BindingAdapter.onThrottleClick
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.fragment_sign_up_email) {
 
-    private val viewModel: SignUpEmailViewModel by viewModels()
-    private lateinit var listener: SignUpViewPagerFragmentListener
+    @set:Inject
+    internal lateinit var viewModelFactory: SignUpEmailViewModel.AssistedFactory
+
+    @get:VisibleForTesting
+    private val viewModel: SignUpEmailViewModel by viewModels {
+        SignUpEmailViewModel.provideFactory(viewModelFactory, listener)
+    }
+    private val listener: SignUpViewPagerFragmentListener by lazy {
+        parentFragment as SignUpViewPagerFragmentListener
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +36,6 @@ class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        listener = parentFragment as SignUpViewPagerFragmentListener
         setListener()
         return binding {
             vm = viewModel
@@ -34,14 +43,6 @@ class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.
     }
 
     private fun setListener() {
-        binding.signUpViewpagerEmailNext.onThrottleClick {
-            if (viewModel.inputVerifyCode == viewModel.verifyCode) {
-                setVerifyCodeLayoutStyle(isError = false)
-                listener.onNextButtonClicked()
-            } else {
-                setVerifyCodeLayoutStyle(isError = true)
-            }
-        }
 
         binding.signUpViewpagerEmailEditText.addTextChangedListener {
             val pattern = Patterns.EMAIL_ADDRESS
@@ -63,15 +64,5 @@ class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.
             }
         }
     }
-
-    private fun setVerifyCodeLayoutStyle(isError: Boolean) {
-        if (isError) {
-            binding.signUpViewpagerVerifyErrorHint.visibility = View.VISIBLE
-            binding.signUpViewpagerVerifyCodeLayout.boxStrokeColor = this.requireContext().getColor(R.color.error)
-        } else {
-            binding.signUpViewpagerVerifyErrorHint.visibility = View.GONE
-            binding.signUpViewpagerVerifyCodeLayout.boxStrokeColor = this.requireContext().getColor(R.color.purple)
-        }
-   }
 
 }

@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpPasswordBinding
 import com.skydoves.bindables.BindingFragment
-import com.xyz.oclock.common.utils.onThrottleClick
+import com.xyz.oclock.common.extensions.BindingAdapter.onThrottleClick
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 
 class SignUpPasswordFragment: BindingFragment<FragmentSignUpPasswordBinding>(R.layout.fragment_sign_up_password) {

@@ -1,20 +1,25 @@
 package com.xyz.oclock.ui.signup.email
 
 import androidx.databinding.Bindable
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.skydoves.bindables.BindingViewModel
 import com.skydoves.bindables.bindingProperty
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.ResourceProvider
 import com.xyz.oclock.core.data.repository.SignUpRepository
+import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class SignUpEmailViewModel @Inject constructor(
+class SignUpEmailViewModel @AssistedInject constructor(
     private val repository: SignUpRepository,
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
+    @Assisted private val listener: SignUpViewPagerFragmentListener
 ): BindingViewModel() {
 
     @get: Bindable
@@ -36,7 +41,8 @@ class SignUpEmailViewModel @Inject constructor(
             notifyPropertyChanged(::toastMessage)
         }
 
-    var verifyCode = "111111" // TODO 연동
+    @get:Bindable
+    var verifyError by bindingProperty(false)
 
     fun checkEnabledEmail(onEnabled: ()->Unit) = viewModelScope.launch {
         val enabled = repository.checkEnabledEmail(inputEmail, onError = {
@@ -50,4 +56,31 @@ class SignUpEmailViewModel @Inject constructor(
         }
     }
 
+    fun checkVerifyCode() = viewModelScope.launch {
+        val verified = repository.checkVerifyCode(inputEmail, inputVerifyCode)
+        if (verified) {
+            verifyError = false
+            listener.onNextButtonClicked()
+        } else {
+            verifyError = true
+        }
+    }
+
+    @dagger.assisted.AssistedFactory
+    interface AssistedFactory {
+        fun create(listener: SignUpViewPagerFragmentListener): SignUpEmailViewModel
+    }
+
+    companion object {
+        fun provideFactory(
+            assistedFactory: AssistedFactory,
+            listener: SignUpViewPagerFragmentListener
+        ) = object : ViewModelProvider.Factory {
+
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.create(listener) as T
+            }
+        }
+    }
 }

@@ -59,10 +59,6 @@ dependencies {
     // fcm
     implementation(libs.gms.play.service.framework)
 
-//    implementation(Appcompat.APPCOMPAT)
-//    implementation(ConstraintLayout.CONSTRAINT_LAYOUT)
-//    implementation(Legacy.LEGACY_SUPPORT)
-
     // unit test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

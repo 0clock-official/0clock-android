@@ -21,14 +21,3 @@ class OnThrottleClickListener(
         }
     }
 }
-
-
-fun View.onThrottleClick(action: (v: View) -> Unit) {
-    val listener = View.OnClickListener { action(it) }
-    setOnClickListener(OnThrottleClickListener(listener))
-}
-
-fun View.onThrottleClick(action: (v: View) -> Unit, interval: Long) {
-    val listener = View.OnClickListener { action(it) }
-    setOnClickListener(OnThrottleClickListener(listener, interval))
-}

@@ -15,8 +15,8 @@ import com.skydoves.bindables.BindingFragment
 import com.vansuita.pickimage.bundle.PickSetup
 import com.vansuita.pickimage.dialog.PickImageDialog
 import com.xyz.oclock.R
+import com.xyz.oclock.common.extensions.onThrottleClick
 import com.xyz.oclock.common.extensions.toast
-import com.xyz.oclock.common.utils.onThrottleClick
 import com.xyz.oclock.databinding.FragmentSignUpStdCardBinding
 
 

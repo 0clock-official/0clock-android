@@ -4,13 +4,7 @@ import com.skydoves.sandwich.*
 import com.xyz.oclock.core.model.LoginStep
 import com.xyz.oclock.core.network.model.ErrorResponseMapper
 import com.xyz.oclock.core.network.service.SignUpClient
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.suspendCancellableCoroutine
-import timber.log.Timber
 import javax.inject.Inject
 
 class SignUpRepositoryImpl @Inject constructor(
@@ -30,6 +24,10 @@ class SignUpRepositoryImpl @Inject constructor(
                 onError(message)
             }
         }
+    }
+
+    override suspend fun checkVerifyCode(email: String, verifyCode: String): Boolean {
+        TODO("Not yet implemented")
     }
 
 }

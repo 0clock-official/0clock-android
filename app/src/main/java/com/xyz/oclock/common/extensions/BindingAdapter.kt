@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.xyz.oclock.R
+import com.xyz.oclock.common.utils.OnThrottleClickListener
 import java.util.regex.Pattern
 
 
@@ -21,7 +22,6 @@ object BindingAdapter {
             Toast.makeText(this.context, text, Toast.LENGTH_SHORT).show()
         }
     }
-
 
     @BindingAdapter("load_image")
     @JvmStatic
@@ -77,5 +77,12 @@ object BindingAdapter {
                 return
             }
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("onThrottleClick")
+    fun View.onThrottleClick(action: (v: View) -> Unit) {
+        val listener = View.OnClickListener { action(it) }
+        setOnClickListener(OnThrottleClickListener(listener))
     }
 }

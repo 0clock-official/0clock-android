@@ -108,6 +108,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sign_up_viewpager_verify_code_layout"
             style="@style/OutlinedLoginInputTextLayout"
+            app:boxStrokeColor= "@{vm.verifyError? @color/error : @color/purple}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -132,8 +133,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/error_verify_code"
-            android:visibility="gone"
             android:textColor="@color/error"
+            android:visibility="@{vm.verifyError? View.VISIBLE : View.GONE}"
             android:textSize="14sp"/>
     </LinearLayout>
 
@@ -150,6 +151,7 @@
         android:textSize="16sp"
         app:cornerRadius="18dp"
         android:enabled='@{vm.inputVerifyCode.length() == 6}'
+        app:onThrottleClick="@{() -> vm.checkVerifyCode()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
