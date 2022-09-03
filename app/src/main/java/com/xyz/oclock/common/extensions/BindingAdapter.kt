@@ -23,11 +23,11 @@ object BindingAdapter {
         }
     }
 
-    @BindingAdapter("load_image")
+    @BindingAdapter("loadImage")
     @JvmStatic
     fun ImageView.loadImage(res: Int?) = Glide.with(context).load(res).into(this)
 
-    @BindingAdapter("bind_square_layout")
+    @BindingAdapter("setSquareLayout")
     @JvmStatic
     fun CardView.setSquareLayout(dummy: Any?) {
         val width = this.display.width
@@ -51,9 +51,9 @@ object BindingAdapter {
         }
     }
 
-    @BindingAdapter("bind_password_format")
+    @BindingAdapter("checkPasswordFormat")
     @JvmStatic
-    fun TextView.bindPasswordFormat(pw: String) {
+    fun TextView.checkPasswordFormat(pw: String) {
         var pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{8,20}$"
         var pattern = Pattern.compile(pwPattern)
         if (pattern.matcher(pw).matches()) {

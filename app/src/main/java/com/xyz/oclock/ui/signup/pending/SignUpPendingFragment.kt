@@ -1,32 +1,39 @@
 package com.xyz.oclock.ui.signup.pending
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
+import androidx.fragment.app.viewModels
+import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
+import com.xyz.oclock.databinding.FragmentSignUpPendingBinding
+import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
+import javax.inject.Inject
 
-class SignUpPendingFragment : Fragment() {
+class SignUpPendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.fragment_sign_up_pending) {
 
-    companion object {
-        fun newInstance() = SignUpPendingFragment()
+    @set:Inject
+    internal lateinit var viewModelFactory: SignUpPendingViewModel.AssistedFactory
+
+    @get:VisibleForTesting
+    private val viewModel: SignUpPendingViewModel by viewModels {
+        SignUpPendingViewModel.provideFactory(viewModelFactory, listener)
     }
-
-    private lateinit var viewModel: SignUpPendingViewModel
+    private val listener: SignUpViewPagerFragmentListener by lazy {
+        parentFragment as SignUpViewPagerFragmentListener
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_sign_up_pending, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SignUpPendingViewModel::class.java)
-        // TODO: Use the ViewModel
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+        return binding {
+            vm = viewModel
+        }.root
     }
 
 }

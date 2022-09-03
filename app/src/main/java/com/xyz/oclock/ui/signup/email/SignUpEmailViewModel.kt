@@ -65,6 +65,7 @@ class SignUpEmailViewModel @AssistedInject constructor(
         val verified = repository.checkVerifyCode(inputEmail, inputVerifyCode)
         if (verified) {
             verifyError = false
+            listener.setEmailOnSignUpViewModel(inputEmail)
             listener.onNextButtonClicked()
         } else {
             verifyError = true

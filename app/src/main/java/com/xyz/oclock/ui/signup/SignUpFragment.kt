@@ -69,7 +69,7 @@ class SignUpFragment : Fragment(), SignUpViewPagerFragmentListener {
         }
     }
 
-    override fun onNextButtonClicked() {
+    override suspend fun onNextButtonClicked() {
         if (viewPager.currentItem == singUpViewsCreators.size-1) { // 마지막페이지
             // 대학생인증 서버전송
         } else {
@@ -77,12 +77,12 @@ class SignUpFragment : Fragment(), SignUpViewPagerFragmentListener {
         }
     }
 
-    override fun sendEmailToNextPage(email: String) {
-        TODO("Not yet implemented")
+    override suspend fun setEmailOnSignUpViewModel(email: String) {
+        viewModel.setEmail(email)
     }
 
-    override fun sendPasswordToNextPage(pw: String) {
-        TODO("Not yet implemented")
+    override suspend fun setPasswordOnSignUpViewModel(pw: String) {
+        viewModel.setPassword(pw)
     }
 
     private inner class SingUpViewPagerAdapter(f: Fragment): FragmentStateAdapter(f) {

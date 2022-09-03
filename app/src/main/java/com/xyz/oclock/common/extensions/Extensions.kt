@@ -2,10 +2,13 @@ package com.xyz.oclock.common.extensions
 
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.content.Context
+import android.content.pm.PackageManager
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.xyz.oclock.common.utils.OnThrottleClickListener
 
 fun ProgressBar.smoothProgress(percent: Int){
@@ -24,7 +27,6 @@ fun View.onThrottleClick(action: (v: View) -> Unit) {
     setOnClickListener(OnThrottleClickListener(listener))
 }
 
-fun View.onThrottleClick(action: (v: View) -> Unit, interval: Long) {
-    val listener = View.OnClickListener { action(it) }
-    setOnClickListener(OnThrottleClickListener(listener, interval))
+fun Context.hasPermissions(permissions: Array<String>): Boolean = permissions.all {
+    ActivityCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
 }

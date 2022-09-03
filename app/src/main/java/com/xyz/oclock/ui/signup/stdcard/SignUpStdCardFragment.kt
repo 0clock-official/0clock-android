@@ -9,29 +9,35 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.VisibleForTesting
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import com.skydoves.bindables.BindingFragment
 import com.vansuita.pickimage.bundle.PickSetup
 import com.vansuita.pickimage.dialog.PickImageDialog
 import com.xyz.oclock.R
+import com.xyz.oclock.common.extensions.hasPermissions
 import com.xyz.oclock.common.extensions.onThrottleClick
 import com.xyz.oclock.common.extensions.toast
 import com.xyz.oclock.databinding.FragmentSignUpStdCardBinding
+import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
+import com.xyz.oclock.ui.signup.pending.SignUpPendingViewModel
+import javax.inject.Inject
 
 
 class SignUpStdCardFragment: BindingFragment<FragmentSignUpStdCardBinding>(R.layout.fragment_sign_up_std_card) {
 
-    companion object {
-        val TAG: String = SignUpStdCardFragment::class.java.simpleName
-        var PERMISSIONS = arrayOf(
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+    @set:Inject
+    internal lateinit var viewModelFactory: SignUpStdCardViewModel.AssistedFactory
+
+    @get:VisibleForTesting
+    private val viewModel: SignUpStdCardViewModel by viewModels {
+        SignUpStdCardViewModel.provideFactory(viewModelFactory, listener)
+    }
+    private val listener: SignUpViewPagerFragmentListener by lazy {
+        parentFragment as SignUpViewPagerFragmentListener
     }
 
-    private val viewModel: SignUpStdCardViewModel by viewModels()
     private val permReqLauncher = getPermissionRequestLauncher()
 
     override fun onCreateView(
@@ -52,18 +58,9 @@ class SignUpStdCardFragment: BindingFragment<FragmentSignUpStdCardBinding>(R.lay
         }
     }
 
-    private fun getPermissionRequestLauncher() = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        val granted = permissions.entries.all { it.value }
-        if (granted) {
-            showImagePickerDialog()
-        }
-    }
-
     private fun takePhoto() {
         activity?.let {
-            if (hasPermissions(activity as Context, PERMISSIONS)) {
+            if (it.hasPermissions(PERMISSIONS)) {
                 showImagePickerDialog()
             } else {
                 permReqLauncher.launch(
@@ -71,10 +68,6 @@ class SignUpStdCardFragment: BindingFragment<FragmentSignUpStdCardBinding>(R.lay
                 )
             }
         }
-    }
-
-    private fun hasPermissions(context: Context, permissions: Array<String>): Boolean = permissions.all {
-        ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun showImagePickerDialog() {
@@ -100,5 +93,23 @@ class SignUpStdCardFragment: BindingFragment<FragmentSignUpStdCardBinding>(R.lay
                 }
             }
             .show(fragmentManager)
+    }
+
+    private fun getPermissionRequestLauncher() = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val granted = permissions.entries.all { it.value }
+        if (granted) {
+            showImagePickerDialog()
+        }
+    }
+
+    companion object {
+        val TAG: String = SignUpStdCardFragment::class.java.simpleName
+        var PERMISSIONS = arrayOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
     }
 }

@@ -27,7 +27,8 @@ class SignUpRepositoryImpl @Inject constructor(
     }
 
     override suspend fun checkVerifyCode(email: String, verifyCode: String): Boolean {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
+        return true
     }
 
 }
