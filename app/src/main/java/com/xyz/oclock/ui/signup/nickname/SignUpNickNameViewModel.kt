@@ -1,4 +1,4 @@
-package com.xyz.oclock.ui.signup.password
+package com.xyz.oclock.ui.signup.nickname
 
 import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
@@ -11,24 +11,30 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 
-class SignUpPasswordViewModel @AssistedInject constructor(
+class SignUpNickNameViewModel @AssistedInject constructor(
     @Assisted private val listener: SignUpViewPagerFragmentListener
 ): BindingViewModel() {
 
-    @get: Bindable
-    var password by bindingProperty("")
+    @get:Bindable
+    var toastMessage: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(::toastMessage)
+        }
 
     @get: Bindable
-    var passwordConfirm by bindingProperty("")
+    var inputNickname by bindingProperty("")
 
-    fun setPasswordAndMoveToPending() = viewModelScope.launch {
-        listener.setPasswordOnSignUpViewModel(password)
+    @get: Bindable
+    var nicknameFormatError: String = ""
+
+    fun checkDuplicateNickname() = viewModelScope.launch {
         listener.moveToNextStep()
     }
 
     @dagger.assisted.AssistedFactory
     interface AssistedFactory {
-        fun create(listener: SignUpViewPagerFragmentListener): SignUpPasswordViewModel
+        fun create(listener: SignUpViewPagerFragmentListener): SignUpNickNameViewModel
     }
 
     companion object {

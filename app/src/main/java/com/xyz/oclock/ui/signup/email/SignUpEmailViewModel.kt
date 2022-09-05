@@ -50,10 +50,10 @@ class SignUpEmailViewModel @AssistedInject constructor(
 
 
     fun checkEnabledEmail() = viewModelScope.launch {
-//        val enabled = true
-        val enabled = repository.checkEnabledEmail(inputEmail, onError = {
-            toastMessage = it?: resourceProvider.getString(R.string.unknownError)
-        }).isSignUpEnabled()
+        val enabled = true
+//        val enabled = repository.checkEnabledEmail(inputEmail, onError = {
+//            toastMessage = it?: resourceProvider.getString(R.string.unknownError)
+//        }).isSignUpEnabled()
         if (!enabled) {
             emailErrorHint = resourceProvider.getString(R.string.error_already_signed_up_email)
         } else {
@@ -66,7 +66,7 @@ class SignUpEmailViewModel @AssistedInject constructor(
         if (verified) {
             verifyError = false
             listener.setEmailOnSignUpViewModel(inputEmail)
-            listener.onNextButtonClicked()
+            listener.moveToNextStep()
         } else {
             verifyError = true
         }

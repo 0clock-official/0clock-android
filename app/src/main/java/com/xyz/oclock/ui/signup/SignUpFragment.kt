@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -13,6 +14,7 @@ import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpBinding
 import com.xyz.oclock.common.extensions.smoothProgress
 import com.xyz.oclock.ui.signup.email.SignUpEmailFragment
+import com.xyz.oclock.ui.signup.nickname.SignUpNicknameFragment
 import com.xyz.oclock.ui.signup.password.SignUpPasswordFragment
 import com.xyz.oclock.ui.signup.stdcard.SignUpStdCardFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,14 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpFragment : Fragment(), SignUpViewPagerFragmentListener {
 
-    private lateinit var viewModel: SignUpViewModel
+    private val viewModel: SignUpViewModel by viewModels()
     private lateinit var binding: FragmentSignUpBinding
     private val viewPager by lazy { binding.signUpViewpager }
 
     private val singUpViewsCreators: Map<Int, ()-> Fragment> = mapOf(
         0 to { SignUpEmailFragment() },
         1 to { SignUpPasswordFragment() },
-        2 to { SignUpStdCardFragment() }
+        2 to { SignUpNicknameFragment() },
+        3 to { SignUpStdCardFragment() }
     )
 
     override fun onCreateView(
@@ -69,7 +72,7 @@ class SignUpFragment : Fragment(), SignUpViewPagerFragmentListener {
         }
     }
 
-    override suspend fun onNextButtonClicked() {
+    override suspend fun moveToNextStep() {
         if (viewPager.currentItem == singUpViewsCreators.size-1) { // 마지막페이지
             // 대학생인증 서버전송
         } else {

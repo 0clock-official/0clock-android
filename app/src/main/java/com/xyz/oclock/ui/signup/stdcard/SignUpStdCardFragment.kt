@@ -22,9 +22,11 @@ import com.xyz.oclock.common.extensions.toast
 import com.xyz.oclock.databinding.FragmentSignUpStdCardBinding
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import com.xyz.oclock.ui.signup.pending.SignUpPendingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class SignUpStdCardFragment: BindingFragment<FragmentSignUpStdCardBinding>(R.layout.fragment_sign_up_std_card) {
 
     @set:Inject

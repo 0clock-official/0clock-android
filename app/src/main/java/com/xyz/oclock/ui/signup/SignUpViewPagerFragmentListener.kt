@@ -2,7 +2,7 @@ package com.xyz.oclock.ui.signup
 
 interface SignUpViewPagerFragmentListener {
 
-    suspend fun onNextButtonClicked()
+    suspend fun moveToNextStep()
 
     suspend fun setEmailOnSignUpViewModel(email: String)
 

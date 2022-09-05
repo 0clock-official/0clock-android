@@ -23,11 +23,12 @@
         android:text="@string/sign_up_std_card_description"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:fontFamily="@font/pretendard_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/materialTextView4"
-        app:lineHeight="21sp" />
+        app:lineHeight="24sp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView4"

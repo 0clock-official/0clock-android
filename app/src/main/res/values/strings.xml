@@ -37,4 +37,13 @@
     <string name="confirm">확인</string>
     <string name="unknownError">알 수 없는 오류가 발생하였습니다.</string>
     <string name="sign_up_complete_description">개발자 승인 이후 회원가입이 완료돼요!\n올바른 형식의 학생증 사진이 아니거나 알아보기 어려운 경우 승인이 거부될 수 있어요.\n승인 여부는 알림으로 안내해 드릴게요.</string>
+    <string name="sign_up_nickname_description">민감한 개인정보 또는 홍보목적이나 부적절한 키워드는 관리자에 의해 예고없이 이용정지 될 수 있어요.\n한글 10글자로 본인을 개성있게 표현해보세요!</string>
+    <string name="sign_up_please_enter_nickname">사용하실 닉네임을 입력해주세요</string>
+    <string name="within_10characters_korean">한글 10자 이내</string>
+    <string name="error_nickname_format1">10자 이내로 입력해주세요</string>
+    <string name="error_nickname_format2">특수문자가 포함되어 있어요</string>
+    <string name="error_nickname_format3">숫자가 포함되어 있어요</string>
+    <string name="error_nickname_format4">영어가 포함되어 있어요</string>
+    <string name="error_nickname_format5">이미 사용 중인 닉네임이에요</string>
+
 </resources>

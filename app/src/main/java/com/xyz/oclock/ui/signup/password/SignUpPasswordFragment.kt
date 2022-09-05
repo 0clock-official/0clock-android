@@ -10,8 +10,10 @@ import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpPasswordBinding
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SignUpPasswordFragment: BindingFragment<FragmentSignUpPasswordBinding>(R.layout.fragment_sign_up_password) {
 
     @set:Inject
