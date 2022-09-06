@@ -41,9 +41,8 @@
     <string name="sign_up_please_enter_nickname">사용하실 닉네임을 입력해주세요</string>
     <string name="within_10characters_korean">한글 10자 이내</string>
     <string name="error_nickname_format1">10자 이내로 입력해주세요</string>
-    <string name="error_nickname_format2">특수문자가 포함되어 있어요</string>
-    <string name="error_nickname_format3">숫자가 포함되어 있어요</string>
-    <string name="error_nickname_format4">영어가 포함되어 있어요</string>
-    <string name="error_nickname_format5">이미 사용 중인 닉네임이에요</string>
+    <string name="error_nickname_format2">숫자가 포함되어 있어요</string>
+    <string name="error_nickname_format3">특수문자가 포함되어 있어요</string>
+    <string name="error_nickname_format4">이미 사용 중인 닉네임이에요</string>
 
 </resources>
