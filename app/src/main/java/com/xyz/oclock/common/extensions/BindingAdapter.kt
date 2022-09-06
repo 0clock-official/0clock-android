@@ -51,34 +51,6 @@ object BindingAdapter {
         }
     }
 
-    @BindingAdapter("checkPasswordFormat")
-    @JvmStatic
-    fun TextView.checkPasswordFormat(pw: String) {
-        var pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{8,20}$"
-        var pattern = Pattern.compile(pwPattern)
-        if (pattern.matcher(pw).matches()) {
-            this.visibility = View.GONE
-        } else {
-            this.visibility = View.VISIBLE
-            if (pw.length < 8 || pw.length > 20) {
-                this.text = context.getText(R.string.error_password_format_1)
-                return
-            }
-            pwPattern = "([A-Za-z])"
-            pattern = Pattern.compile(pwPattern)
-            if (!pattern.matcher(pw).find()) {
-                this.text = context.getText(R.string.error_password_format_3)
-                return
-            }
-            pwPattern = "([0-9])"
-            pattern = Pattern.compile(pwPattern)
-            if (!pattern.matcher(pw).find()) {
-                this.text = context.getText(R.string.error_password_format_2)
-                return
-            }
-        }
-    }
-
     @JvmStatic
     @BindingAdapter("onThrottleClick")
     fun View.onThrottleClick(action: (v: View) -> Unit) {
