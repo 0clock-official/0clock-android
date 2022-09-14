@@ -6,13 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.skydoves.bindables.BindingViewModel
+import com.skydoves.bindables.asBindingProperty
 import com.skydoves.bindables.bindingProperty
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.ResourceProvider
 import com.xyz.oclock.core.data.repository.SignUpRepository
+import com.xyz.oclock.core.model.Token
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class SignUpEmailViewModel @AssistedInject constructor(
@@ -48,29 +51,30 @@ class SignUpEmailViewModel @AssistedInject constructor(
             notifyPropertyChanged(::toastMessage)
         }
 
+    val verifyCodeCheckFlow: Flow<Token> = repository.checkVerifyCode(
+        email = inputEmail,
+        code = inputVerifyCode,
+        onStart = {
+            listener.showLoading()
+        },
+        onComplete = {
+            listener.hideLoading()
+        },
+        onError = {
+            toastMessage = it
+        }
+    )
 
-    fun checkEnabledEmail() = viewModelScope.launch {
-        val enabled = true
+//    fun checkEnabledEmail() = viewModelScope.launch {
 //        val enabled = repository.checkEnabledEmail(inputEmail, onError = {
 //            toastMessage = it?: resourceProvider.getString(R.string.unknownError)
 //        }).isSignUpEnabled()
-        if (!enabled) {
-            emailErrorHint = resourceProvider.getString(R.string.error_already_signed_up_email)
-        } else {
-            isEmailBlocked = true
-        }
-    }
-
-    fun checkVerifyCode() = viewModelScope.launch {
-        val verified = repository.checkVerifyCode(inputEmail, inputVerifyCode)
-        if (verified) {
-            verifyError = false
-            listener.setEmailOnSignUpViewModel(inputEmail)
-            listener.moveToNextStep()
-        } else {
-            verifyError = true
-        }
-    }
+//        if (!enabled) {
+//            emailErrorHint = resourceProvider.getString(R.string.error_already_signed_up_email)
+//        } else {
+//            isEmailBlocked = true
+//        }
+//    }
 
     private fun checkEmailFormat(email: String) {
         val pattern = Patterns.EMAIL_ADDRESS

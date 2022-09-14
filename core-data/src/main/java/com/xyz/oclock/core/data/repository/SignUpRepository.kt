@@ -1,10 +1,16 @@
 package com.xyz.oclock.core.data.repository
 
-import com.xyz.oclock.core.model.LoginStep
+import com.xyz.oclock.core.model.Token
+import kotlinx.coroutines.flow.Flow
 
 interface SignUpRepository {
 
-    suspend fun checkEnabledEmail(email: String, onError: (String?)->Unit): LoginStep
+    fun checkVerifyCode(
+        email: String,
+        code: String,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ): Flow<Token>
 
-    suspend fun checkVerifyCode(email: String, verifyCode: String): Boolean
 }

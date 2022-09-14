@@ -1,34 +1,38 @@
 package com.xyz.oclock.core.data.repository
 
 import com.skydoves.sandwich.*
-import com.xyz.oclock.core.model.LoginStep
-import com.xyz.oclock.core.network.model.ErrorResponseMapper
+import com.xyz.oclock.core.model.Token
+import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
 import com.xyz.oclock.core.network.service.SignUpClient
-import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class SignUpRepositoryImpl @Inject constructor(
     private val signUpClient: SignUpClient
 ): SignUpRepository {
 
-    override suspend fun checkEnabledEmail(email: String, onError: (String?)->Unit): LoginStep {
-        val response = signUpClient.checkEnabledEmail(email)
-        return suspendCancellableCoroutine { continuation ->
-            response.onSuccess {
-                continuation.resume(LoginStep(data.step)) {
-                    onError(it.message)
-                }
-            }.onError {
-                map(ErrorResponseMapper) { onError("[Code: $code]: $message") }
-            }.onException {
-                onError(message)
-            }
+    override fun checkVerifyCode(
+        email: String,
+        code: String,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ) = flow {
+        val response = signUpClient.checkVerifyCode(email, code)
+        response.suspendOnSuccess {
+            val token = Token(this.data.token)
+            emit(token)
+        }.onError {
+            map(ErrorResponseMapper) { onError(this.response) }
+        }.onException {
+            onError(this.message)
         }
-    }
-
-    override suspend fun checkVerifyCode(email: String, verifyCode: String): Boolean {
-        //TODO("Not yet implemented")
-        return true
-    }
+    }.onStart { onStart() }
+        .onCompletion { onComplete() }
+        .flowOn(Dispatchers.IO)
 
 }

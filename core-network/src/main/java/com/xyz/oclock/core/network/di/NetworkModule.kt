@@ -1,7 +1,7 @@
 package com.xyz.oclock.core.network.di
 
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
-import com.xyz.oclock.core.network.interceptor.HttpRequestInterceptor
+import com.xyz.oclock.core.network.model.interceptor.HttpRequestInterceptor
 import com.xyz.oclock.core.network.service.SignUpClient
 import com.xyz.oclock.core.network.service.SignUpService
 import dagger.Module

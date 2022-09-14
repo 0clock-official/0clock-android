@@ -57,4 +57,16 @@ object BindingAdapter {
         val listener = View.OnClickListener { action(it) }
         setOnClickListener(OnThrottleClickListener(listener))
     }
+
+    @JvmStatic
+    @BindingAdapter("visibility")
+    fun View.visibility(visible: Boolean?) {
+        if (visible == true) {
+            this.visibility = View.VISIBLE
+        } else if (visible == false) {
+            this.visibility = View.INVISIBLE
+        } else {
+            this.visibility = View.GONE
+        }
+    }
 }

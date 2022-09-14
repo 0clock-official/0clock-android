@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpEmailBinding
 import com.skydoves.bindables.BindingFragment
@@ -36,6 +38,15 @@ class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.
         return binding {
             vm = viewModel
         }.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.verifyCodeCheckFlow.asLiveData().observe(viewLifecycleOwner) {
+            listener.moveToNextStep()
+        }
+
     }
 
 }

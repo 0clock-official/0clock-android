@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpBinding
 import com.xyz.oclock.common.extensions.smoothProgress
@@ -20,10 +21,11 @@ import com.xyz.oclock.ui.signup.stdcard.SignUpStdCardFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment : Fragment(), SignUpViewPagerFragmentListener {
+class SignUpFragment :
+    BindingFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up),
+    SignUpViewPagerFragmentListener {
 
     private val viewModel: SignUpViewModel by viewModels()
-    private lateinit var binding: FragmentSignUpBinding
     private val viewPager by lazy { binding.signUpViewpager }
 
     private val singUpViewsCreators: Map<Int, ()-> Fragment> = mapOf(
@@ -37,10 +39,16 @@ class SignUpFragment : Fragment(), SignUpViewPagerFragmentListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
+        return binding {
+            vm = viewModel
+        }.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setViewPager()
         setListener()
-        return binding.root
     }
 
     private fun setListener() {
@@ -72,7 +80,7 @@ class SignUpFragment : Fragment(), SignUpViewPagerFragmentListener {
         }
     }
 
-    override suspend fun moveToNextStep() {
+    override fun moveToNextStep() {
         if (viewPager.currentItem == singUpViewsCreators.size-1) { // 마지막페이지
             // 대학생인증 서버전송
         } else {
@@ -80,12 +88,20 @@ class SignUpFragment : Fragment(), SignUpViewPagerFragmentListener {
         }
     }
 
-    override suspend fun setEmailOnSignUpViewModel(email: String) {
+    override fun setEmailOnSignUpViewModel(email: String) {
         viewModel.setEmail(email)
     }
 
-    override suspend fun setPasswordOnSignUpViewModel(pw: String) {
+    override fun setPasswordOnSignUpViewModel(pw: String) {
         viewModel.setPassword(pw)
+    }
+
+    override fun showLoading() {
+        viewModel.isLoading = true
+    }
+
+    override fun hideLoading() {
+        viewModel.isLoading = false
     }
 
     private inner class SingUpViewPagerAdapter(f: Fragment): FragmentStateAdapter(f) {
