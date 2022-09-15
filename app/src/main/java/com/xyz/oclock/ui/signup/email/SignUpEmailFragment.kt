@@ -39,14 +39,4 @@ class SignUpEmailFragment: BindingFragment<FragmentSignUpEmailBinding>(R.layout.
             vm = viewModel
         }.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.verifyCodeCheckFlow.asLiveData().observe(viewLifecycleOwner) {
-            listener.moveToNextStep()
-        }
-
-    }
-
 }

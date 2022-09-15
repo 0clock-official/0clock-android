@@ -10,6 +10,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.xyz.oclock.common.utils.OnThrottleClickListener
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 fun ProgressBar.smoothProgress(percent: Int){
     val animation = ObjectAnimator.ofInt(this, "progress", percent)
@@ -29,4 +31,15 @@ fun View.onThrottleClick(action: (v: View) -> Unit) {
 
 fun Context.hasPermissions(permissions: Array<String>): Boolean = permissions.all {
     ActivityCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+}
+
+fun <T> Flow<T>.throttle(windowDuration: Long = 300L): Flow<T> = flow {
+    var lastEmissionTime = 0L
+    collect { upstream ->
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastEmissionTime > windowDuration) {
+            lastEmissionTime = currentTime
+            emit(upstream)
+        }
+    }
 }

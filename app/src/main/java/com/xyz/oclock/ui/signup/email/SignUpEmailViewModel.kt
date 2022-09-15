@@ -9,6 +9,7 @@ import com.skydoves.bindables.BindingViewModel
 import com.skydoves.bindables.asBindingProperty
 import com.skydoves.bindables.bindingProperty
 import com.xyz.oclock.R
+import com.xyz.oclock.common.extensions.throttle
 import com.xyz.oclock.common.utils.ResourceProvider
 import com.xyz.oclock.core.data.repository.SignUpRepository
 import com.xyz.oclock.core.model.Token
@@ -16,6 +17,8 @@ import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 class SignUpEmailViewModel @AssistedInject constructor(
@@ -51,18 +54,12 @@ class SignUpEmailViewModel @AssistedInject constructor(
             notifyPropertyChanged(::toastMessage)
         }
 
-    val verifyCodeCheckFlow: Flow<Token> = repository.checkVerifyCode(
+    private val verifyCodeCheckFlow: Flow<Token> = repository.checkVerifyCode(
         email = inputEmail,
         code = inputVerifyCode,
-        onStart = {
-            listener.showLoading()
-        },
-        onComplete = {
-            listener.hideLoading()
-        },
-        onError = {
-            toastMessage = it
-        }
+        onStart = { listener.showLoading() },
+        onComplete = { listener.hideLoading() },
+        onError = { toastMessage = it }
     )
 
 //    fun checkEnabledEmail() = viewModelScope.launch {
@@ -82,6 +79,12 @@ class SignUpEmailViewModel @AssistedInject constructor(
             ""
         } else {
             resourceProvider.getString(R.string.error_email_format)
+        }
+    }
+
+    fun onClickNextButton() = viewModelScope.launch {
+        verifyCodeCheckFlow.throttle().collect {
+            listener.moveToNextStep()
         }
     }
 

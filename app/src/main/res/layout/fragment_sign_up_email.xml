@@ -154,7 +154,7 @@
         android:textSize="16sp"
         app:cornerRadius="18dp"
         android:enabled='@{vm.inputVerifyCode.length() == 6}'
-        app:onThrottleClick="@{() -> vm.checkVerifyCode()}"
+        app:onThrottleClick="@{() -> vm.onClickNextButton()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
