@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.xyz.oclock.ui.signup.major.SignUpMajorViewModel" />
+            type="com.xyz.oclock.ui.signup.time.SignUpTimeViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:paddingStart="16dp"
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_regular"
-            android:text="@string/sign_up_major_description"
+            android:text="@string/sign_up_time_description"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,13 +44,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_semibold"
-                android:text="@string/please_select_major"
+                android:text="@string/please_select_preferred_time"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/sign_up_select_major_layout"
+                android:id="@+id/sign_up_select_time_layout"
+                style="@style/OClockDefaultSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusTopStart="18dp">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:hint="@string/hint_select_time"
+                    tools:text="오후 12:00 - 오전 02:00"
+                    android:fontFamily="@font/pretendard_semibold"
+                    app:spinnerAdapter="@{vm.timeArray}"
+                    app:dropDownBackground="@{@drawable/background_spinner}"
+                    app:onItemClicked="@{(a, b, position, c) -> vm.setPreferredTime(position)}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="@string/please_select_partner_sex"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_up_select_parter_sex_layout"
                 style="@style/OClockDefaultSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,12 +98,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:hint="@string/hint_select_major"
+                    android:hint="@string/hint_select_partner_sex"
                     android:fontFamily="@font/pretendard_semibold"
-                    tools:text="경영학과"
-                    app:spinnerAdapter="@{vm.majors}"
+                    tools:text="여자"
+                    app:spinnerAdapter="@{vm.partnerSexArray}"
                     app:dropDownBackground="@{@drawable/background_spinner}"
-                    app:onItemClicked="@{(a, b, position, c)->vm.setUserSelectedMajor(position)}"/>
+                    app:onItemClicked="@{(a, b, position, c) -> vm.setPartnerSex(position)}"/>
+
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -85,7 +120,7 @@
             android:text="@string/next"
             android:textSize="16sp"
             app:cornerRadius="18dp"
-            android:enabled="@{vm.selectedMajor!=null}"
+            android:enabled="@{(vm.selectedTime != null) &amp;&amp; (vm.selectedSex != null)}"
             app:onThrottleClick="@{() -> vm.onClickNextButton()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

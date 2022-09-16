@@ -1,19 +1,14 @@
 package com.xyz.oclock.common.extensions
 
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.DrawableRes
 import androidx.cardview.widget.CardView
-import androidx.core.view.marginTop
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.xyz.oclock.R
-import com.xyz.oclock.common.extensions.BindingAdapter.setAdapter
 import com.xyz.oclock.common.utils.OnThrottleClickListener
-import java.util.regex.Pattern
 
 
 object BindingAdapter {
@@ -75,7 +70,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("spinnerAdapter")
     fun AutoCompleteTextView.setAdapter(items: Array<String>) {
-        val adapter = ArrayAdapter(this.context, R.layout.item_sign_up_major, items)
+        val adapter = ArrayAdapter(this.context, R.layout.item_select_text, items)
         this.setAdapter(adapter)
     }
 

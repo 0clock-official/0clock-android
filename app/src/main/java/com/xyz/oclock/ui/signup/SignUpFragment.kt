@@ -19,6 +19,7 @@ import com.xyz.oclock.ui.signup.major.SignUpMajorFragment
 import com.xyz.oclock.ui.signup.nickname.SignUpNicknameFragment
 import com.xyz.oclock.ui.signup.password.SignUpPasswordFragment
 import com.xyz.oclock.ui.signup.stdcard.SignUpStdCardFragment
+import com.xyz.oclock.ui.signup.time.SignUpTimeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,11 +31,12 @@ class SignUpFragment :
     private val viewPager by lazy { binding.signUpViewpager }
 
     private val singUpViewsCreators: Map<Int, ()-> Fragment> = mapOf(
-        0 to { SignUpMajorFragment() },
+        0 to { SignUpTimeFragment() },
 //        1 to { SignUpPasswordFragment() },
 //        2 to { SignUpNicknameFragment() },
 //        3 to { SignUpMajorFragment() },
-//        4 to { SignUpStdCardFragment() }
+//        4 to { SignUpTimeFragment() },
+//        5 to { SignUpStdCardFragment() }
     )
 
     override fun onCreateView(
