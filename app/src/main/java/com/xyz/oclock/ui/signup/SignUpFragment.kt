@@ -15,6 +15,7 @@ import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpBinding
 import com.xyz.oclock.common.extensions.smoothProgress
 import com.xyz.oclock.ui.signup.email.SignUpEmailFragment
+import com.xyz.oclock.ui.signup.major.SignUpMajorFragment
 import com.xyz.oclock.ui.signup.nickname.SignUpNicknameFragment
 import com.xyz.oclock.ui.signup.password.SignUpPasswordFragment
 import com.xyz.oclock.ui.signup.stdcard.SignUpStdCardFragment
@@ -29,10 +30,11 @@ class SignUpFragment :
     private val viewPager by lazy { binding.signUpViewpager }
 
     private val singUpViewsCreators: Map<Int, ()-> Fragment> = mapOf(
-        0 to { SignUpEmailFragment() },
-        1 to { SignUpPasswordFragment() },
-        2 to { SignUpNicknameFragment() },
-        3 to { SignUpStdCardFragment() }
+        0 to { SignUpMajorFragment() },
+//        1 to { SignUpPasswordFragment() },
+//        2 to { SignUpNicknameFragment() },
+//        3 to { SignUpMajorFragment() },
+//        4 to { SignUpStdCardFragment() }
     )
 
     override fun onCreateView(

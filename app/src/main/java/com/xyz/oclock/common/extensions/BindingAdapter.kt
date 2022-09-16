@@ -1,14 +1,17 @@
 package com.xyz.oclock.common.extensions
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.DrawableRes
 import androidx.cardview.widget.CardView
+import androidx.core.view.marginTop
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.xyz.oclock.R
+import com.xyz.oclock.common.extensions.BindingAdapter.setAdapter
 import com.xyz.oclock.common.utils.OnThrottleClickListener
 import java.util.regex.Pattern
 
@@ -53,8 +56,7 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("onThrottleClick")
-    fun View.onThrottleClick(action: (v: View) -> Unit) {
-        val listener = View.OnClickListener { action(it) }
+    fun View.onThrottleClick(listener: View.OnClickListener) {
         setOnClickListener(OnThrottleClickListener(listener))
     }
 
@@ -68,5 +70,25 @@ object BindingAdapter {
         } else {
             this.visibility = View.GONE
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("spinnerAdapter")
+    fun AutoCompleteTextView.setAdapter(items: Array<String>) {
+        val adapter = ArrayAdapter(this.context, R.layout.item_sign_up_major, items)
+        this.setAdapter(adapter)
+    }
+
+    @JvmStatic
+    @BindingAdapter("dropDownBackground")
+    fun AutoCompleteTextView.setDropDownBackground(res: Drawable) {
+        dropDownVerticalOffset = 10.toPx
+        this.setDropDownBackgroundDrawable(res)
+    }
+
+    @JvmStatic
+    @BindingAdapter("onItemClicked")
+    fun AutoCompleteTextView.setOnItemClicked(onItemClickListener: AdapterView.OnItemClickListener) {
+        this.onItemClickListener = onItemClickListener
     }
 }

@@ -44,5 +44,7 @@
     <string name="error_nickname_format2">숫자가 포함되어 있어요</string>
     <string name="error_nickname_format3">특수문자가 포함되어 있어요</string>
     <string name="error_nickname_format4">이미 사용 중인 닉네임이에요</string>
-
+    <string name="sign_up_major_description">복수전공을 대비해 사용자에게 전공 선택을 맡기고 있어요.\n의도적으로 다른 전공을 선택하여 상대방의 불편을 초래한 경우\n관리자에 의해 예고없이 이용정지 될 수 있어요.</string>
+    <string name="please_select_major">전공을 선택해주세요</string>
+    <string name="hint_select_major">전공 선택하기</string>
 </resources>
