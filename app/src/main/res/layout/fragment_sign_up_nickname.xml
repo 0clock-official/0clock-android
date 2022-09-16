@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.xyz.oclock.ui.signup.nickname.SignUpNickNameViewModel" />
+            type="com.xyz.oclock.ui.signup.nickname.SignUpNicknameViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:paddingStart="16dp"
@@ -96,7 +96,7 @@
             android:textSize="16sp"
             app:cornerRadius="18dp"
             android:enabled='@{vm.nicknameFormatError.equals("")}'
-            app:onThrottleClick="@{() -> vm.checkDuplicateNickname()}"
+            app:onThrottleClick="@{() -> vm.onClickNextButton()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

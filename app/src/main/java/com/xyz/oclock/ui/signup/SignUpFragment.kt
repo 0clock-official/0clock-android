@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -13,7 +12,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpBinding
-import com.xyz.oclock.common.extensions.smoothProgress
 import com.xyz.oclock.ui.signup.email.SignUpEmailFragment
 import com.xyz.oclock.ui.signup.major.SignUpMajorFragment
 import com.xyz.oclock.ui.signup.nickname.SignUpNicknameFragment
@@ -31,12 +29,12 @@ class SignUpFragment :
     private val viewPager by lazy { binding.signUpViewpager }
 
     private val singUpViewsCreators: Map<Int, ()-> Fragment> = mapOf(
-        0 to { SignUpTimeFragment() },
-//        1 to { SignUpPasswordFragment() },
-//        2 to { SignUpNicknameFragment() },
-//        3 to { SignUpMajorFragment() },
-//        4 to { SignUpTimeFragment() },
-//        5 to { SignUpStdCardFragment() }
+        0 to { SignUpEmailFragment() },
+        1 to { SignUpPasswordFragment() },
+        2 to { SignUpNicknameFragment() },
+        3 to { SignUpMajorFragment() },
+        4 to { SignUpTimeFragment() },
+        5 to { SignUpStdCardFragment() }
     )
 
     override fun onCreateView(
@@ -79,8 +77,8 @@ class SignUpFragment :
 
     private val viewPagerCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
-            val percent = (((position+1).toFloat() / (singUpViewsCreators.size)) * 100).toInt()
-            binding.signUpProgressbar.smoothProgress(percent)
+            val percent = (((position + 1).toFloat() / (singUpViewsCreators.size)) * 100).toInt()
+            viewModel.progress =  percent
         }
     }
 
@@ -98,6 +96,26 @@ class SignUpFragment :
 
     override fun setPasswordOnSignUpViewModel(pw: String) {
         viewModel.setPassword(pw)
+    }
+
+    override fun setNicknameOnSignUpViewModel(nickname: String) {
+        viewModel.setNickname(nickname)
+    }
+
+    override fun setMajorOnSignUpViewModel(major: Int) {
+        viewModel.setMajor(major)
+    }
+
+    override fun setChattingTimeOnSignUpViewModel(chattingTime: Int) {
+        viewModel.setChattingTime(chattingTime)
+    }
+
+    override fun setPartnerSexOnSignUpViewModel(partnerSex: Int) {
+        viewModel.setPartnerSex(partnerSex)
+    }
+
+    override fun submitSignUpForm() {
+        viewModel.submitSignUpForm()
     }
 
     override fun showLoading() {

@@ -34,7 +34,7 @@ class SignUpPasswordViewModel @AssistedInject constructor(
     @get: Bindable
     var passwordConfirm by bindingProperty("")
 
-    fun setPasswordAndMoveToPending() = viewModelScope.launch {
+    fun onClickNextButton() = viewModelScope.launch {
         listener.setPasswordOnSignUpViewModel(password)
         listener.moveToNextStep()
     }

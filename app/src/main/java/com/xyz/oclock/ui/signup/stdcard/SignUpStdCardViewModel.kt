@@ -21,6 +21,9 @@ class SignUpStdCardViewModel @AssistedInject constructor(
             notifyAllPropertiesChanged()
         }
 
+    fun onClickNextButton() {
+        listener.submitSignUpForm()
+    }
 
     @dagger.assisted.AssistedFactory
     interface AssistedFactory {

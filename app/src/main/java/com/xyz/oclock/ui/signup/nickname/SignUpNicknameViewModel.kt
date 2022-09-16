@@ -14,7 +14,7 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
-class SignUpNickNameViewModel @AssistedInject constructor(
+class SignUpNicknameViewModel @AssistedInject constructor(
     private val resourceProvider: ResourceProvider,
     @Assisted private val listener: SignUpViewPagerFragmentListener
 ): BindingViewModel() {
@@ -37,11 +37,11 @@ class SignUpNickNameViewModel @AssistedInject constructor(
     @get: Bindable
     var nicknameFormatError by bindingProperty("")
 
-    fun checkDuplicateNickname() = viewModelScope.launch {
-        nicknameFormatError = resourceProvider.getString(R.string.error_nickname_format4)
-//        listener.moveToNextStep()
+    fun onClickNextButton() = viewModelScope.launch {
+        listener.setNicknameOnSignUpViewModel(inputNickname)
+        listener.moveToNextStep()
+//        nicknameFormatError = resourceProvider.getString(R.string.error_nickname_format4)
     }
-
 
     private fun checkNicknameFormat(nickname: String) {
         var nicknamePattern = "^[A-Za-z가-힣]{1,10}\$"
@@ -65,7 +65,7 @@ class SignUpNickNameViewModel @AssistedInject constructor(
 
     @dagger.assisted.AssistedFactory
     interface AssistedFactory {
-        fun create(listener: SignUpViewPagerFragmentListener): SignUpNickNameViewModel
+        fun create(listener: SignUpViewPagerFragmentListener): SignUpNicknameViewModel
     }
 
     companion object {

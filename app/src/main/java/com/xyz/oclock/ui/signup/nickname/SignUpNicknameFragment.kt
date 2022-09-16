@@ -17,11 +17,11 @@ import javax.inject.Inject
 class SignUpNicknameFragment: BindingFragment<FragmentSignUpNicknameBinding>(R.layout.fragment_sign_up_nickname) {
 
     @set:Inject
-    internal lateinit var viewModelFactory: SignUpNickNameViewModel.AssistedFactory
+    internal lateinit var viewModelFactory: SignUpNicknameViewModel.AssistedFactory
 
     @get:VisibleForTesting
-    private val viewModel: SignUpNickNameViewModel by viewModels {
-        SignUpNickNameViewModel.provideFactory(viewModelFactory, listener)
+    private val viewModel: SignUpNicknameViewModel by viewModels {
+        SignUpNicknameViewModel.provideFactory(viewModelFactory, listener)
     }
     private val listener: SignUpViewPagerFragmentListener by lazy {
         parentFragment as SignUpViewPagerFragmentListener

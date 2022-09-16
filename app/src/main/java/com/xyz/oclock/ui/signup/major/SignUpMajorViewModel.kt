@@ -36,7 +36,8 @@ class SignUpMajorViewModel @AssistedInject constructor(
     }
 
     fun onClickNextButton() {
-
+        listener.setMajorOnSignUpViewModel(100)
+        listener.moveToNextStep()
     }
 
     @dagger.assisted.AssistedFactory

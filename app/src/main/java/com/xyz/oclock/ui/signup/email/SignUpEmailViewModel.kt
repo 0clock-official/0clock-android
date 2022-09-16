@@ -62,7 +62,8 @@ class SignUpEmailViewModel @AssistedInject constructor(
         onError = { toastMessage = it }
     )
 
-//    fun checkEnabledEmail() = viewModelScope.launch {
+    fun checkEnabledEmail() = viewModelScope.launch {
+        isEmailBlocked = true
 //        val enabled = repository.checkEnabledEmail(inputEmail, onError = {
 //            toastMessage = it?: resourceProvider.getString(R.string.unknownError)
 //        }).isSignUpEnabled()
@@ -71,7 +72,7 @@ class SignUpEmailViewModel @AssistedInject constructor(
 //        } else {
 //            isEmailBlocked = true
 //        }
-//    }
+    }
 
     private fun checkEmailFormat(email: String) {
         val pattern = Patterns.EMAIL_ADDRESS
@@ -83,9 +84,10 @@ class SignUpEmailViewModel @AssistedInject constructor(
     }
 
     fun onClickNextButton() = viewModelScope.launch {
-        verifyCodeCheckFlow.throttle().collect {
-            listener.moveToNextStep()
-        }
+        listener.setEmailOnSignUpViewModel(inputEmail)
+        listener.moveToNextStep()
+//        verifyCodeCheckFlow.throttle().collect {
+//        }
     }
 
     @dagger.assisted.AssistedFactory

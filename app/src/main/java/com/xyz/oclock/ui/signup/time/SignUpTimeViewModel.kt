@@ -25,27 +25,31 @@ class SignUpTimeViewModel @AssistedInject constructor(
         }
 
     @get: Bindable
-    var timeArray by bindingProperty( arrayOf(PM_10.desc, PM_11.desc, PM_12.desc, AM_01.desc))
+    var timeArray by bindingProperty(PreferredTime.values().sortedBy{ it.index }.map { it.desc }.toTypedArray())
 
     @get: Bindable
-    var partnerSexArray by bindingProperty( arrayOf(MAN.desc, WOMAN.desc, NON.desc))
+    var partnerSexArray by bindingProperty(Sex.values().sortedBy{ it.index }.map{ it.desc }.toTypedArray())
 
     @get: Bindable
-    var selectedTime: String? by bindingProperty(null)
+    var selectedTime: PreferredTime? by bindingProperty(null)
 
     @get: Bindable
-    var selectedSex: String? by bindingProperty(null)
+    var selectedSex: Sex? by bindingProperty(null)
 
     fun setPreferredTime(position: Int) {
-        selectedTime = timeArray[position]
+        selectedTime = PreferredTime.values().filter { it.desc == timeArray[position] }[0]
     }
 
     fun setPartnerSex(position: Int) {
-        selectedSex = partnerSexArray[position]
+        selectedSex = Sex.values().filter { it.desc == partnerSexArray[position] }[0]
     }
 
     fun onClickNextButton() {
-
+        if (selectedTime != null && selectedSex != null) {
+            listener.setChattingTimeOnSignUpViewModel(selectedTime!!.index)
+            listener.setPartnerSexOnSignUpViewModel(selectedSex!!.index)
+            listener.moveToNextStep()
+        }
     }
 
     @dagger.assisted.AssistedFactory
@@ -71,7 +75,7 @@ enum class PreferredTime(val index: Int, val desc: String) {
     PM_10(1, "오후 10:00 ㅤ- ㅤ오후 12:00"),
     PM_11(2, "오후 11:00 ㅤ- ㅤ오전 01:00"),
     PM_12(3, "오후 12:00 ㅤ- ㅤ오전 02:00"),
-    AM_01(4, "오전 01:00 ㅤ- ㅤ오전 03:00"),
+    AM_01(4, "오전 01:00 ㅤ- ㅤ오전 03:00")
 }
 
 enum class Sex(val index: Int, val desc: String) {

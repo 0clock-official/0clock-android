@@ -1,5 +1,6 @@
 package com.xyz.oclock.common.extensions
 
+import android.animation.ObjectAnimator
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
@@ -85,5 +86,13 @@ object BindingAdapter {
     @BindingAdapter("onItemClicked")
     fun AutoCompleteTextView.setOnItemClicked(onItemClickListener: AdapterView.OnItemClickListener) {
         this.onItemClickListener = onItemClickListener
+    }
+
+    @JvmStatic
+    @BindingAdapter("smoothProgress")
+    fun ProgressBar.smoothProgress(percent: Int){
+        val animation = ObjectAnimator.ofInt(this, "progress", percent)
+        animation.duration = 300
+        animation.start()
     }
 }
