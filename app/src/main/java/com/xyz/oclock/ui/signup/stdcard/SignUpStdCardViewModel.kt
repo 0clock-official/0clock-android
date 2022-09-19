@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.skydoves.bindables.BindingViewModel
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
-import com.xyz.oclock.ui.signup.pending.SignUpPendingViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
@@ -23,6 +22,7 @@ class SignUpStdCardViewModel @AssistedInject constructor(
 
     fun onClickNextButton() {
         listener.submitSignUpForm()
+        listener.moveToPendingFragment()
     }
 
     @dagger.assisted.AssistedFactory

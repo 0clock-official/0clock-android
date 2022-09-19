@@ -59,7 +59,7 @@ class LoginFragment : Fragment() {
                     activity?.finish()
                 }
             }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+        requireActivity().onBackPressedDispatcher.addCallback(this.viewLifecycleOwner, callback)
     }
 
     private suspend fun fcmToken() {

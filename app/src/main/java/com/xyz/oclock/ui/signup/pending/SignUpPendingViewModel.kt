@@ -3,32 +3,31 @@ package com.xyz.oclock.ui.signup.pending
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.skydoves.bindables.BindingViewModel
-import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
-import com.xyz.oclock.ui.signup.password.SignUpPasswordViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
 class SignUpPendingViewModel @AssistedInject constructor(
-    @Assisted private val listener: SignUpViewPagerFragmentListener
+    @Assisted private val pendingState: PendingState
 ) : BindingViewModel() {
 
+    fun isRequiredReCertifying():Boolean {
+        return pendingState == PendingState.REJECT
+    }
 
     @dagger.assisted.AssistedFactory
     interface AssistedFactory {
-        fun create(listener: SignUpViewPagerFragmentListener): SignUpPendingViewModel
+        fun create(pendingState: PendingState): SignUpPendingViewModel
     }
 
     companion object {
         fun provideFactory(
             assistedFactory: AssistedFactory,
-            listener: SignUpViewPagerFragmentListener
+            pendingState: PendingState
         ) = object : ViewModelProvider.Factory {
 
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(listener) as T
+                return assistedFactory.create(pendingState) as T
             }
         }
     }

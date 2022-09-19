@@ -4,27 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpPendingBinding
-import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
+enum class PendingState {
+    PENDING, REJECT
+}
 
 @AndroidEntryPoint
 class SignUpPendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.fragment_sign_up_pending) {
 
+    private val pendingState by lazy {
+        val args: SignUpPendingFragmentArgs by navArgs()
+        args.pendingState
+    }
+
     @set:Inject
     internal lateinit var viewModelFactory: SignUpPendingViewModel.AssistedFactory
 
-    @get:VisibleForTesting
     private val viewModel: SignUpPendingViewModel by viewModels {
-        SignUpPendingViewModel.provideFactory(viewModelFactory, listener)
-    }
-    private val listener: SignUpViewPagerFragmentListener by lazy {
-        parentFragment as SignUpViewPagerFragmentListener
+        SignUpPendingViewModel.provideFactory(viewModelFactory, pendingState)
     }
 
     override fun onCreateView(

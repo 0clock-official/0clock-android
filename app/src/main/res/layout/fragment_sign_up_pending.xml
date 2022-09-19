@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.xyz.oclock.ui.signup.pending.SignUpPendingViewModel" />
@@ -30,14 +31,16 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/img_sign_up_done" />
+                    tools:src="@drawable/img_pending_pending"
+                    android:src="@{vm.isRequiredReCertifying()? @drawable/img_pending_reject : @drawable/img_pending_pending}" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/please_wait"
+                android:text="@{vm.isRequiredReCertifying()? @string/please_re_certify : @string/please_wait}"
                 android:textColor="@color/white"
+                tools:text="@string/please_wait"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -46,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="80dp"
-                android:text="@string/sign_up_complete_description"
+                tools:text="@string/pending_description_pending"
+                android:text="@{vm.isRequiredReCertifying()? @string/pending_description_reject: @string/pending_description_pending}"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:lineHeight="22sp" />
@@ -63,7 +67,8 @@
             android:insetRight="0dp"
             android:insetBottom="0dp"
             android:text="@string/retry_verify_std_card"
-            android:visibility="visible"
+            tools:visibility="gone"
+            android:visibility="@{vm.isRequiredReCertifying()? View.VISIBLE : View.GONE}"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginHorizontal="16dp"

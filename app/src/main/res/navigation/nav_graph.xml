@@ -37,5 +37,9 @@
         android:id="@+id/signUpPendingFragment"
         android:name="com.xyz.oclock.ui.signup.pending.SignUpPendingFragment"
         android:label="fragment_sign_up_pending"
-        tools:layout="@layout/fragment_sign_up_pending" />
+        tools:layout="@layout/fragment_sign_up_pending" >
+        <argument
+            android:name="pendingState"
+            app:argType="com.xyz.oclock.ui.signup.pending.PendingState" />
+    </fragment>
 </navigation>

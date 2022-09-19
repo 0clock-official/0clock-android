@@ -13,4 +13,5 @@ interface SignUpViewPagerFragmentListener {
     fun hideLoading()
     fun moveToNextStep()
     fun submitSignUpForm()
+    fun moveToPendingFragment()
 }

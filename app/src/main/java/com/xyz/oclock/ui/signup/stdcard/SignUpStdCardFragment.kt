@@ -1,8 +1,6 @@
 package com.xyz.oclock.ui.signup.stdcard
 
 import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import com.skydoves.bindables.BindingFragment
 import com.vansuita.pickimage.bundle.PickSetup
@@ -21,7 +18,6 @@ import com.xyz.oclock.common.extensions.onThrottleClick
 import com.xyz.oclock.common.extensions.toast
 import com.xyz.oclock.databinding.FragmentSignUpStdCardBinding
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
-import com.xyz.oclock.ui.signup.pending.SignUpPendingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
