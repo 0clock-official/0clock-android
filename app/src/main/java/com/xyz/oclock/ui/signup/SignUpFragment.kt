@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpBinding
-import com.xyz.oclock.ui.signup.pending.PendingState
+import com.xyz.oclock.ui.pending.PendingState
 import com.xyz.oclock.ui.signup.email.SignUpEmailFragment
 import com.xyz.oclock.ui.signup.major.SignUpMajorFragment
 import com.xyz.oclock.ui.signup.nickname.SignUpNicknameFragment

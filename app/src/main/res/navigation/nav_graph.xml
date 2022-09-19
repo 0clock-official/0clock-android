@@ -35,11 +35,11 @@
     </fragment>
     <fragment
         android:id="@+id/signUpPendingFragment"
-        android:name="com.xyz.oclock.ui.signup.pending.SignUpPendingFragment"
+        android:name="com.xyz.oclock.ui.pending.PendingFragment"
         android:label="fragment_sign_up_pending"
         tools:layout="@layout/fragment_sign_up_pending" >
         <argument
             android:name="pendingState"
-            app:argType="com.xyz.oclock.ui.signup.pending.PendingState" />
+            app:argType="com.xyz.oclock.ui.pending.PendingState" />
     </fragment>
 </navigation>

@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.xyz.oclock.ui.signup.pending.SignUpPendingViewModel" />
+            type="com.xyz.oclock.ui.pending.PendingViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/sign_up_complete_verify_retry"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -29,28 +29,28 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageView
+                    android:id="@+id/pending_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:src="@drawable/img_pending_pending"
-                    android:src="@{vm.isRequiredReCertifying()? @drawable/img_pending_reject : @drawable/img_pending_pending}" />
+                    tools:src="@drawable/img_pending_pending"/>
             </LinearLayout>
 
             <TextView
+                android:id="@+id/pending_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.isRequiredReCertifying()? @string/please_re_certify : @string/please_wait}"
                 android:textColor="@color/white"
                 tools:text="@string/please_wait"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/pending_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="80dp"
                 tools:text="@string/pending_description_pending"
-                android:text="@{vm.isRequiredReCertifying()? @string/pending_description_reject: @string/pending_description_pending}"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:lineHeight="22sp" />
@@ -58,7 +58,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/sign_up_complete_verify_retry"
+            android:id="@+id/bottom_button"
             style="@style/ButtonPrimary"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -66,9 +66,8 @@
             android:insetTop="0dp"
             android:insetRight="0dp"
             android:insetBottom="0dp"
-            android:text="@string/retry_verify_std_card"
-            tools:visibility="gone"
-            android:visibility="@{vm.isRequiredReCertifying()? View.VISIBLE : View.GONE}"
+            tools:text="@string/retry_verify_std_card"
+            tools:visibility="visible"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginHorizontal="16dp"
