@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
 
     @Inject
-    lateinit var localRepository: TokenRepository
+    lateinit var tokenRepository: TokenRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +64,7 @@ class LoginFragment : Fragment() {
 
     private suspend fun fcmToken() {
         delay(3000)
-        val token = localRepository.getFcmToken()?: "토큰없음"
+        val token = tokenRepository.getFcmToken()?: "토큰없음"
         binding.fcmSample.setText(token)
     }
 }

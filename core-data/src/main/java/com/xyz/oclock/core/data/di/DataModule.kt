@@ -16,8 +16,8 @@ interface DataModule {
     ): SignUpRepository
 
     @Binds
-    fun bindsLocalRepository(
-        localRepositoryImpl: TokenRepositoryImpl
+    fun bindsTokenRepository(
+        tokenRepositoryImpl: TokenRepositoryImpl
     ): TokenRepository
 
     @Binds

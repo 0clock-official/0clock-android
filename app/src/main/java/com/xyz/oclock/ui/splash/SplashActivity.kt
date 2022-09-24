@@ -10,10 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import com.skydoves.bindables.BindingActivity
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.ActivitySplashBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity: BindingActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
     companion object {
@@ -21,7 +23,6 @@ class SplashActivity: BindingActivity<ActivitySplashBinding>(R.layout.activity_s
     }
 
     private val viewModel: SplashViewModel by viewModels()
-
     private val startTime = System.currentTimeMillis()
 
     override fun onCreate(savedInstanceState: Bundle?) {

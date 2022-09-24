@@ -22,13 +22,13 @@ const val CHANNEL_ID = "OClock_channel_id"
 class OClockFirebaseMessagingService: FirebaseMessagingService() {
 
     @Inject
-    lateinit var localRepository: TokenRepository
+    lateinit var tokenRepository: TokenRepository
 
     init {
         val token =  FirebaseMessaging.getInstance().token
         token.addOnCompleteListener {
             if (it.isSuccessful) {
-                localRepository.setFcmToken(it.result)
+                tokenRepository.setFcmToken(it.result)
             } else {
                 Log.d("FCM Token", "failed")
             }
@@ -37,7 +37,7 @@ class OClockFirebaseMessagingService: FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        localRepository.setFcmToken(token)
+        tokenRepository.setFcmToken(token)
         Log.d("FCM new Token", token)
     }
 
