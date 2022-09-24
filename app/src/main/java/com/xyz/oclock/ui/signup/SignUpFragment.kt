@@ -120,7 +120,7 @@ class SignUpFragment :
     }
 
     override fun moveToPendingFragment() {
-        val action = SignUpFragmentDirections.actionSignUpFragmentToSignUpPendingFragment(PendingState.PENDING)
+        val action = SignUpFragmentDirections.actionSignUpFragmentToPendingFragment(PendingState.PENDING)
         view?.findNavController()?.navigate(action)
     }
 

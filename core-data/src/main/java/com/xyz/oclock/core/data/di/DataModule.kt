@@ -1,9 +1,6 @@
 package com.xyz.oclock.core.data.di
 
-import com.xyz.oclock.core.data.repository.LocalRepository
-import com.xyz.oclock.core.data.repository.LocalRepositoryImpl
-import com.xyz.oclock.core.data.repository.SignUpRepository
-import com.xyz.oclock.core.data.repository.SignUpRepositoryImpl
+import com.xyz.oclock.core.data.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,6 +17,12 @@ interface DataModule {
 
     @Binds
     fun bindsLocalRepository(
-        localRepositoryImpl: LocalRepositoryImpl
-    ): LocalRepository
+        localRepositoryImpl: TokenRepositoryImpl
+    ): TokenRepository
+
+    @Binds
+    fun bindsDeviceStateRepository(
+        deviceStateRepositoryImpl: DeviceStateRepositoryImpl
+    ): DeviceStateRepository
+
 }

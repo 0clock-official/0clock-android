@@ -10,7 +10,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.xyz.oclock.R
-import com.xyz.oclock.core.data.repository.LocalRepository
+import com.xyz.oclock.core.data.repository.TokenRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ const val CHANNEL_ID = "OClock_channel_id"
 class OClockFirebaseMessagingService: FirebaseMessagingService() {
 
     @Inject
-    lateinit var localRepository: LocalRepository
+    lateinit var localRepository: TokenRepository
 
     init {
         val token =  FirebaseMessaging.getInstance().token

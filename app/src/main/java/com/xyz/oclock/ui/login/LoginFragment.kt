@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentLoginBinding
-import com.xyz.oclock.core.data.repository.LocalRepository
+import com.xyz.oclock.core.data.repository.TokenRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
 
     @Inject
-    lateinit var localRepository: LocalRepository
+    lateinit var localRepository: TokenRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -12,7 +12,11 @@ class SharedPreferences @Inject constructor(@ApplicationContext context : Contex
 
     companion object {
         private const val FILE_NAME = "oclock_encrypted_settings"
+        private const val FIRST_RUN = "first_run"
+        private const val FIRST_LOGIN = "first_login"
         private const val FCM_TOKEN = "fcm_token"
+        private const val ACCESS_TOKEN = "access_token"
+        private const val REFRESH_TOKEN = "refresh_token"
     }
 
     private val sharedPreferences by lazy {
@@ -40,4 +44,41 @@ class SharedPreferences @Inject constructor(@ApplicationContext context : Contex
     fun getFcmToken(): String? {
         return sharedPreferences.getString(FCM_TOKEN, null)
     }
+
+    fun getAccessToken(): String? {
+        return sharedPreferences.getString(ACCESS_TOKEN, null)
+    }
+
+    fun setAccessToken(token: String) {
+        editor.putString(ACCESS_TOKEN, token)
+        editor.commit()
+    }
+
+    fun getRefreshToken(): String? {
+        return sharedPreferences.getString(REFRESH_TOKEN, null)
+    }
+
+    fun setRefreshToken(token: String) {
+        editor.putString(REFRESH_TOKEN, token)
+        editor.commit()
+    }
+
+    fun setFirstRun(isFirst: Boolean) {
+        editor.putBoolean(FIRST_RUN, isFirst)
+        editor.commit()
+    }
+
+    fun getFirstRun(): Boolean {
+        return sharedPreferences.getBoolean(FIRST_RUN, true)
+    }
+
+    fun setFirstLogin(isFirst: Boolean) {
+        editor.putBoolean(FIRST_LOGIN, isFirst)
+        editor.commit()
+    }
+
+    fun getFirstLogin(): Boolean {
+        return sharedPreferences.getBoolean(FIRST_LOGIN, true)
+    }
+
 }
