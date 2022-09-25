@@ -4,9 +4,9 @@ interface DeviceStateRepository {
 
     fun isFirstRun(): Boolean
 
-    fun setNotFirstRun()
+    fun noLongerFirstRun()
 
     fun isFirstLogin(): Boolean
 
-    fun setNotFirstLogin()
+    fun noLongerFirstLogin()
 }

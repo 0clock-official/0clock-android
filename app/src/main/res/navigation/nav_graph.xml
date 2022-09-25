@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/onBoardingFragment">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.xyz.oclock.ui.login.LoginFragment"
@@ -16,6 +16,12 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_loginFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -41,7 +47,10 @@
         <argument
             android:name="pendingState"
             app:argType="com.xyz.oclock.ui.pending.PendingState" />
-    </fragment>
+            <action
+                android:id="@+id/action_pendingFragment_to_homeFragment"
+                app:destination="@id/homeFragment" />
+        </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.xyz.oclock.ui.onboarding.OnBoardingFragment"
@@ -52,5 +61,14 @@
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/slide_out_right"
             app:exitAnim="@anim/slide_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.xyz.oclock.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_pendingFragment"
+            app:destination="@id/pendingFragment" />
     </fragment>
 </navigation>

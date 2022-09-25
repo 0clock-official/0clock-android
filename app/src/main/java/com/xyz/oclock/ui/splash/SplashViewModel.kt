@@ -23,23 +23,4 @@ class SplashViewModel @Inject constructor(
             onLogout.invoke()
         }
     }
-
-    suspend fun checkPendingState(
-        onPending: suspend ()->Unit,
-        onRejected: suspend ()->Unit,
-        onApproved: suspend ()->Unit
-    ) {
-//        팬딩상태검사
-//        pending, reject-> pendingFragment
-//        approve -> { 처음? pendingFragment : main }
-//        토큰만료 -> 로그인
-    }
-
-    fun isFirstRun(): Boolean {
-        return deviceStateRepository.isFirstRun()
-    }
-
-    fun isFirstLogin(): Boolean {
-        return deviceStateRepository.isFirstLogin()
-    }
 }

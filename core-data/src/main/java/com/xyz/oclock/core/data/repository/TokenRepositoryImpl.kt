@@ -28,6 +28,6 @@ class TokenRepositoryImpl @Inject constructor(
     }
 
     override fun getAccessToken(): String? {
-        return getAccessToken()
+        return sharedPreferences.getAccessToken()
     }
 }

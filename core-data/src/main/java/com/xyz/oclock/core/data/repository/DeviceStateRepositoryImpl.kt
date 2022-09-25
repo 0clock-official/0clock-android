@@ -11,7 +11,7 @@ class DeviceStateRepositoryImpl @Inject constructor(
         return sharedPreferences.getFirstRun()
     }
 
-    override fun setNotFirstRun() {
+    override fun noLongerFirstRun() {
         sharedPreferences.setFirstRun(false)
     }
 
@@ -19,7 +19,7 @@ class DeviceStateRepositoryImpl @Inject constructor(
         return sharedPreferences.getFirstLogin()
     }
 
-    override fun setNotFirstLogin() {
+    override fun noLongerFirstLogin() {
         return sharedPreferences.setFirstLogin(false)
     }
 }

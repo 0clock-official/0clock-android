@@ -8,8 +8,12 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.skydoves.bindables.BindingActivity
+import com.xyz.oclock.MainActivity
 import com.xyz.oclock.R
+import com.xyz.oclock.StartDestination
 import com.xyz.oclock.databinding.ActivitySplashBinding
+import com.xyz.oclock.ui.pending.PendingFragment.Companion.ARG_PENDING_STATE
+import com.xyz.oclock.ui.pending.PendingState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,45 +51,23 @@ class SplashActivity: BindingActivity<ActivitySplashBinding>(R.layout.activity_s
     private suspend fun checkUserState() {
         viewModel.checkLoginState(
             onLogin = {
-                checkPendingState()
+                moveToMain()
             },
             onLogout = {
-                moveToLoginOrOnBoarding()
+                moveToLogin()
             }
         )
     }
-
-    private suspend fun checkPendingState() {
-        viewModel.checkPendingState(
-            onApproved = { moveToMain() },
-            onRejected = { moveToPending() },
-            onPending = { moveToPending() }
-        )
-    }
     
-    private suspend fun moveToLoginOrOnBoarding() {
+    private suspend fun moveToLogin() {
         waitSplashTime {
-            if (viewModel.isFirstRun()) {
-
-            } else {
-
-            }
+            MainActivity.startActivity(this, StartDestination.LOGIN)
         }
     }
-    
-    private suspend fun moveToPending() {
-        waitSplashTime {
 
-        }
-    }
-    
     private suspend fun moveToMain() {
         waitSplashTime {
-            if (viewModel.isFirstLogin()) {
-
-            } else {
-
-            }
+            MainActivity.startActivity(this, StartDestination.HOME)
         }
     }
 

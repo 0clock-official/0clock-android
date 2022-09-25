@@ -13,6 +13,8 @@ import androidx.navigation.findNavController
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentLoginBinding
 import com.xyz.oclock.core.data.repository.TokenRepository
+import com.xyz.oclock.ui.pending.PendingState
+import com.xyz.oclock.ui.signup.SignUpFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -38,11 +40,23 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (viewModel.isFirstRun()) {
+            viewModel.noLongerFirstRun()
+            moveToOnBoardingFragment()
+            return
+        }
+
         setOnClickListener()
         registerBackBtnCallback()
         lifecycleScope.launch {
             fcmToken()
         }
+    }
+
+    private fun moveToOnBoardingFragment() {
+        val action = LoginFragmentDirections.actionLoginFragmentToOnBoardingFragment()
+        view?.findNavController()?.navigate(action)
     }
 
     private fun setOnClickListener() {

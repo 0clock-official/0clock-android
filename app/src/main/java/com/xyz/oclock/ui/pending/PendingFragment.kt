@@ -19,6 +19,9 @@ enum class PendingState {
 @AndroidEntryPoint
 class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.fragment_sign_up_pending) {
 
+    companion object {
+        const val ARG_PENDING_STATE = "pendingState"
+    }
     private val pendingState by lazy {
         val args: PendingFragmentArgs by navArgs()
         args.pendingState
@@ -58,9 +61,9 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
     }
 
     private fun initApproveView() {
-        binding.pendingImage.setImageResource(R.drawable.img_pending_reject)
-        binding.pendingTitle.setText(R.string.please_re_certify)
-        binding.pendingDesc.setText(R.string.pending_description_reject)
+        binding.pendingImage.setImageResource(R.drawable.img_pending_approve)
+        binding.pendingTitle.text = String.format(getString(R.string.welcome), "DEMO")
+        binding.pendingDesc.setText(R.string.pending_description_approve)
         binding.bottomButton.apply {
             setText(R.string.start)
             setOnClickListener {  }
