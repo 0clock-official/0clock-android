@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/main">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="80dp"
+            android:layout_weight="1"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/on_boarding_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_on_boarding_1"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/on_boarding_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/on_boarding_description1"
+            android:textSize="20sp"
+            android:lineHeight="32sp"
+            android:gravity="center"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+</layout>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="font_weight_600">600</integer>
+    <dimen name="dot_size">5dp</dimen>
+    <dimen name="dot_padding">8dp</dimen>
 </resources>

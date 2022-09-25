@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/on_boarding_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/on_boarding_tap" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/on_boarding_tap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabBackground="@drawable/tab_dot"
+            app:tabIndicator="@null"
+            app:tabRippleColor="@color/transparent"
+            android:background="@color/main"
+            app:tabGravity="center"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/on_boarding_next"
+            style="@style/ButtonPrimary"
+            android:layout_width="70dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/next"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/on_boarding_tap"
+            app:layout_constraintBottom_toBottomOf="@+id/on_boarding_tap"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

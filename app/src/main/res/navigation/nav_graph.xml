@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/onBoardingFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.xyz.oclock.ui.login.LoginFragment"
@@ -41,5 +41,16 @@
         <argument
             android:name="pendingState"
             app:argType="com.xyz.oclock.ui.pending.PendingState" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.xyz.oclock.ui.onboarding.OnBoardingFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding_item" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_out_right"
+            app:exitAnim="@anim/slide_in_right" />
     </fragment>
 </navigation>
