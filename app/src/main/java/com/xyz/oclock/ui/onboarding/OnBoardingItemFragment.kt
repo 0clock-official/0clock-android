@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
+import com.xyz.oclock.common.extensions.toPx
 import com.xyz.oclock.databinding.FragmentOnBoardingItemBinding
 
 class OnBoardingItemFragment: BindingFragment<FragmentOnBoardingItemBinding>(R.layout.fragment_on_boarding_item) {
@@ -32,14 +33,16 @@ class OnBoardingItemFragment: BindingFragment<FragmentOnBoardingItemBinding>(R.l
         when (page) {
             0 -> {
                 binding.onBoardingImage.setImageResource(R.drawable.img_on_boarding_1)
+                binding.onBoardingImage.setPadding(50.toPx, 0, 50.toPx, 0)
                 binding.onBoardingDescription.setText(R.string.on_boarding_description1)
             }
             1 -> {
-                binding.onBoardingImage.setImageResource(R.drawable.img_on_boarding_3)
+                binding.onBoardingImage.setImageResource(R.drawable.img_on_boarding_2)
                 binding.onBoardingDescription.setText(R.string.on_boarding_description2)
             }
             2 -> {
                 binding.onBoardingImage.setImageResource(R.drawable.img_on_boarding_3)
+                binding.onBoardingImage.setPadding(50.toPx, 0, 50.toPx, 0)
                 binding.onBoardingDescription.setText(R.string.on_boarding_description3)
             }
         }
