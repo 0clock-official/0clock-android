@@ -61,4 +61,5 @@
     <string name="on_boarding_description2">10시부터 3시 중\n나와 시간이 맞는 사람과\n하루 한 시간 대화할 수 있어요</string>
     <string name="on_boarding_description3">상대방과 계속 채팅을 하고 싶다면\n둘만의 시간 약속을 잡아봐요</string>
     <string name="find_password">비밀번호 찾기</string>
+    <string name="please_enter_new_password">새 비밀번호를 입력해주세요</string>
 </resources>
