@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="android.graphics.Color"/>
+        <variable
+            name="vm"
+            type="com.xyz.oclock.ui.findpwd.email.FindPwdEmailViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingStart="16dp"
+        android:paddingTop="48dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="51dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:toast="@{vm.toastMessage}">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_enter_email"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/pretendard_semibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/find_pwd_viewpager_email"
+            style="@style/OutlinedLoginInputTextLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxCornerRadiusTopStart="18dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="15dp"
+            android:enabled="@{!vm.isEmailBlocked}"
+            app:boxBackgroundColor="@{vm.isEmailBlocked? @color/unactivated_gray : @color/main}"
+            app:layout_constraintEnd_toStartOf="@+id/find_pwd_viewpager_email_verify_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/find_pwd_viewpager_email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/example_email"
+                android:text="@={vm.inputEmail}"
+                android:enabled="@{!vm.isEmailBlocked}"
+                android:fontFamily="@font/pretendard_semibold"
+                android:inputType="textEmailAddress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/find_pwd_viewpager_email_verify_button"
+            style="@style/ButtonPrimary"
+            android:layout_width="70dp"
+            android:layout_height="48dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:paddingHorizontal="0dp"
+            android:text="@{vm.emailBlocked? @string/retry_verify : @string/verify}"
+            android:textSize="16sp"
+            app:cornerRadius="18dp"
+            android:enabled='@{vm.emailErrorHint.equals("")? true : false}'
+            onThrottleClick="@{()->vm.checkEnabledEmail()}"
+            app:layout_constraintBottom_toBottomOf="@+id/find_pwd_viewpager_email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/find_pwd_viewpager_email" />
+
+        <TextView
+            android:id="@+id/find_pwd_viewpager_email_error_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{vm.emailErrorHint}"
+            tools:text="@string/error_email_format"
+            android:visibility="@{vm.emailErrorHint.empty? View.INVISIBLE : View.VISIBLE}"
+            android:textColor="@color/error"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/find_pwd_viewpager_email" />
+
+        <LinearLayout
+            android:id="@+id/find_pwd_viewpager_verify_layout"
+            android:visibility="@{vm.isEmailBlocked? View.VISIBLE : View.GONE}"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/find_pwd_viewpager_email">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up_enter_verify_code"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/find_pwd_viewpager_verify_code_layout"
+                style="@style/OutlinedLoginInputTextLayout"
+                app:boxStrokeColor= "@{vm.verifyError? @color/error : @color/purple}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusTopStart="18dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/find_pwd_viewpager_verify_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/verify_char"
+                    android:text="@={vm.inputVerifyCode}"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/find_pwd_viewpager_verify_error_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/error_verify_code"
+                android:textColor="@color/error"
+                android:visibility="@{vm.verifyError? View.VISIBLE : View.GONE}"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/find_pwd_viewpager_email_next"
+            style="@style/ButtonPrimary"
+            android:layout_width="70dp"
+            android:layout_height="48dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/next"
+            android:textSize="16sp"
+            app:cornerRadius="18dp"
+            android:enabled='@{vm.inputVerifyCode.length() == 6}'
+            app:onThrottleClick="@{() -> vm.onClickNextButton()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
