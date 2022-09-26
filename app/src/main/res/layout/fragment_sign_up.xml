@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"
             style="?android:attr/progressBarStyleHorizontal"
-            android:progressDrawable="@drawable/sign_up_progressbar"
+            android:progressDrawable="@drawable/default_progressbar"
             app:smoothProgress="@{vm.progress}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

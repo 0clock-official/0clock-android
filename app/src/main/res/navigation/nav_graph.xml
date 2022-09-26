@@ -21,7 +21,16 @@
             app:destination="@id/onBoardingFragment" />
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_out_right"
+            app:exitAnim="@anim/slide_in_right" />
+        <action
+            android:id="@+id/action_loginFragment_to_findPwdFragment"
+            app:destination="@id/findPwdFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -70,5 +79,18 @@
         <action
             android:id="@+id/action_homeFragment_to_pendingFragment"
             app:destination="@id/pendingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPwdFragment"
+        android:name="com.xyz.oclock.ui.findpwd.FindPwdFragment"
+        android:label="FindPwdFragment"
+        tools:layout="@layout/fragment_find_pwd">
+        <action
+            android:id="@+id/action_findPwdFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>

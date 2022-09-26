@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
 import com.xyz.oclock.R
-import com.xyz.oclock.databinding.FragmentSignUpPasswordBinding
 import com.skydoves.bindables.BindingFragment
+import com.xyz.oclock.common.extensions.onThrottleClick
 import com.xyz.oclock.databinding.FragmentFindPwdNewPwdBinding
-import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
+import com.xyz.oclock.ui.findpwd.FindPwdFragment
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FindPwdNewPwdFragment: BindingFragment<FragmentFindPwdNewPwdBinding>(R.layout.fragment_find_pwd_new_pwd) {
@@ -27,6 +25,13 @@ class FindPwdNewPwdFragment: BindingFragment<FragmentFindPwdNewPwdBinding>(R.lay
         return binding {
             vm = viewModel
         }.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.findPwdNewPwdViewpagerPasswordNext.onThrottleClick {
+            (parentFragment as FindPwdFragment).onClickNextButton()
+        }
     }
 
 }

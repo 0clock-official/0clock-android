@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
+import com.xyz.oclock.common.extensions.onThrottleClick
 import com.xyz.oclock.databinding.FragmentLoginBinding
 import com.xyz.oclock.core.data.repository.TokenRepository
-import com.xyz.oclock.ui.pending.PendingState
-import com.xyz.oclock.ui.signup.SignUpFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,20 +21,22 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : BindingFragment<FragmentLoginBinding>( R.layout.fragment_login) {
 
     private val viewModel by viewModels<LoginViewModel>()
-    private lateinit var binding: FragmentLoginBinding
 
     @Inject
     lateinit var tokenRepository: TokenRepository
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
-        return binding.root
+        super.onCreateView(inflater, container, savedInstanceState)
+        return binding {
+            vm = viewModel
+        }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,9 +61,14 @@ class LoginFragment : Fragment() {
     }
 
     private fun setOnClickListener() {
-        binding.loginDoSignUp.setOnClickListener {
+        binding.loginDoSignUp.onThrottleClick {
             val action = LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
-            view?.findNavController()?.navigate(action)
+            findNavController().navigate(action)
+        }
+
+        binding.loginFindPassword.onThrottleClick {
+            val action = LoginFragmentDirections.actionLoginFragmentToFindPwdFragment()
+            findNavController().navigate(action)
         }
     }
 
@@ -78,7 +84,9 @@ class LoginFragment : Fragment() {
 
     private suspend fun fcmToken() {
         delay(3000)
-        val token = tokenRepository.getFcmToken()?: "토큰없음"
-        binding.fcmSample.setText(token)
+        view?.run {
+            val token = tokenRepository.getFcmToken()?: "토큰없음"
+            binding.fcmSample.setText(token)
+        }
     }
 }

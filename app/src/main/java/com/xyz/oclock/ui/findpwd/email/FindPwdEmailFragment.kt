@@ -8,7 +8,9 @@ import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.viewModels
 import com.xyz.oclock.R
 import com.skydoves.bindables.BindingFragment
+import com.xyz.oclock.common.extensions.onThrottleClick
 import com.xyz.oclock.databinding.FragmentFindPwdEmailBinding
+import com.xyz.oclock.ui.findpwd.FindPwdFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,5 +29,12 @@ class FindPwdEmailFragment: BindingFragment<FragmentFindPwdEmailBinding>(R.layou
         return binding {
             vm = viewModel
         }.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.findPwdViewpagerEmailNext.onThrottleClick {
+            (parentFragment as FindPwdFragment).onClickNextButton()
+        }
     }
 }
