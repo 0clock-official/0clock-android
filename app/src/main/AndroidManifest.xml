@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xyz.oclock.MainActivity"
+            android:name="com.xyz.oclock.ui.MainActivity"
             android:exported="true">
         </activity>
         <service android:name="com.xyz.oclock.common.utils.OClockFirebaseMessagingService"

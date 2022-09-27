@@ -1,10 +1,11 @@
-package com.xyz.oclock
+package com.xyz.oclock.ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.OClockFirebaseMessagingService
 import dagger.hilt.android.AndroidEntryPoint
 

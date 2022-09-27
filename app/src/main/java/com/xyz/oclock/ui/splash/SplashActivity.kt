@@ -8,12 +8,10 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.skydoves.bindables.BindingActivity
-import com.xyz.oclock.MainActivity
+import com.xyz.oclock.ui.MainActivity
 import com.xyz.oclock.R
-import com.xyz.oclock.StartDestination
 import com.xyz.oclock.databinding.ActivitySplashBinding
-import com.xyz.oclock.ui.pending.PendingFragment.Companion.ARG_PENDING_STATE
-import com.xyz.oclock.ui.pending.PendingState
+import com.xyz.oclock.ui.StartDestination
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
