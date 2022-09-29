@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"
             style="?android:attr/progressBarStyleHorizontal"
-            android:progressDrawable="@drawable/default_progressbar"
+            android:progressDrawable="@drawable/progressbar_default"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/find_pwd_app_bar"/>

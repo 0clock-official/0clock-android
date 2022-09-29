@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"
             style="?android:attr/progressBarStyleHorizontal"
-            android:progressDrawable="@drawable/default_progressbar"
+            android:progressDrawable="@drawable/progressbar_default"
             app:smoothProgress="@{vm.progress}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,15 +55,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sign_up_progressbar" />
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:indeterminate="true"
-            app:visibility = "@{vm.isLoading}"
+            app:trackCornerRadius="10dp"
+            app:indicatorSize="60dp"
+            app:trackThickness="10dp"
+            app:indicatorColor="@color/purple"
+            app:indicatorDirectionCircular="clockwise"
+            app:indicatorInset="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/sign_up_app_bar" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
