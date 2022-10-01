@@ -13,4 +13,10 @@ interface SignUpRepository {
         onError: (String?) -> Unit
     ): Flow<Token>
 
+    fun sendVerifyCodeToEmail(
+        email: String,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ): Flow<Boolean>
 }

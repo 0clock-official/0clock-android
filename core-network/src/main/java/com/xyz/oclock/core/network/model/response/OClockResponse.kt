@@ -1,7 +1,6 @@
 package com.xyz.oclock.core.network.model.response
 
-data class OClockResponse<T>(
+data class OClockResponse(
     val code: Int,
-    val response: String,
-    val data: T? = null
+    val response: String
 )

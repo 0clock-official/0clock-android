@@ -35,4 +35,26 @@ class SignUpRepositoryImpl @Inject constructor(
         .onCompletion { onComplete() }
         .flowOn(Dispatchers.IO)
 
+    override fun sendVerifyCodeToEmail(
+        email: String,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ) = flow {
+        val response = signUpClient.sendVerifyCodeToEmail(email)
+        response.suspendOnSuccess {
+            if (this.statusCode.code == 200) {
+                emit(true)
+            } else {
+                emit(false)
+            }
+        }.onError {
+            map(ErrorResponseMapper) { onError(this.response) }
+        }.onException {
+            onError(this.message)
+        }
+    }.onStart { onStart() }
+        .onCompletion { onComplete() }
+        .flowOn(Dispatchers.IO)
+
 }

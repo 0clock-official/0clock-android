@@ -2,9 +2,7 @@ package com.xyz.oclock.ui.signup.email
 
 import android.util.Patterns
 import androidx.databinding.Bindable
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.skydoves.bindables.BindingViewModel
 import com.skydoves.bindables.asBindingProperty
 import com.skydoves.bindables.bindingProperty
@@ -16,9 +14,7 @@ import com.xyz.oclock.core.model.Token
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class SignUpEmailViewModel @AssistedInject constructor(
@@ -62,8 +58,20 @@ class SignUpEmailViewModel @AssistedInject constructor(
         onError = { toastMessage = it }
     )
 
-    fun checkEnabledEmail() = viewModelScope.launch {
-        isEmailBlocked = true
+    private fun dddd() = viewModelScope.launch {
+        repository.sendVerifyCodeToEmail(
+            email = inputEmail,
+            onStart = { listener.showLoading() },
+            onComplete = { listener.hideLoading() },
+            onError = {  toastMessage = it }
+        ).collectLatest { isSuccess ->
+            if (isSuccess) {
+                true
+            } else {
+
+            }
+        }
+//        isEmailBlocked = true
 //        val enabled = repository.checkEnabledEmail(inputEmail, onError = {
 //            toastMessage = it?: resourceProvider.getString(R.string.unknownError)
 //        }).isSignUpEnabled()
