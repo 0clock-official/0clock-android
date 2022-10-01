@@ -10,6 +10,7 @@ import com.xyz.oclock.R
 import com.xyz.oclock.common.extensions.throttle
 import com.xyz.oclock.common.utils.ResourceProvider
 import com.xyz.oclock.core.data.repository.SignUpRepository
+import com.xyz.oclock.core.model.CommonResponse
 import com.xyz.oclock.core.model.Token
 import com.xyz.oclock.ui.BaseViewModel
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
@@ -50,11 +51,10 @@ class SignUpEmailViewModel @AssistedInject constructor(
             onStart = { listener.showLoading() },
             onComplete = { listener.hideLoading() },
             onError = {  toastMessage = it }
-        ).collectLatest { isSuccess ->
-            if (isSuccess) {
-                isEmailBlocked = true
-            } else {
-                emailErrorHint = resourceProvider.getString(R.string.error_unavailable_email)
+        ).collectLatest {
+            when (it) {
+                is CommonResponse.Success -> isEmailBlocked = true
+                is CommonResponse.Fail ->  emailErrorHint = it.message
             }
         }
     }
@@ -76,8 +76,16 @@ class SignUpEmailViewModel @AssistedInject constructor(
             onComplete = { listener.hideLoading() },
             onError = { showToast(it) }
         ).collectLatest {
-            listener.setEmailOnSignUpViewModel(inputEmail)
-            listener.moveToNextStep()
+            when (it) {
+                is CommonResponse.Success -> {
+                    verifyError = false
+                    listener.setEmailOnSignUpViewModel(inputEmail)
+                    listener.moveToNextStep()
+                }
+                is CommonResponse.Fail -> {
+                    verifyError = true
+                }
+            }
         }
     }
 

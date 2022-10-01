@@ -1,7 +1,7 @@
 package com.xyz.oclock.core.data.repository
 
 import com.skydoves.sandwich.*
-import com.xyz.oclock.core.model.Token
+import com.xyz.oclock.core.model.CommonResponse
 import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
 import com.xyz.oclock.core.network.service.SignUpClient
 import kotlinx.coroutines.Dispatchers
@@ -24,10 +24,10 @@ class SignUpRepositoryImpl @Inject constructor(
     ) = flow {
         val response = signUpClient.checkVerifyCode(email, code)
         response.suspendOnSuccess {
-            val token = Token(this.data.token)
-            emit(token)
-        }.onError {
-            map(ErrorResponseMapper) { onError(this.response) }
+            emit(CommonResponse.Success)
+        }.suspendOnError {
+            val errorMessage = ErrorResponseMapper.map(this).response
+            emit(CommonResponse.Fail(errorMessage))
         }.onException {
             onError(this.message)
         }
@@ -43,11 +43,10 @@ class SignUpRepositoryImpl @Inject constructor(
     ) = flow {
         val response = signUpClient.sendVerifyCodeToEmail(email)
         response.suspendOnSuccess {
-            if (this.statusCode.code == 200) {
-                emit(true)
-            }
-        }.onError {
-            map(ErrorResponseMapper) { onError(this.response) }
+            emit(CommonResponse.Success)
+        }.suspendOnError {
+            val errorMessage = ErrorResponseMapper.map(this).response
+            emit(CommonResponse.Fail(errorMessage))
         }.onException {
             onError(this.message)
         }

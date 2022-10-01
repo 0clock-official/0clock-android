@@ -1,5 +1,6 @@
 package com.xyz.oclock.core.data.repository
 
+import com.xyz.oclock.core.model.CommonResponse
 import com.xyz.oclock.core.model.Token
 import kotlinx.coroutines.flow.Flow
 
@@ -11,12 +12,12 @@ interface SignUpRepository {
         onStart: () -> Unit,
         onComplete: () -> Unit,
         onError: (String?) -> Unit
-    ): Flow<Token>
+    ): Flow<CommonResponse>
 
     fun sendVerifyCodeToEmail(
         email: String,
         onStart: () -> Unit,
         onComplete: () -> Unit,
         onError: (String?) -> Unit
-    ): Flow<Boolean>
+    ): Flow<CommonResponse>
 }
