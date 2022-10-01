@@ -45,8 +45,6 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             if (this.statusCode.code == 200) {
                 emit(true)
-            } else {
-                emit(false)
             }
         }.onError {
             map(ErrorResponseMapper) { onError(this.response) }

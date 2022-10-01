@@ -11,6 +11,7 @@ import com.xyz.oclock.common.extensions.throttle
 import com.xyz.oclock.common.utils.ResourceProvider
 import com.xyz.oclock.core.data.repository.SignUpRepository
 import com.xyz.oclock.core.model.Token
+import com.xyz.oclock.ui.BaseViewModel
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -21,7 +22,7 @@ class SignUpEmailViewModel @AssistedInject constructor(
     private val repository: SignUpRepository,
     private val resourceProvider: ResourceProvider,
     @Assisted private val listener: SignUpViewPagerFragmentListener
-): BindingViewModel() {
+): BaseViewModel() {
 
     @get: Bindable
     var inputEmail: String = ""
@@ -43,22 +44,7 @@ class SignUpEmailViewModel @AssistedInject constructor(
     @get: Bindable
     var isEmailBlocked by bindingProperty(false)
 
-    @get:Bindable
-    var toastMessage: String? = null
-        set(value) {
-            field = value
-            notifyPropertyChanged(::toastMessage)
-        }
-
-    private val verifyCodeCheckFlow: Flow<Token> = repository.checkVerifyCode(
-        email = inputEmail,
-        code = inputVerifyCode,
-        onStart = { listener.showLoading() },
-        onComplete = { listener.hideLoading() },
-        onError = { toastMessage = it }
-    )
-
-    private fun dddd() = viewModelScope.launch {
+    fun sendVerifyCodeToEmail() = viewModelScope.launch {
         repository.sendVerifyCodeToEmail(
             email = inputEmail,
             onStart = { listener.showLoading() },
@@ -66,20 +52,11 @@ class SignUpEmailViewModel @AssistedInject constructor(
             onError = {  toastMessage = it }
         ).collectLatest { isSuccess ->
             if (isSuccess) {
-                true
+                isEmailBlocked = true
             } else {
-
+                emailErrorHint = resourceProvider.getString(R.string.error_unavailable_email)
             }
         }
-//        isEmailBlocked = true
-//        val enabled = repository.checkEnabledEmail(inputEmail, onError = {
-//            toastMessage = it?: resourceProvider.getString(R.string.unknownError)
-//        }).isSignUpEnabled()
-//        if (!enabled) {
-//            emailErrorHint = resourceProvider.getString(R.string.error_already_signed_up_email)
-//        } else {
-//            isEmailBlocked = true
-//        }
     }
 
     private fun checkEmailFormat(email: String) {
@@ -92,10 +69,16 @@ class SignUpEmailViewModel @AssistedInject constructor(
     }
 
     fun onClickNextButton() = viewModelScope.launch {
-        listener.setEmailOnSignUpViewModel(inputEmail)
-        listener.moveToNextStep()
-//        verifyCodeCheckFlow.throttle().collect {
-//        }
+        repository.checkVerifyCode(
+            email = inputEmail,
+            code = inputVerifyCode,
+            onStart = { listener.showLoading() },
+            onComplete = { listener.hideLoading() },
+            onError = { showToast(it) }
+        ).collectLatest {
+            listener.setEmailOnSignUpViewModel(inputEmail)
+            listener.moveToNextStep()
+        }
     }
 
     @dagger.assisted.AssistedFactory
