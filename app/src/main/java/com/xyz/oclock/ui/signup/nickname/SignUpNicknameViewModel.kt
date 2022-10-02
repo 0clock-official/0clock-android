@@ -8,23 +8,21 @@ import com.skydoves.bindables.BindingViewModel
 import com.skydoves.bindables.bindingProperty
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.ResourceProvider
+import com.xyz.oclock.core.data.repository.SignUpRepository
+import com.xyz.oclock.core.model.CommonResponse
+import com.xyz.oclock.ui.BaseViewModel
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
 class SignUpNicknameViewModel @AssistedInject constructor(
+    private val signUpRepository: SignUpRepository,
     private val resourceProvider: ResourceProvider,
     @Assisted private val listener: SignUpViewPagerFragmentListener
-): BindingViewModel() {
-
-    @get:Bindable
-    var toastMessage: String? = null
-        set(value) {
-            field = value
-            notifyPropertyChanged(::toastMessage)
-        }
+): BaseViewModel() {
 
     @get: Bindable
     var inputNickname: String = ""
@@ -38,9 +36,22 @@ class SignUpNicknameViewModel @AssistedInject constructor(
     var nicknameFormatError by bindingProperty("")
 
     fun onClickNextButton() = viewModelScope.launch {
-        listener.setNicknameOnSignUpViewModel(inputNickname)
-        listener.moveToNextStep()
-//        nicknameFormatError = resourceProvider.getString(R.string.error_nickname_format4)
+        signUpRepository.checkNicknameDuplication(
+            nickname = inputNickname,
+            onStart = { listener.showLoading() },
+            onComplete = { listener.hideLoading() },
+            onError = { showToast(it) }
+        ).collectLatest {
+            when (it) {
+                is CommonResponse.Success -> {
+                    listener.setNicknameOnSignUpViewModel(inputNickname)
+                    listener.moveToNextStep()
+                }
+                is CommonResponse.Fail -> {
+                    nicknameFormatError = it.message
+                }
+            }
+        }
     }
 
     private fun checkNicknameFormat(nickname: String) {

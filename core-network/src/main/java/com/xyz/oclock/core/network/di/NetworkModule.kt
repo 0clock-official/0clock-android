@@ -1,6 +1,8 @@
 package com.xyz.oclock.core.network.di
 
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.xyz.oclock.core.network.model.interceptor.HttpRequestInterceptor
 import com.xyz.oclock.core.network.service.SignUpClient
 import com.xyz.oclock.core.network.service.SignUpService
@@ -19,6 +21,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
     private const val BASE_URL = "https://api.0clock.xyz/"
+    private val moshi: Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
     @Provides
     @Singleton
@@ -35,7 +38,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .build()
     }

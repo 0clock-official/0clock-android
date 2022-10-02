@@ -20,4 +20,11 @@ interface SignUpRepository {
         onComplete: () -> Unit,
         onError: (String?) -> Unit
     ): Flow<CommonResponse>
+
+    fun checkNicknameDuplication(
+        nickname: String,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ): Flow<CommonResponse>
 }

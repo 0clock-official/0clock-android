@@ -54,4 +54,23 @@ class SignUpRepositoryImpl @Inject constructor(
         .onCompletion { onComplete() }
         .flowOn(Dispatchers.IO)
 
+    override fun checkNicknameDuplication(
+        nickname: String,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ) = flow {
+        val response = signUpClient.checkNicknameDuplication(nickname)
+        response.suspendOnSuccess {
+            emit(CommonResponse.Success)
+        }.suspendOnError {
+            val errorMessage = ErrorResponseMapper.map(this).response
+            emit(CommonResponse.Fail(errorMessage))
+        }.onException {
+            onError(this.message)
+        }
+    }.onStart { onStart() }
+        .onCompletion { onComplete() }
+        .flowOn(Dispatchers.IO)
+
 }

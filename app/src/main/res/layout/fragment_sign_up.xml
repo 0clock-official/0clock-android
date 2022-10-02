@@ -60,6 +60,7 @@
             android:layout_height="60dp"
             android:indeterminate="true"
             app:trackCornerRadius="10dp"
+            app:visibility="@{vm.loading}"
             app:indicatorSize="60dp"
             app:trackThickness="10dp"
             app:indicatorColor="@color/purple"
