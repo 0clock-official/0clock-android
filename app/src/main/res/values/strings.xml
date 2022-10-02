@@ -53,6 +53,7 @@
     <string name="sign_up_time_description">선호하는 채팅 시간은 2시간 단위에요.\n시간대가 겹치는 상대방과 매칭이 되기 때문에 실제 채팅 시간은 설정 시간과 다를 수 있어요.</string>
     <string name="please_select_preferred_time">선호하는 채팅 시간을 설정해주세요</string>
     <string name="please_select_partner_sex">매칭을 원하는 성별을 선택해주세요</string>
+    <string name="please_select_my_sex">자신의 성별을 선택해주세요</string>
     <string name="hint_select_partner_sex">성별선택</string>
     <string name="hint_select_time">시간선택</string>
     <string name="welcome">%s님 환영해요!</string>

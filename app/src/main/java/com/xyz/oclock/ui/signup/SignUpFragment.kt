@@ -11,6 +11,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
+import com.xyz.oclock.core.model.ChattingTime
+import com.xyz.oclock.core.model.Sex
 import com.xyz.oclock.databinding.FragmentSignUpBinding
 import com.xyz.oclock.ui.pending.PendingState
 import com.xyz.oclock.ui.signup.email.SignUpEmailFragment
@@ -107,12 +109,16 @@ class SignUpFragment :
         viewModel.setMajor(major)
     }
 
-    override fun setChattingTimeOnSignUpViewModel(chattingTime: Int) {
+    override fun setChattingTimeOnSignUpViewModel(chattingTime: ChattingTime) {
         viewModel.setChattingTime(chattingTime)
     }
 
-    override fun setPartnerSexOnSignUpViewModel(partnerSex: Int) {
+    override fun setPartnerSexOnSignUpViewModel(partnerSex: Sex) {
         viewModel.setPartnerSex(partnerSex)
+    }
+
+    override fun setMySexOnSignUpViewModel(mySex: Sex) {
+        viewModel.setMySex(mySex)
     }
 
     override fun submitSignUpForm() {

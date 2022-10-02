@@ -78,6 +78,40 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:fontFamily="@font/pretendard_semibold"
+                android:text="@string/please_select_my_sex"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_up_select_my_sex_layout"
+                style="@style/OClockDefaultSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusTopStart="18dp">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:hint="@string/hint_select_partner_sex"
+                    android:fontFamily="@font/pretendard_semibold"
+                    tools:text="여자"
+                    app:spinnerAdapter="@{vm.mySexArray}"
+                    app:dropDownBackground="@{@drawable/background_spinner}"
+                    app:onItemClicked="@{(a, b, position, c) -> vm.setMySex(position)}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/pretendard_semibold"
                 android:text="@string/please_select_partner_sex"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -120,7 +154,7 @@
             android:text="@string/next"
             android:textSize="16sp"
             app:cornerRadius="18dp"
-            android:enabled="@{(vm.selectedTime != null) &amp;&amp; (vm.selectedSex != null)}"
+            android:enabled="@{(vm.selectedTime != null) &amp;&amp; (vm.selectedPartnerSex != null)}"
             app:onThrottleClick="@{() -> vm.onClickNextButton()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

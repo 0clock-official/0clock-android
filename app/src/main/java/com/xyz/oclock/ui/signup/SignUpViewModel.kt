@@ -5,6 +5,8 @@ import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import com.skydoves.bindables.BindingViewModel
 import com.skydoves.bindables.bindingProperty
+import com.xyz.oclock.core.model.ChattingTime
+import com.xyz.oclock.core.model.Sex
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -15,8 +17,9 @@ class SignUpViewModel @Inject constructor() : BindingViewModel()  {
     private var password: String? = null
     private var nickname: String? = null
     private var major: Int? = null
-    private var chattingTime: Int? = null
-    private var partnerSex: Int? = null
+    private var chattingTime: ChattingTime? = null
+    private var partnerSex: Sex? = null
+    private var mySex: Sex? = null
     private var stdCard: Bitmap? = null
 
     @get: Bindable
@@ -45,12 +48,16 @@ class SignUpViewModel @Inject constructor() : BindingViewModel()  {
         this.major = major
     }
 
-    fun setChattingTime(chattingTime: Int) {
+    fun setChattingTime(chattingTime: ChattingTime) {
         this.chattingTime = chattingTime
     }
 
-    fun setPartnerSex(partnerSex: Int) {
+    fun setPartnerSex(partnerSex: Sex) {
         this.partnerSex = partnerSex
+    }
+
+    fun setMySex(mySex: Sex) {
+        this.mySex = mySex
     }
 
     fun submitSignUpForm() {
