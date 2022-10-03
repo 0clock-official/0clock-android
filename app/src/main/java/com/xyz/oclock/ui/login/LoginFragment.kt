@@ -62,7 +62,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>( R.layout.fragment_l
 
     private fun setOnClickListener() {
         binding.loginDoSignUp.onThrottleClick {
-            val action = LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
+            val action = LoginFragmentDirections.actionLoginFragmentToTermsSignUpFragment()
             findNavController().navigate(action)
         }
 

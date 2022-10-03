@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OClock"
         android:name="com.xyz.oclock.OClockApplication"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name="com.xyz.oclock.ui.splash.SplashActivity"

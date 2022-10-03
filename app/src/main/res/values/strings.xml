@@ -62,4 +62,9 @@
     <string name="on_boarding_description2">10시부터 3시 중\n나와 시간이 맞는 사람과\n하루 한 시간 대화할 수 있어요</string>
     <string name="on_boarding_description3">상대방과 계속 채팅을 하고 싶다면\n둘만의 시간 약속을 잡아봐요</string>
     <string name="please_enter_new_password">새 비밀번호를 입력해주세요</string>
+    <string name="sign_up_terms_description">오클락에 오신 것을 환영합니다.\n오클락 서비스 이용시 아래의 약관 동의 및 개인정보 처리 방침에 대한 동의와 회원가입이 필요해요</string>
+    <string name="terms_agreement">약관동의</string>
+    <string name="terms_all_agreement">약관 전체동의</string>
+    <string name="required_terms_agreement"><font fgcolor='#FF8782EA'>(필수)</font> 이용약관 동의</string>
+    <string name="required_personal_info_agreement"><font fgcolor='#FF8782EA'>(필수)</font> 개인정보 처리 방침 동의</string>
 </resources>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.skydoves.bindables.BindingFragment
@@ -59,8 +60,8 @@ class SignUpFragment :
     private fun setListener() {
         binding.signUpToolBar.setNavigationOnClickListener {
             if (viewPager.currentItem == 0) {
-                val action = SignUpFragmentDirections.actionSignUpFragmentToLoginFragment()
-                view?.findNavController()?.navigate(action)
+                val action = SignUpFragmentDirections.actionSignUpFragmentToTermsSignUpFragment()
+                findNavController().navigate(action)
             } else {
                 viewPager.currentItem--
             }
