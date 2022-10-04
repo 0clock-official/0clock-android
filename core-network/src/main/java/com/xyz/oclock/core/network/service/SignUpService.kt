@@ -4,9 +4,11 @@ import com.skydoves.sandwich.ApiResponse
 import com.xyz.oclock.core.network.model.request.EmailRequest
 import com.xyz.oclock.core.network.model.request.EmailVerificationRequest
 import com.xyz.oclock.core.network.model.request.NicknameRequest
+import com.xyz.oclock.core.network.model.request.StdCardUploadRequest
 import com.xyz.oclock.core.network.model.response.EmailVerificationResponse
 import com.xyz.oclock.core.network.model.response.OClockResponse
 import retrofit2.http.Body
+import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
 
@@ -20,5 +22,8 @@ interface SignUpService {
 
     @POST("members/정해야함")
     suspend fun checkNicknameDuplication(@Body body: NicknameRequest): ApiResponse<OClockResponse>
+
+    @POST("members/join/studentCard")
+    suspend fun uploadStdCard(@Body body: StdCardUploadRequest): ApiResponse<OClockResponse>
 
 }

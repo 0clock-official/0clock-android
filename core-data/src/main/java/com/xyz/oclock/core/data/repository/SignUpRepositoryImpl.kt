@@ -1,5 +1,6 @@
 package com.xyz.oclock.core.data.repository
 
+import android.graphics.Bitmap
 import com.skydoves.sandwich.*
 import com.xyz.oclock.core.model.CommonResponse
 import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
@@ -68,6 +69,26 @@ class SignUpRepositoryImpl @Inject constructor(
             emit(CommonResponse.Fail(errorMessage))
         }.onException {
             onError(this.message)
+        }
+    }.onStart { onStart() }
+        .onCompletion { onComplete() }
+        .flowOn(Dispatchers.IO)
+
+    override fun uploadStdCard(
+        email: String,
+        stdCard: Bitmap,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: () -> Unit
+    ) =  flow {
+        runCatching {
+            signUpClient.uploadStdCard(email, stdCard)
+        }.onSuccess {
+            it.suspendOnSuccess {
+                emit(CommonResponse.Success)
+            }.getOrThrow()
+        }.onFailure {
+            onError()
         }
     }.onStart { onStart() }
         .onCompletion { onComplete() }

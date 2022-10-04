@@ -1,5 +1,6 @@
 package com.xyz.oclock.ui.signup
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -122,13 +123,31 @@ class SignUpFragment :
         viewModel.setMySex(mySex)
     }
 
-    override fun submitSignUpForm() {
-        viewModel.submitSignUpForm()
+    override fun setStdCardOnSignUpViewModel(stdCard: Bitmap) {
+        viewModel.setStdCard(stdCard)
     }
 
     override fun moveToPendingFragment() {
         val action = SignUpFragmentDirections.actionSignUpFragmentToPendingFragment(PendingState.PENDING)
         view?.findNavController()?.navigate(action)
+    }
+
+    override fun submitSignUpForm(
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun uploadStdCard(
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
+        viewModel.uploadStdCard(onStart, onComplete, onSuccess, onError)
     }
 
     override fun showLoading() {

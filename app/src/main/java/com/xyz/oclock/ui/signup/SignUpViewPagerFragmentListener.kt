@@ -1,5 +1,6 @@
 package com.xyz.oclock.ui.signup
 
+import android.graphics.Bitmap
 import com.xyz.oclock.core.model.ChattingTime
 import com.xyz.oclock.core.model.Sex
 
@@ -12,10 +13,24 @@ interface SignUpViewPagerFragmentListener {
     fun setChattingTimeOnSignUpViewModel(chattingTime: ChattingTime)
     fun setPartnerSexOnSignUpViewModel(partnerSex: Sex)
     fun setMySexOnSignUpViewModel(mySex: Sex)
+    fun setStdCardOnSignUpViewModel(stdCard: Bitmap)
 
     fun showLoading()
     fun hideLoading()
+
     fun moveToNextStep()
-    fun submitSignUpForm()
     fun moveToPendingFragment()
+
+    fun submitSignUpForm(
+        onStart: ()->Unit,
+        onComplete: ()->Unit,
+        onSuccess: ()->Unit,
+        onError: ()->Unit
+    )
+    fun uploadStdCard(
+        onStart: ()->Unit,
+        onComplete: ()->Unit,
+        onSuccess: ()->Unit,
+        onError: ()->Unit
+    )
 }

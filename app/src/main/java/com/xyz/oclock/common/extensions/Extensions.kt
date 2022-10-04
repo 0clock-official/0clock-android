@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.util.Base64
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,10 @@ import androidx.core.app.ActivityCompat
 import com.xyz.oclock.common.utils.OnThrottleClickListener
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
+import java.io.InputStream
 
 
 val Number.toPx get() = TypedValue.applyDimension(
@@ -40,4 +45,27 @@ fun <T> Flow<T>.throttle(windowDuration: Long = 300L): Flow<T> = flow {
             emit(upstream)
         }
     }
+}
+
+fun File.toBase64(): String? {
+    var inputStream: InputStream? = null
+    val data: ByteArray
+    var result: String? = null
+    try {
+        inputStream = FileInputStream(path)
+        data = ByteArray(inputStream.available())
+        inputStream.read(data)
+        result = Base64.encodeToString(data, Base64.NO_WRAP)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    } finally {
+        if (null != inputStream) {
+            try {
+                inputStream.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+    return result
 }

@@ -2,16 +2,21 @@ package com.xyz.oclock.ui.signup
 
 import android.graphics.Bitmap
 import androidx.databinding.Bindable
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.skydoves.bindables.BindingViewModel
 import com.skydoves.bindables.bindingProperty
+import com.xyz.oclock.core.data.repository.SignUpRepository
 import com.xyz.oclock.core.model.ChattingTime
 import com.xyz.oclock.core.model.Sex
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor() : BindingViewModel()  {
+class SignUpViewModel @Inject constructor(
+    private val signUpRepository: SignUpRepository
+) : BindingViewModel()  {
 
     private var email: String? = null
     private var password: String? = null
@@ -60,7 +65,31 @@ class SignUpViewModel @Inject constructor() : BindingViewModel()  {
         this.mySex = mySex
     }
 
-    fun submitSignUpForm() {
-        println("회워가입 $email/ $password/ $nickname/ $major/ $chattingTime/ $partnerSex/ $stdCard")
+    fun submitSignUpForm(
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
+
+    }
+
+    fun uploadStdCard(
+        onStart: ()->Unit,
+        onComplete: ()->Unit,
+        onSuccess: ()->Unit,
+        onError: ()->Unit
+    ) = viewModelScope.launch {
+        if (email != null && stdCard != null) {
+            signUpRepository.uploadStdCard(
+                email = email!!,
+                stdCard = stdCard!!,
+                onStart = onStart,
+                onComplete = onComplete,
+                onError = onError
+            ).collectLatest {
+                onSuccess()
+            }
+        }
     }
 }

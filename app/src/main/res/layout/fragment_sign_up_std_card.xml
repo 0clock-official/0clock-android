@@ -108,6 +108,7 @@
         android:insetBottom="0dp"
         android:text="@string/complete"
         android:textSize="16sp"
+        android:enabled="@{vm.stdCardImage != null}"
         onThrottleClick="@{()-> vm.onClickNextButton()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
