@@ -95,4 +95,10 @@ object BindingAdapter {
         animation.duration = 300
         animation.start()
     }
+
+    @JvmStatic
+    @BindingAdapter("clockTimer")
+    fun TextView.clockTimer(second: Int) {
+        this.text = second.toTimeClock()
+    }
 }

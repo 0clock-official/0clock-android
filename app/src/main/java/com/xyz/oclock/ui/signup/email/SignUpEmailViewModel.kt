@@ -1,5 +1,6 @@
 package com.xyz.oclock.ui.signup.email
 
+import android.os.CountDownTimer
 import android.util.Patterns
 import androidx.databinding.Bindable
 import androidx.lifecycle.*
@@ -45,6 +46,11 @@ class SignUpEmailViewModel @AssistedInject constructor(
     @get: Bindable
     var isEmailBlocked by bindingProperty(false)
 
+    @get: Bindable
+    var remainingTimeSec by bindingProperty(300)
+
+    var countDownTimer: CountDownTimer? = null
+
     fun sendVerifyCodeToEmail() = viewModelScope.launch {
         repository.sendVerifyCodeToEmail(
             email = inputEmail,
@@ -54,12 +60,31 @@ class SignUpEmailViewModel @AssistedInject constructor(
         ).collectLatest {
             when (it) {
                 is CommonResponse.Success -> {
-                    isEmailBlocked = true
                     showToast(it.message)
+                    isEmailBlocked = true
+                    inputVerifyCode = ""
+                    verifyError = false
+                    newCountDownTimer()
                 }
                 is CommonResponse.Fail ->  emailErrorHint = it.message
             }
         }
+    }
+
+    private fun newCountDownTimer() {
+        if (countDownTimer != null) {
+            countDownTimer!!.cancel()
+            remainingTimeSec = 300
+        }
+        countDownTimer = object : CountDownTimer(300000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                remainingTimeSec -= 1
+            }
+
+            override fun onFinish() {
+                showToast(resourceProvider.getString(R.string.required_re_verify))
+            }
+        }.start()
     }
 
     private fun checkEmailFormat(email: String) {

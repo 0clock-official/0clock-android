@@ -109,27 +109,44 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_viewpager_verify_code_layout"
-            style="@style/OutlinedLoginInputTextLayout"
-            app:boxStrokeColor= "@{vm.verifyError? @color/error : @color/purple}"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:boxCornerRadiusBottomEnd="18dp"
-            app:boxCornerRadiusBottomStart="18dp"
-            app:boxCornerRadiusTopEnd="18dp"
-            app:boxCornerRadiusTopStart="18dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/sign_up_viewpager_verify_edit_text"
+            android:layout_marginTop="15dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_up_viewpager_verify_code_layout"
+                style="@style/OutlinedLoginInputTextLayout"
+                app:boxStrokeColor= "@{vm.verifyError? @color/error : @color/purple}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/verify_char"
-                android:text="@={vm.inputVerifyCode}"
-                android:fontFamily="@font/pretendard_semibold"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusTopStart="18dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_up_viewpager_verify_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/verify_char"
+                    android:text="@={vm.inputVerifyCode}"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/sign_up_verify_code_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                app:clockTimer="@{vm.remainingTimeSec}"
+                tools:text="0:00"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_gravity="end"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="14sp"/>
+        </FrameLayout>
 
         <TextView
             android:id="@+id/sign_up_viewpager_verify_error_hint"

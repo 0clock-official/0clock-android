@@ -69,3 +69,25 @@ fun File.toBase64(): String? {
     }
     return result
 }
+
+fun Int.toTimeClock(): String {
+    return if (this <= 59) {
+        if(this < 10) {
+            "0:0$this"
+        } else {
+            "0:$this"
+        }
+    } else {
+        val min: Int = this/60
+        val sec: Int = this - (min * 60)
+        if(sec > 0) {
+            if(sec < 10) {
+                "$min:0$sec"
+            } else {
+                "$min:$sec"
+            }
+        } else {
+            "$min:00"
+        }
+    }
+}
