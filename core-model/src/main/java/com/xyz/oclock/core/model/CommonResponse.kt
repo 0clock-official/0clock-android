@@ -1,6 +1,6 @@
 package com.xyz.oclock.core.model
 
 sealed class CommonResponse {
-    object Success : CommonResponse()
+    class Success(val message: String? = null) : CommonResponse()
     class Fail(val message: String) : CommonResponse()
 }

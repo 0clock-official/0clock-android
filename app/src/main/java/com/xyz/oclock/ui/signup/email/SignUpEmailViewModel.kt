@@ -50,10 +50,13 @@ class SignUpEmailViewModel @AssistedInject constructor(
             email = inputEmail,
             onStart = { listener.showLoading() },
             onComplete = { listener.hideLoading() },
-            onError = {  toastMessage = it }
+            onError = {  showToast(it) }
         ).collectLatest {
             when (it) {
-                is CommonResponse.Success -> isEmailBlocked = true
+                is CommonResponse.Success -> {
+                    isEmailBlocked = true
+                    showToast(it.message)
+                }
                 is CommonResponse.Fail ->  emailErrorHint = it.message
             }
         }

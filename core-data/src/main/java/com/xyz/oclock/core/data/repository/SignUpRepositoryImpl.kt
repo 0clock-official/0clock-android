@@ -25,7 +25,7 @@ class SignUpRepositoryImpl @Inject constructor(
     ) = flow {
         val response = signUpClient.checkVerifyCode(email, code)
         response.suspendOnSuccess {
-            emit(CommonResponse.Success)
+            emit(CommonResponse.Success())
         }.suspendOnError {
             val errorMessage = ErrorResponseMapper.map(this).response
             emit(CommonResponse.Fail(errorMessage))
@@ -44,7 +44,7 @@ class SignUpRepositoryImpl @Inject constructor(
     ) = flow {
         val response = signUpClient.sendVerifyCodeToEmail(email)
         response.suspendOnSuccess {
-            emit(CommonResponse.Success)
+            emit(CommonResponse.Success(this.data.response))
         }.suspendOnError {
             val errorMessage = ErrorResponseMapper.map(this).response
             emit(CommonResponse.Fail(errorMessage))
@@ -63,7 +63,7 @@ class SignUpRepositoryImpl @Inject constructor(
     ) = flow {
         val response = signUpClient.checkNicknameDuplication(nickname)
         response.suspendOnSuccess {
-            emit(CommonResponse.Success)
+            emit(CommonResponse.Success())
         }.suspendOnError {
             val errorMessage = ErrorResponseMapper.map(this).response
             emit(CommonResponse.Fail(errorMessage))
@@ -85,7 +85,7 @@ class SignUpRepositoryImpl @Inject constructor(
             signUpClient.uploadStdCard(email, stdCard)
         }.onSuccess {
             it.suspendOnSuccess {
-                emit(CommonResponse.Success)
+                emit(CommonResponse.Success())
             }.getOrThrow()
         }.onFailure {
             onError()
