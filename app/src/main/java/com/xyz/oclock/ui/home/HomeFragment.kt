@@ -45,7 +45,7 @@ class HomeFragment: BindingFragment<FragmentHomeBinding>(R.layout.fragment_home)
              },
             onPending = {
                 moveToPending(PendingState.PENDING)
-            }
+            },
         )
     }
 

@@ -13,6 +13,6 @@ object ErrorResponseMapper : ApiErrorModelMapper<OClockErrorResponse> {
             .adapter(OClockErrorResponse::class.java)
             .fromJson(apiErrorResponse.message())
 
-        return moshi?: OClockErrorResponse("ErrorResponseMapper return null", "ErrorResponseMapper return null")
+        return moshi?: OClockErrorResponse("",  0, "")
     }
 }

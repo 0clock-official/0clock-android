@@ -24,13 +24,13 @@ interface SignUpViewPagerFragmentListener {
     fun submitSignUpForm(
         onStart: ()->Unit,
         onComplete: ()->Unit,
-        onSuccess: ()->Unit,
-        onError: ()->Unit
+        onSuccess: (String, String) -> Unit,
+        onError: (String?)->Unit
     )
     fun uploadStdCard(
         onStart: ()->Unit,
         onComplete: ()->Unit,
         onSuccess: ()->Unit,
-        onError: ()->Unit
+        onError: (String?)->Unit
     )
 }

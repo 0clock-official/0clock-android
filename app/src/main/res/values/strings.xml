@@ -68,4 +68,5 @@
     <string name="required_terms_agreement"><font fgcolor='#FF8782EA'>(필수)</font> 이용약관 동의</string>
     <string name="required_personal_info_agreement"><font fgcolor='#FF8782EA'>(필수)</font> 개인정보 처리 방침 동의</string>
     <string name="required_re_verify">인증시간이 만료되었습니다. 다시 인증해주세요.</string>
+    <string name="forced_logout">로그인이 만료되었습니다. 로그인 화면으로 이동합니다.</string>
 </resources>

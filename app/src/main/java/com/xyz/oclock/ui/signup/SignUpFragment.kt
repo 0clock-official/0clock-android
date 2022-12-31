@@ -135,17 +135,17 @@ class SignUpFragment :
     override fun submitSignUpForm(
         onStart: () -> Unit,
         onComplete: () -> Unit,
-        onSuccess: () -> Unit,
-        onError: () -> Unit
+        onSuccess: (String, String) -> Unit,
+        onError: (String?) -> Unit
     ) {
-        TODO("Not yet implemented")
+        viewModel.submitSignUpForm(onStart, onComplete, onSuccess, onError)
     }
 
     override fun uploadStdCard(
         onStart: () -> Unit,
         onComplete: () -> Unit,
         onSuccess: () -> Unit,
-        onError: () -> Unit
+        onError: (String?) -> Unit
     ) {
         viewModel.uploadStdCard(onStart, onComplete, onSuccess, onError)
     }

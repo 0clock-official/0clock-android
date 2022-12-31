@@ -1,7 +1,9 @@
 package com.xyz.oclock.ui.signup.stdcard
 
 import android.Manifest
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ import com.xyz.oclock.common.extensions.toast
 import com.xyz.oclock.databinding.FragmentSignUpStdCardBinding
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 

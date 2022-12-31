@@ -35,23 +35,9 @@ class SignUpNicknameViewModel @AssistedInject constructor(
     @get: Bindable
     var nicknameFormatError by bindingProperty("")
 
-    fun onClickNextButton() = viewModelScope.launch {
-        signUpRepository.checkNicknameDuplication(
-            nickname = inputNickname,
-            onStart = { listener.showLoading() },
-            onComplete = { listener.hideLoading() },
-            onError = { showToast(it) }
-        ).collectLatest {
-            when (it) {
-                is CommonResponse.Success -> {
-                    listener.setNicknameOnSignUpViewModel(inputNickname)
-                    listener.moveToNextStep()
-                }
-                is CommonResponse.Fail -> {
-                    nicknameFormatError = it.message
-                }
-            }
-        }
+    fun onClickNextButton() {
+        listener.setNicknameOnSignUpViewModel(inputNickname)
+        listener.moveToNextStep()
     }
 
     private fun checkNicknameFormat(nickname: String) {

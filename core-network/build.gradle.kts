@@ -18,6 +18,7 @@ android {
 
 dependencies {
     implementation(project(":core-model"))
+    implementation(project(":core-database"))
 
     // coroutines
     implementation(libs.coroutines)

@@ -36,7 +36,7 @@ class SignUpMajorViewModel @AssistedInject constructor(
     }
 
     fun onClickNextButton() {
-        listener.setMajorOnSignUpViewModel(100)
+        listener.setMajorOnSignUpViewModel(1)
         listener.moveToNextStep()
     }
 

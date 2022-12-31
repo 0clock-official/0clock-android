@@ -2,19 +2,28 @@ package com.xyz.oclock.ui.signup.stdcard
 
 import com.xyz.oclock.common.utils.ResourceProvider
 import android.graphics.Bitmap
+import android.util.Base64
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.xyz.oclock.R
+import com.xyz.oclock.common.utils.LogoutHelper
+import com.xyz.oclock.core.data.repository.TokenRepository
 import com.xyz.oclock.ui.BaseViewModel
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.io.ByteArrayOutputStream
 
 
 class SignUpStdCardViewModel @AssistedInject constructor(
     @Assisted private val listener: SignUpViewPagerFragmentListener,
-    private val resourceProvider: ResourceProvider
+    private val tokenRepository: TokenRepository,
+    private val resourceProvider: ResourceProvider,
 ): BaseViewModel() {
 
     @get:Bindable
@@ -26,22 +35,44 @@ class SignUpStdCardViewModel @AssistedInject constructor(
         }
 
     fun onClickNextButton() {
-        listener.uploadStdCard(
-            onStart = { listener.showLoading() },
-            onComplete = { listener.hideLoading() },
-            onError = { showToast(resourceProvider.getString(R.string.unknown_error)) },
-            onSuccess = {
-                submitSignUpForm()
-            }
-        )
-
+//        submitSignUpForm()
+        uploadStdCard()
     }
 
     private fun submitSignUpForm() {
         listener.submitSignUpForm(
             onStart = { listener.showLoading() },
             onComplete = { listener.hideLoading() },
-            onError = { showToast(resourceProvider.getString(R.string.unknown_error)) },
+            onError = { message->
+                viewModelScope.launch {
+                    if (message == null) {
+                        showToast(resourceProvider.getString(R.string.unknown_error))
+                    } else {
+                        showToast(message)
+                    }
+                }
+            },
+            onSuccess = { accessToken, refreshToken ->
+                tokenRepository.setAccessToken("Bearer $accessToken")
+                tokenRepository.setRefreshToken(refreshToken)
+                uploadStdCard()
+            }
+        )
+    }
+
+    private fun uploadStdCard() {
+        listener.uploadStdCard(
+            onStart = { listener.showLoading() },
+            onComplete = { listener.hideLoading() },
+            onError = { message ->
+                viewModelScope.launch {
+                    if (message == null) {
+                        showToast(resourceProvider.getString(R.string.unknown_error))
+                    } else {
+                        showToast(message)
+                    }
+                }
+            },
             onSuccess = {
                 listener.moveToPendingFragment()
             }

@@ -47,88 +47,92 @@ class SignUpEmailViewModel @AssistedInject constructor(
     var isEmailBlocked by bindingProperty(false)
 
     @get: Bindable
-    var remainingTimeSec by bindingProperty(300)
+    var remainingTimeSec by bindingProperty(0)
 
     var countDownTimer: CountDownTimer? = null
 
     fun sendVerifyCodeToEmail() = viewModelScope.launch {
         repository.sendVerifyCodeToEmail(
-            email = inputEmail,
-            onStart = { listener.showLoading() },
-            onComplete = { listener.hideLoading() },
-            onError = {  showToast(it) }
-        ).collectLatest {
-            when (it) {
-                is CommonResponse.Success -> {
-                    showToast(it.message)
-                    isEmailBlocked = true
-                    inputVerifyCode = ""
-                    verifyError = false
-                    newCountDownTimer()
-                }
-                is CommonResponse.Fail ->  emailErrorHint = it.message
-            }
-        }
-    }
-
-    private fun newCountDownTimer() {
-        if (countDownTimer != null) {
-            countDownTimer!!.cancel()
-            remainingTimeSec = 300
-        }
-        countDownTimer = object : CountDownTimer(300000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                remainingTimeSec -= 1
-            }
-
-            override fun onFinish() {
-                showToast(resourceProvider.getString(R.string.required_re_verify))
-            }
-        }.start()
-    }
-
-    private fun checkEmailFormat(email: String) {
-        val pattern = Patterns.EMAIL_ADDRESS
-        emailErrorHint = if (pattern.matcher(email).matches()) {
-            ""
-        } else {
-            resourceProvider.getString(R.string.error_email_format)
-        }
-    }
-
-    fun onClickNextButton() = viewModelScope.launch {
-        repository.checkVerifyCode(
-            email = inputEmail,
-            code = inputVerifyCode,
-            onStart = { listener.showLoading() },
-            onComplete = { listener.hideLoading() },
-            onError = { showToast(it) }
-        ).collectLatest {
-            when (it) {
-                is CommonResponse.Success -> {
-                    verifyError = false
-                    listener.setEmailOnSignUpViewModel(inputEmail)
-                    listener.moveToNextStep()
-                }
-                is CommonResponse.Fail -> {
-                    verifyError = true
+                    email = inputEmail,
+                    onStart = { listener.showLoading() },
+                    onComplete = { listener.hideLoading() },
+                    onError = {  showToast(it) }
+                ).collectLatest {
+                    when (it) {
+                        is CommonResponse.Success<*> -> {
+                            showToast(it.message)
+                            isEmailBlocked = true
+                            clearVerifyCode()
+                            newCountDownTimer()
+                        }
+                        is CommonResponse.Fail ->  emailErrorHint = it.message
+                    }
                 }
             }
-        }
-    }
 
-    @dagger.assisted.AssistedFactory
-    interface AssistedFactory {
-        fun create(listener: SignUpViewPagerFragmentListener): SignUpEmailViewModel
-    }
+            private fun clearVerifyCode() {
+                inputVerifyCode = ""
+                verifyError = false
+            }
 
-    companion object {
-        fun provideFactory(
-            assistedFactory: AssistedFactory,
-            listener: SignUpViewPagerFragmentListener
-        ) = object : ViewModelProvider.Factory {
+            private fun newCountDownTimer() {
+                if (countDownTimer != null) {
+                    countDownTimer!!.cancel()
+                }
+                countDownTimer = object : CountDownTimer(VERIFY_CODE_TIME_LIMIT, 1000L) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        remainingTimeSec = (millisUntilFinished/1000).toInt()
+                    }
 
-            @Suppress("UNCHECKED_CAST")
+                    override fun onFinish() {
+                        showToast(resourceProvider.getString(R.string.required_re_verify))
+                    }
+                }.start()
+            }
+
+            private fun checkEmailFormat(email: String) {
+                val pattern = Patterns.EMAIL_ADDRESS
+                emailErrorHint = if (pattern.matcher(email).matches()) {
+                    ""
+                } else {
+                    resourceProvider.getString(R.string.error_email_format)
+                }
+            }
+
+            fun onClickNextButton() = viewModelScope.launch {
+                repository.checkVerifyCode(
+                    email = inputEmail,
+                    code = inputVerifyCode,
+                    onStart = { listener.showLoading() },
+                    onComplete = { listener.hideLoading() },
+                    onError = { showToast(it) }
+                ).collectLatest {
+                    when (it) {
+                        is CommonResponse.Success<*> -> {
+                            verifyError = false
+                            listener.setEmailOnSignUpViewModel(inputEmail)
+                            listener.moveToNextStep()
+                        }
+                        is CommonResponse.Fail -> {
+                            verifyError = true
+                        }
+                    }
+                }
+            }
+
+            @dagger.assisted.AssistedFactory
+            interface AssistedFactory {
+                fun create(listener: SignUpViewPagerFragmentListener): SignUpEmailViewModel
+            }
+
+            companion object {
+                const val VERIFY_CODE_TIME_LIMIT = 300000L
+                fun provideFactory(
+                    assistedFactory: AssistedFactory,
+                    listener: SignUpViewPagerFragmentListener
+                ) = object : ViewModelProvider.Factory {
+
+                    @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return assistedFactory.create(listener) as T
             }

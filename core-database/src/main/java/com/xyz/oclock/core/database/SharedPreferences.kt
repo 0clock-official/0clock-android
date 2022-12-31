@@ -36,6 +36,10 @@ class SharedPreferences @Inject constructor(@ApplicationContext context : Contex
 
     private var editor = sharedPreferences.edit()
 
+    fun clear() {
+        editor.clear()
+    }
+
     fun setFcmToken(token: String) {
         editor.putString(FCM_TOKEN, token)
         editor.commit()

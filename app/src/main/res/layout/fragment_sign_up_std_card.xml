@@ -14,9 +14,10 @@
     android:paddingEnd="16dp"
     android:paddingBottom="51dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:toast="@{vm.toastMessage}">
 
-    <com.google.android.material.textview.MaterialTextView
+<com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
