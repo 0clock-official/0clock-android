@@ -11,27 +11,6 @@ class AuthInterceptor(val sf: SharedPreferences) : Interceptor {
         auth?.let {
             builder.addHeader("Authorization", auth)
         }
-
         return chain.proceed(builder.build())
-    }
-}
-
-class ResponseInterceptor(val sf: SharedPreferences) : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-        val response = chain.proceed(request)
-
-        when (response.code) {
-            400 -> {
-                // todo Control Error
-            }
-            401 -> {
-                // todo Control Error
-            }
-            402 -> {
-                // todo Control Error
-            }
-        }
-        return response
     }
 }

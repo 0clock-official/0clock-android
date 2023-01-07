@@ -31,4 +31,9 @@
         <item name="boxBackgroundColor">@color/activated_transparent_unactivated_gray</item>
         <item name="rippleColor">@color/white_ripple</item>
     </style>
+
+    <style name="FontBold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+    </style>
+
 </resources>

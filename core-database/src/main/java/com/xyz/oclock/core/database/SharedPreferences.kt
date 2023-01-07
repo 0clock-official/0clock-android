@@ -17,6 +17,7 @@ class SharedPreferences @Inject constructor(@ApplicationContext context : Contex
         private const val FCM_TOKEN = "fcm_token"
         private const val ACCESS_TOKEN = "access_token"
         private const val REFRESH_TOKEN = "refresh_token"
+        private const val USER_EMAIL = "user_email"
     }
 
     private val sharedPreferences by lazy {
@@ -83,6 +84,15 @@ class SharedPreferences @Inject constructor(@ApplicationContext context : Contex
 
     fun getFirstLogin(): Boolean {
         return sharedPreferences.getBoolean(FIRST_LOGIN, true)
+    }
+
+    fun getUserEmail(): String? {
+        return sharedPreferences.getString(USER_EMAIL, null)
+    }
+
+    fun setUserEmail(email: String) {
+        editor.putString(USER_EMAIL, email)
+        editor.commit()
     }
 
 }

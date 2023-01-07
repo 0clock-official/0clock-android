@@ -1,15 +1,17 @@
 package com.xyz.oclock.ui.home
 
+import androidx.databinding.Bindable
 import androidx.lifecycle.viewModelScope
 import com.skydoves.bindables.BindingViewModel
+import com.skydoves.bindables.bindingProperty
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.LogoutHelper
 import com.xyz.oclock.common.utils.ResourceProvider
-import com.xyz.oclock.core.data.repository.DeviceStateRepository
-import com.xyz.oclock.core.data.repository.SignUpRepository
-import com.xyz.oclock.core.data.repository.TokenRepository
+import com.xyz.oclock.core.data.repository.*
 import com.xyz.oclock.core.model.CommonResponse
+import com.xyz.oclock.core.model.MatchingUser
 import com.xyz.oclock.ui.BaseViewModel
+import com.xyz.oclock.ui.dialog.DefaultDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -19,55 +21,120 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
     private val tokenRepository: TokenRepository,
+    private val chatRepository: ChatRepository,
+    private val commonRepository: CommonRepository,
     private val logoutHelper: LogoutHelper,
     private val resourceProvider: ResourceProvider,
     private val deviceStateRepository: DeviceStateRepository
 ): BaseViewModel() {
 
-    fun checkPendingState(
-        onPending: suspend ()->Unit,
-        onRejected: suspend ()->Unit,
-        onApproved: suspend ()->Unit
+    fun getNewToken() = viewModelScope.launch {
+        val token = tokenRepository.getRefreshToken()
+        if (token == null) {
+            logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
+            return@launch
+        }
+        commonRepository.getNewToken(
+            refreshToken = token,
+            onError = {}
+        ).collectLatest {
+            when (it) {
+                is CommonResponse.Success<*> -> {
+                    val pair = it.data as Pair<*, *>
+                    val accessToken = pair.first as String
+                    val refreshToken = pair.second as String
+                    tokenRepository.setAccessToken(accessToken)
+                    tokenRepository.setRefreshToken(refreshToken)
+                }
+                is CommonResponse.Fail ->  {
+                    showToast(it.message)
+                }
+            }
+        }
+    }
+
+    fun startMatching(
+        onSuccess: () -> Unit,
+        onFail: (String) -> Unit,
+        onAlreadyMatched: () -> Unit
     ) = viewModelScope.launch {
         val token = tokenRepository.getAccessToken()
         if (token == null) {
             logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
             return@launch
         }
-        signUpRepository.checkStudentCardVerified(
-            accessToken = token,
-            onStart = { },
-            onComplete = { },
+        chatRepository.startMatching(
+            token = token,
+            onStart = { showLoading() },
+            onComplete = { hideLoading() },
             onError = {
-                showToast(it)
-            }
+                onFail(it?: resourceProvider.getString(R.string.unknown_error))
+            },
         ).collectLatest {
             when (it) {
                 is CommonResponse.Success<*> -> {
-                    val result = it.data as Boolean
-                    if (result) {
-                        onApproved()
-                    } else {
-                        onRejected()
-                    }
+                    val roomId = it.data as Int
+                    onSuccess()
                 }
                 is CommonResponse.Fail ->  {
-                    if (it.code == 401) {
-                        logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
-                    } else {
-                        showToast(it.message)
+                    when (it.code) {
+                        401 -> {
+                            logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
+                        }
+                        404 -> {
+                            onFail(it.message)
+                        }
+                        409 -> {
+                            onAlreadyMatched()
+                        }
+                        else -> {
+                            onFail(it.message)
+                        }
                     }
                 }
             }
         }
     }
 
-
-    fun isFirstLogin(): Boolean {
-        return deviceStateRepository.isFirstLogin()
-    }
-
-    fun noLongerFirstLogin() {
-        deviceStateRepository.noLongerFirstLogin()
+    fun getMatchingUserInfo(
+        onSuccess: (MatchingUser) -> Unit,
+        onFail: () -> Unit
+    ) = viewModelScope.launch {
+        val token = tokenRepository.getAccessToken()
+        if (token == null) {
+            logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
+            return@launch
+        }
+        chatRepository.getMatchingUserInfo(
+            token = token,
+            onStart = { showLoading() },
+            onComplete = { hideLoading() },
+            onError = {
+                showToast(it?: resourceProvider.getString(R.string.unknown_error))
+            },
+        ).collectLatest {
+            when (it) {
+                is CommonResponse.Success<*> -> {
+                    val matchingUser = it.data as MatchingUser
+                    onSuccess(matchingUser)
+                }
+                is CommonResponse.Fail ->  {
+                    when (it.code) {
+                        401 -> {
+                            logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
+                        }
+                        404 -> {
+                            showToast(it.message)
+                        }
+                        409 -> {
+                            showToast(it.message)
+                        }
+                        else -> {
+                            showToast(it.message)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

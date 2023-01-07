@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_edit_profile"
+        android:title="@string/edit_profile"
+        android:contentDescription="@string/edit_profile"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_setting"
+        android:title="@string/setting"
+        android:contentDescription="@string/setting"
+        app:showAsAction="ifRoom" />
+
+</menu>

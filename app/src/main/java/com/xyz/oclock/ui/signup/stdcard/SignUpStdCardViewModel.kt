@@ -15,10 +15,10 @@ import com.xyz.oclock.ui.BaseViewModel
 import com.xyz.oclock.ui.signup.SignUpViewPagerFragmentListener
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
-
 
 class SignUpStdCardViewModel @AssistedInject constructor(
     @Assisted private val listener: SignUpViewPagerFragmentListener,
@@ -35,8 +35,7 @@ class SignUpStdCardViewModel @AssistedInject constructor(
         }
 
     fun onClickNextButton() {
-//        submitSignUpForm()
-        uploadStdCard()
+        submitSignUpForm()
     }
 
     private fun submitSignUpForm() {
@@ -54,7 +53,7 @@ class SignUpStdCardViewModel @AssistedInject constructor(
             },
             onSuccess = { accessToken, refreshToken ->
                 tokenRepository.setAccessToken("Bearer $accessToken")
-                tokenRepository.setRefreshToken(refreshToken)
+                tokenRepository.setRefreshToken("refreshToken:$refreshToken")
                 uploadStdCard()
             }
         )

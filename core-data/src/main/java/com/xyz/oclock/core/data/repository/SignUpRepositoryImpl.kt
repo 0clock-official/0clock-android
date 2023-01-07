@@ -5,7 +5,6 @@ import com.skydoves.sandwich.*
 import com.xyz.oclock.core.model.CommonResponse
 import com.xyz.oclock.core.model.SignUpForm
 import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
-import com.xyz.oclock.core.network.model.response.SignUpResponse
 import com.xyz.oclock.core.network.service.SignUpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -26,9 +25,8 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success<Nothing>())
         }.suspendOnError {
-            val errorMessage = ErrorResponseMapper.map(this).response
-            val errorCode = ErrorResponseMapper.map(this).code
-            emit(CommonResponse.Fail(errorMessage, errorCode))
+            val errorResponse = ErrorResponseMapper.map(this)
+            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
         }.onException {
             onError(this.message)
         }
@@ -46,9 +44,8 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success<Nothing>(this.data.response))
         }.suspendOnError {
-            val errorMessage = ErrorResponseMapper.map(this).response
-            val errorCode = ErrorResponseMapper.map(this).code
-            emit(CommonResponse.Fail(errorMessage, errorCode))
+            val errorResponse = ErrorResponseMapper.map(this)
+            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
         }.onException {
             onError(this.message)
         }
@@ -66,9 +63,8 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success<Nothing>())
         }.suspendOnError {
-            val errorMessage = ErrorResponseMapper.map(this).response
-            val errorCode = ErrorResponseMapper.map(this).code
-            emit(CommonResponse.Fail(errorMessage, errorCode))
+            val errorResponse = ErrorResponseMapper.map(this)
+            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
         }.onException {
             onError(this.message)
         }
@@ -88,9 +84,8 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success<Nothing>())
         }.suspendOnError {
-            val errorMessage = ErrorResponseMapper.map(this).response
-            val errorCode = ErrorResponseMapper.map(this).code
-            emit(CommonResponse.Fail(errorMessage, errorCode))
+            val errorResponse = ErrorResponseMapper.map(this)
+            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
         }.onException {
             onError(null)
         }
@@ -113,9 +108,8 @@ class SignUpRepositoryImpl @Inject constructor(
                 emit(CommonResponse.Success(data = pair))
             }
         }.suspendOnError {
-            val errorMessage = ErrorResponseMapper.map(this).response
-            val errorCode = ErrorResponseMapper.map(this).code
-            emit(CommonResponse.Fail(errorMessage, errorCode))
+            val errorResponse = ErrorResponseMapper.map(this)
+            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
         }.onException {
             onError(null)
         }
@@ -133,9 +127,8 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success<Boolean>(this.data.response, this.data.data?: false))
         }.suspendOnError {
-            val errorMessage = ErrorResponseMapper.map(this).response
-            val errorCode = ErrorResponseMapper.map(this).code
-            emit(CommonResponse.Fail(errorMessage, errorCode))
+            val errorResponse = ErrorResponseMapper.map(this)
+            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
         }.onException {
             onError(null)
         }

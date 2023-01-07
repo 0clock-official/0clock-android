@@ -47,15 +47,14 @@ class SplashActivity: BindingActivity<ActivitySplashBinding>(R.layout.activity_s
     }
 
     private suspend fun checkUserState() {
-//        viewModel.checkLoginState(
-//            onLogin = {
-//                moveToMain()
-//            },
-//            onLogout = {
-//                moveToLogin()
-//            }
-//        )
-        moveToLogin()
+        viewModel.checkLoginState(
+            onLogin = {
+                moveToMain()
+            },
+            onLogout = {
+                moveToLogin()
+            }
+        )
     }
     
     private suspend fun moveToLogin() {

@@ -5,8 +5,7 @@ import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.xyz.oclock.core.network.model.interceptor.HttpRequestInterceptor
-import com.xyz.oclock.core.network.service.SignUpClient
-import com.xyz.oclock.core.network.service.SignUpService
+import com.xyz.oclock.core.network.service.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -56,5 +55,30 @@ object NetworkModule {
     @Singleton
     fun provideSignUpClient(signUpService: SignUpService): SignUpClient {
         return SignUpClient(signUpService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideChatService(retrofit: Retrofit): ChatService {
+        return retrofit.create(ChatService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideChatClient(chatService: ChatService): ChatClient {
+        return ChatClient(chatService)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideCommonService(retrofit: Retrofit): CommonService {
+        return retrofit.create(CommonService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCommonClient(commonService: CommonService): CommonClient {
+        return CommonClient(commonService)
     }
 }

@@ -16,7 +16,6 @@ import com.xyz.oclock.R
 import com.xyz.oclock.core.model.ChattingTime
 import com.xyz.oclock.core.model.Sex
 import com.xyz.oclock.databinding.FragmentSignUpBinding
-import com.xyz.oclock.ui.pending.PendingState
 import com.xyz.oclock.ui.signup.email.SignUpEmailFragment
 import com.xyz.oclock.ui.signup.major.SignUpMajorFragment
 import com.xyz.oclock.ui.signup.nickname.SignUpNicknameFragment
@@ -128,7 +127,7 @@ class SignUpFragment :
     }
 
     override fun moveToPendingFragment() {
-        val action = SignUpFragmentDirections.actionSignUpFragmentToPendingFragment(PendingState.PENDING)
+        val action = SignUpFragmentDirections.actionSignUpFragmentToPendingFragment()
         view?.findNavController()?.navigate(action)
     }
 

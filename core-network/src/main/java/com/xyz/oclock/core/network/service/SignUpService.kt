@@ -3,8 +3,9 @@ package com.xyz.oclock.core.network.service
 import com.skydoves.sandwich.ApiResponse
 import com.xyz.oclock.core.network.model.request.*
 import com.xyz.oclock.core.network.model.response.OClockResponse
-import com.xyz.oclock.core.network.model.response.SignUpResponse
+import com.xyz.oclock.core.network.model.response.TokenResponse
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
@@ -26,9 +27,9 @@ interface SignUpService {
     ): ApiResponse<OClockResponse<Any>>
 
     @POST("members/join")
-    suspend fun signUp(@Body body: SignUpRequest): ApiResponse<OClockResponse<SignUpResponse>>
+    suspend fun signUp(@Body body: SignUpRequest): ApiResponse<OClockResponse<TokenResponse>>
 
-    @POST("members/join/studentCard/cert")
+    @GET("members/join/studentCard/cert")
     suspend fun checkStudentCardVerified(@Header("Authorization") token: String): ApiResponse<OClockResponse<Boolean>>
 
 }

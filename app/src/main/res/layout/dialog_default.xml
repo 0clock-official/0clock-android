@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_dimmed">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/rootLayout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/background_border_rounded">
+
+            <TextView
+                android:id="@+id/default_dialog_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="33dp"
+                android:paddingVertical="32dp"
+                android:gravity="center"
+                tools:text="일시적인 오류가 발생했습니다.\n잠시 후 다시 시도해주세요."
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_medium"
+                android:lineHeight="26sp"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="1dp"
+                android:background="@color/light_gray"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:id="@+id/default_dialog_single_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    tools:text="확인"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:lineHeight="26sp"
+                    android:textSize="16sp"/>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/default_dialog_layout_left_right_btn"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/default_dialog_left_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        tools:text="취소"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:lineHeight="26sp"
+                        android:textSize="16sp"/>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="1dp"
+                        android:background="@color/light_gray"/>
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/default_dialog_right_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        tools:text="확인"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:lineHeight="26sp"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </FrameLayout>

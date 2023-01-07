@@ -16,6 +16,8 @@
     <color name="gray">#FF979499</color>
     <color name="unactivated_gray">#FF4E4952</color>
     <color name="white_gray">#DADADA</color>
+    <color name="light_gray">#D9D9D9</color>
     <color name="transparent">#00000000</color>
     <color name="white_ripple">#65FFFFFF</color>
+    <color name="black_dimmed">#33000000</color>
 </resources>

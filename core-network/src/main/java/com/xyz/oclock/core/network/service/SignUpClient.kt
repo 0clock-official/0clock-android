@@ -6,7 +6,7 @@ import com.skydoves.sandwich.ApiResponse
 import com.xyz.oclock.core.model.SignUpForm
 import com.xyz.oclock.core.network.model.request.*
 import com.xyz.oclock.core.network.model.response.OClockResponse
-import com.xyz.oclock.core.network.model.response.SignUpResponse
+import com.xyz.oclock.core.network.model.response.TokenResponse
 import java.io.ByteArrayOutputStream
 import java.util.*
 import javax.inject.Inject
@@ -27,7 +27,7 @@ class SignUpClient @Inject constructor(
         return signUpService.checkNicknameDuplication(NicknameRequest(nickname))
     }
 
-    suspend fun signUp(signUpForm: SignUpForm): ApiResponse<OClockResponse<SignUpResponse>> {
+    suspend fun signUp(signUpForm: SignUpForm): ApiResponse<OClockResponse<TokenResponse>> {
         val signUpRequest = SignUpRequest(
             email = signUpForm.email,
             password = signUpForm.password,

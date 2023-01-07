@@ -25,4 +25,18 @@ interface DataModule {
         deviceStateRepositoryImpl: DeviceStateRepositoryImpl
     ): DeviceStateRepository
 
+    @Binds
+    fun bindsUserInfoRepository(
+        userInfoRepositoryImpl: UserInfoRepositoryImpl
+    ): UserInfoRepository
+
+    @Binds
+    fun bindsChatRepository(
+        chatRepositoryImpl: ChatRepositoryImpl
+    ): ChatRepository
+
+    @Binds
+    fun bindsCommonRepository(
+        commonRepositoryImpl: CommonRepositoryImpl
+    ): CommonRepository
 }

@@ -4,8 +4,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class OClockErrorResponse(
-     val requestId: String?,
-     val code: Int,
-     val message: String
+data class ChattingRoomResponse (
+    @field:Json(name = "chattingRoomId") val chattingRoomId: Int
 )

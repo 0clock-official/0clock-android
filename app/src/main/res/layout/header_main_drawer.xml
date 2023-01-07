@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="70dp">
+
+    <ImageView
+        android:id="@+id/drawer_close_btn"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:src="@drawable/close" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp">
+
+        <ImageView
+            android:layout_marginEnd="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user_yellow"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중고새내기"
+                android:textSize="16sp"
+                android:fontFamily="@font/pretendard_bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오후 10:30 - 오전 12:30"
+                android:textSize="14sp"
+                android:textColor="@color/aqua"
+                android:fontFamily="@font/pretendard_light"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="경영학과"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/pretendard_light"/>
+    </LinearLayout>
+
+
+</LinearLayout>

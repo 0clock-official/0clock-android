@@ -2,6 +2,7 @@ package com.xyz.oclock.ui
 
 import androidx.databinding.Bindable
 import com.skydoves.bindables.BindingViewModel
+import com.skydoves.bindables.bindingProperty
 
 open class BaseViewModel: BindingViewModel() {
 
@@ -12,7 +13,19 @@ open class BaseViewModel: BindingViewModel() {
             notifyPropertyChanged(::toastMessage)
         }
 
+    @get: Bindable
+    var isLoading by bindingProperty(false)
+
     fun showToast(message: String?) {
         toastMessage = message
     }
+
+    fun showLoading() {
+        isLoading = true
+    }
+
+    fun hideLoading() {
+        isLoading = false
+    }
+
 }

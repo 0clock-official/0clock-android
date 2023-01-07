@@ -70,6 +70,17 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>( R.layout.fragment_l
             val action = LoginFragmentDirections.actionLoginFragmentToFindPwdFragment()
             findNavController().navigate(action)
         }
+
+        binding.loginBtn.onThrottleClick {
+            viewModel.login {
+                moveToPending()
+            }
+        }
+    }
+
+    private fun moveToPending() {
+        val action = LoginFragmentDirections.actionLoginFragmentToPendingFragment()
+        findNavController().navigate(action)
     }
 
     private fun registerBackBtnCallback() {

@@ -5,34 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
 import com.xyz.oclock.databinding.FragmentSignUpPendingBinding
+import com.xyz.oclock.ui.dialog.DefaultDialog
+import com.xyz.oclock.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
-enum class PendingState {
-    PENDING, REJECT, APPROVE
-}
 
 @AndroidEntryPoint
 class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.fragment_sign_up_pending) {
 
-    companion object {
-        const val ARG_PENDING_STATE = "pendingState"
-    }
-    private val pendingState by lazy {
-        val args: PendingFragmentArgs by navArgs()
-        args.pendingState
-    }
-
-    @set:Inject
-    internal lateinit var viewModelFactory: PendingViewModel.AssistedFactory
-
-    private val viewModel: PendingViewModel by viewModels {
-        PendingViewModel.provideFactory(viewModelFactory, pendingState)
-    }
+    private val viewModel: PendingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,24 +26,42 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        initView(pendingState)
         return binding {
             vm = viewModel
         }.root
     }
 
-    private fun initView(pendingState: PendingState) {
-        when(pendingState) {
-            PendingState.PENDING -> {
-                initPendingView()
-            }
-            PendingState.REJECT -> {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checkPendingState()
+    }
+
+    private fun checkPendingState() {
+        viewModel.checkPendingState(
+            onApproved = {
+                if (viewModel.isFirstLogin()) {
+                    viewModel.noLongerFirstLogin()
+                    initApproveView()
+                } else {
+                    moveToHome()
+                }
+            },
+            onRejected = {
                 initRejectView()
+            },
+            onPending = {
+                initPendingView()
+            },
+            onError = {
+                DefaultDialog.build(this.requireContext()) {
+                    message = it
+                    singleButtonText = getString(R.string.confirm)
+                    singleButtonListener = View.OnClickListener() {
+                        moveToLogin()
+                    }
+                }.show()
             }
-            PendingState.APPROVE -> {
-                initApproveView()
-            }
-        }
+        )
     }
 
     private fun initApproveView() {
@@ -66,7 +70,7 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
         binding.pendingDesc.setText(R.string.pending_description_approve)
         binding.bottomButton.apply {
             setText(R.string.start)
-            setOnClickListener {  }
+            setOnClickListener { moveToHome() }
         }
     }
 
@@ -83,10 +87,25 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
         binding.pendingDesc.setText(R.string.pending_description_reject)
         binding.bottomButton.apply {
             setText(R.string.retry_verify_std_card)
-            setOnClickListener {  }
+            setOnClickListener {
+                moveToUploadStdCard()
+            }
         }
-
     }
 
+    private fun moveToUploadStdCard() {
+        val action = PendingFragmentDirections.actionPendingFragmentToUploadStdCardFragment()
+        view?.findNavController()?.navigate(action)
+    }
+
+    private fun moveToHome() {
+        val action = PendingFragmentDirections.actionPendingFragmentToHomeFragment()
+        view?.findNavController()?.navigate(action)
+    }
+
+    private fun moveToLogin() {
+        val action = PendingFragmentDirections.actionPendingFragmentToLoginFragment()
+        view?.findNavController()?.navigate(action)
+    }
 
 }
