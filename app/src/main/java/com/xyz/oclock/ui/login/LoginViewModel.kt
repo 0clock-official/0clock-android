@@ -56,8 +56,8 @@ class LoginViewModel @Inject constructor(
                     val pair = it.data as Pair<*, *>
                     val accessToken = pair.first as String
                     val refreshToken = pair.second as String
-                    tokenRepository.setAccessToken(accessToken)
-                    tokenRepository.setRefreshToken(refreshToken)
+                    tokenRepository.setAccessToken("Bearer $accessToken")
+                    tokenRepository.setRefreshToken("refreshToken:$refreshToken")
                     onSuccess()
                 }
                 is CommonResponse.Fail ->  {

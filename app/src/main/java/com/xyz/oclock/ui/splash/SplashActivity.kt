@@ -65,7 +65,7 @@ class SplashActivity: BindingActivity<ActivitySplashBinding>(R.layout.activity_s
 
     private suspend fun moveToMain() {
         waitSplashTime {
-            MainActivity.startActivity(this, StartDestination.HOME)
+            MainActivity.startActivity(this, StartDestination.PENDING)
         }
     }
 

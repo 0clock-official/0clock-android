@@ -18,4 +18,11 @@ interface ChatRepository {
         onComplete: () -> Unit,
         onError: (String?) -> Unit
     ): Flow<CommonResponse>
+
+    fun getMyInfo(
+        token: String,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ): Flow<CommonResponse>
 }

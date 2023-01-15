@@ -23,6 +23,7 @@
         android:layout_marginTop="31dp">
 
         <ImageView
+            android:id="@+id/drawer_profile_img"
             android:layout_marginEnd="20dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -33,12 +34,14 @@
             android:layout_weight="1"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/drawer_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="중고새내기"
                 android:textSize="16sp"
                 android:fontFamily="@font/pretendard_bold"/>
             <TextView
+                android:id="@+id/drawer_chat_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="오후 10:30 - 오전 12:30"
@@ -47,6 +50,7 @@
                 android:fontFamily="@font/pretendard_light"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/drawer_major"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="경영학과"

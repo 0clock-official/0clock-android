@@ -35,6 +35,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/back_btn"
+                        android:visibility="gone"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:backgroundTint="@color/main"
@@ -142,7 +143,6 @@
             app:itemTextAppearance="@style/FontBold"
             app:headerLayout="@layout/header_main_drawer"
             app:menu="@menu/main_menu">
-
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -169,7 +169,6 @@
                     android:fontFamily="@font/pretendard_bold"
                     android:textColor="@color/white"/>
             </LinearLayout>
-
         </com.google.android.material.navigation.NavigationView>
 
 

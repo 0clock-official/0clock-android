@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 enum class StartDestination(val id: Int) {
-    LOGIN(R.id.loginFragment), HOME(R.id.homeFragment)
+    LOGIN(R.id.loginFragment), PENDING(R.id.pendingFragment)
 }
 
 @AndroidEntryPoint

@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import com.skydoves.sandwich.*
 import com.xyz.oclock.core.model.CommonResponse
 import com.xyz.oclock.core.model.SignUpForm
+import com.xyz.oclock.core.model.StdCardStatus
 import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
 import com.xyz.oclock.core.network.service.SignUpClient
 import kotlinx.coroutines.Dispatchers
@@ -125,7 +126,20 @@ class SignUpRepositoryImpl @Inject constructor(
     ) = flow {
         val response = signUpClient.checkStudentCardVerified(accessToken)
         response.suspendOnSuccess {
-            emit(CommonResponse.Success<Boolean>(this.data.response, this.data.data?: false))
+            when(this.data.data) {
+                StdCardStatus.INVALID.status -> {
+                    emit(CommonResponse.Success<StdCardStatus>(this.data.response, StdCardStatus.INVALID))
+                }
+                StdCardStatus.VALID.status -> {
+                    emit(CommonResponse.Success<StdCardStatus>(this.data.response, StdCardStatus.VALID))
+                }
+                StdCardStatus.PENDING.status -> {
+                    emit(CommonResponse.Success<StdCardStatus>(this.data.response, StdCardStatus.PENDING))
+                }
+                else -> {
+                    onError(null)
+                }
+            }
         }.suspendOnError {
             val errorResponse = ErrorResponseMapper.map(this)
             emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))

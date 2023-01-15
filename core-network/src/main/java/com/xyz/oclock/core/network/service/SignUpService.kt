@@ -30,6 +30,6 @@ interface SignUpService {
     suspend fun signUp(@Body body: SignUpRequest): ApiResponse<OClockResponse<TokenResponse>>
 
     @GET("members/join/studentCard/cert")
-    suspend fun checkStudentCardVerified(@Header("Authorization") token: String): ApiResponse<OClockResponse<Boolean>>
+    suspend fun checkStudentCardVerified(@Header("Authorization") token: String): ApiResponse<OClockResponse<Int>>
 
 }

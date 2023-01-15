@@ -1,13 +1,12 @@
 package com.xyz.oclock.core.data.repository
 
-import android.util.Log
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.suspendOnError
 import com.skydoves.sandwich.suspendOnSuccess
 import com.xyz.oclock.core.model.CommonResponse
 import com.xyz.oclock.core.model.MatchingUser
+import com.xyz.oclock.core.model.User
 import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
-import com.xyz.oclock.core.network.model.response.OClockErrorResponse
 import com.xyz.oclock.core.network.service.ChatClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -35,7 +34,7 @@ class ChatRepositoryImpl @Inject constructor(
             val errorResponse = ErrorResponseMapper.map(this)
             emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
         }.onException {
-            onError(null)
+            onError(this.message)
         }
     }.onStart {
         onStart()
@@ -66,11 +65,47 @@ class ChatRepositoryImpl @Inject constructor(
             val errorResponse = ErrorResponseMapper.map(this)
             emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
         }.onException {
-            onError(null)
+            onError(this.message)
         }
     }.onStart {
         onStart()
     }.onCompletion {
         onComplete()
     }.flowOn(Dispatchers.IO)
+
+    override fun  getMyInfo(
+        token: String,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ) = flow {
+        val response = chatClient.getMyInfo(token)
+        response.suspendOnSuccess {
+            val data = this.data.data
+            if (data == null) {
+                onError("user info is null")
+            } else {
+                val user = User(
+                    email = data.email,
+                    nickname = data.nickname,
+                    major = data.major,
+                    memberSex = data.memberSex,
+                    matchingSex = data.matchingSex,
+                    chattingTime = data.chattingTime
+                )
+                emit(CommonResponse.Success(this.data.response, user))
+            }
+        }.suspendOnError {
+            val errorResponse = ErrorResponseMapper.map(this)
+            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+        }.onException {
+            onError(this.message)
+        }
+    }.onStart {
+        onStart()
+    }.onCompletion {
+        onComplete()
+    }.flowOn(Dispatchers.IO)
+
+
 }

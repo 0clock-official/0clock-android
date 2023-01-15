@@ -57,7 +57,7 @@ class SignUpClient @Inject constructor(
         )
     }
 
-    suspend fun checkStudentCardVerified(accessToken: String): ApiResponse<OClockResponse<Boolean>> {
+    suspend fun checkStudentCardVerified(accessToken: String): ApiResponse<OClockResponse<Int>> {
         return signUpService.checkStudentCardVerified(accessToken)
     }
 }
