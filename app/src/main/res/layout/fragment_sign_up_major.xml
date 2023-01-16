@@ -68,7 +68,7 @@
                     android:fontFamily="@font/pretendard_semibold"
                     tools:text="경영학과"
                     app:spinnerAdapter="@{vm.majors}"
-                    app:dropDownBackground="@{@drawable/background_spinner}"
+                    app:dropDownBackground="@{@drawable/bg_spinner}"
                     app:onItemClicked="@{(a, b, position, c)->vm.setUserSelectedMajor(position)}"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

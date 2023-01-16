@@ -76,4 +76,11 @@
     <string name="setting">설정</string>
     <string name="room_exit_description">현재 대화하는 분과 잘 안 맞나요?</string>
     <string name="room_exit">채팅방 나가기</string>
+    <string name="make_time_appointment">시간 약속 잡기</string>
+    <string name="waiting_chat_description">정해진 시간에 채팅방이 열려요 잠시만 기다려주세요</string>
+    <string name="no_chat_time">채팅이 불가한 시간대에요</string>
+    <string name="send_message">메세지 보내기</string>
+    <string name="accept">수락</string>
+    <string name="reject">거절</string>
+
 </resources>

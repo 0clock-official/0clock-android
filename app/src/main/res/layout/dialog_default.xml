@@ -13,7 +13,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/background_border_rounded">
+            android:background="@drawable/bg_border_rounded_8dp">
 
             <TextView
                 android:id="@+id/default_dialog_message"
