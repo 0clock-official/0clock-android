@@ -27,6 +27,8 @@ class PendingViewModel @Inject constructor(
     private val deviceStateRepository: DeviceStateRepository
 ): BaseViewModel() {
 
+    var nickname = "";
+
     fun checkPendingState(
         onPending: suspend ()->Unit,
         onRejected: suspend ()->Unit,
@@ -51,6 +53,7 @@ class PendingViewModel @Inject constructor(
                     when (it.data as StdCardStatus) {
                         StdCardStatus.PENDING -> {
                             onPending()
+//                            onApproved() // 임시
                         }
                         StdCardStatus.INVALID -> {
                             onRejected()
@@ -90,6 +93,7 @@ class PendingViewModel @Inject constructor(
             when (it) {
                 is CommonResponse.Success<*> -> {
                     val user = it.data as User
+                    nickname = user.nickname
                     onSuccess(user)
                 }
                 is CommonResponse.Fail ->  {

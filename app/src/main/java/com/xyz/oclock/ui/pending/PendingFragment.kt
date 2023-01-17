@@ -138,7 +138,7 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
 
     private fun initApproveView() {
         binding.pendingImage.setImageResource(R.drawable.img_pending_approve)
-        binding.pendingTitle.text = String.format(getString(R.string.welcome), "DEMO")
+        binding.pendingTitle.text = String.format(getString(R.string.welcome), viewModel.nickname)
         binding.pendingDesc.setText(R.string.pending_description_approve)
         binding.bottomButton.apply {
             setText(R.string.start)
