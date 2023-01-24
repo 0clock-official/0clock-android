@@ -14,6 +14,8 @@ interface TokenRepository {
 
     fun getAccessToken(): String?
 
+    fun getSocketAccessToken(): String?
+
     fun clear()
 
 }

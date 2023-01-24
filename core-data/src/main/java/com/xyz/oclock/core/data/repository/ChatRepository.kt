@@ -1,6 +1,8 @@
 package com.xyz.oclock.core.data.repository
 
 import com.xyz.oclock.core.model.CommonResponse
+import com.xyz.oclock.core.model.SocketChat
+import com.xyz.oclock.core.model.SocketChatType
 import com.xyz.oclock.core.model.SocketUpdate
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -32,7 +34,9 @@ interface ChatRepository {
         token: String
     ): Flow<CommonResponse>
 
-    fun openSocket(): Channel<SocketUpdate>
+    fun openSocket(): Channel<SocketChat>
 
     fun closeSocket()
+
+    fun sendMessage(token: String, message: String, chatType: SocketChatType)
 }

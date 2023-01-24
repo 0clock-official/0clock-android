@@ -3,10 +3,7 @@ package com.xyz.oclock.core.data.repository
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.suspendOnError
 import com.skydoves.sandwich.suspendOnSuccess
-import com.xyz.oclock.core.model.CommonResponse
-import com.xyz.oclock.core.model.MatchingUser
-import com.xyz.oclock.core.model.SocketUpdate
-import com.xyz.oclock.core.model.User
+import com.xyz.oclock.core.model.*
 import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
 import com.xyz.oclock.core.network.service.ChatClient
 import com.xyz.oclock.core.network.util.WebServicesProvider
@@ -129,12 +126,16 @@ class ChatRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun openSocket(): Channel<SocketUpdate> {
+    override fun openSocket(): Channel<SocketChat> {
         return webServicesProvider.startSocket()
     }
 
     override fun closeSocket() {
         webServicesProvider.stopSocket()
+    }
+
+    override fun sendMessage(token: String, message: String, chatType: SocketChatType) {
+        webServicesProvider.sendMessage(token, message, chatType)
     }
 
     private fun String?.convertToLocalCalendar(): Calendar? {

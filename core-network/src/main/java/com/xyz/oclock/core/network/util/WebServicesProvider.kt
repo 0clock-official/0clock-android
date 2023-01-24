@@ -1,11 +1,15 @@
 package com.xyz.oclock.core.network.util
 
-import com.xyz.oclock.core.model.SocketUpdate
+import android.util.Log
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.xyz.oclock.core.model.*
 import kotlinx.coroutines.channels.Channel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
 import java.util.concurrent.TimeUnit
+
 
 class WebServicesProvider {
 
@@ -19,7 +23,9 @@ class WebServicesProvider {
 
     private var webSocketListener: OClockWebSocketListener? = null
 
-    fun startSocket(): Channel<SocketUpdate> =
+    private val moshi: Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+
+    fun startSocket(): Channel<SocketChat> =
         with(OClockWebSocketListener()) {
             startSocket(this)
             this@with.socketEventChannel
@@ -27,11 +33,25 @@ class WebServicesProvider {
 
     fun startSocket(webSocketListener: OClockWebSocketListener) {
         this.webSocketListener = webSocketListener
+//        webSocket = socketOkHttpClient.newWebSocket(
+//            Request.Builder().url("ws://api.0clock.xyz:34216/websocket/chatting").build(),
+//            webSocketListener
+//        )
         webSocket = socketOkHttpClient.newWebSocket(
-            Request.Builder().url("ws://echo.websocket.org").build(),
+            Request.Builder().url("ws://websocket-echo.com").build(),
             webSocketListener
         )
         socketOkHttpClient.dispatcher.executorService.shutdown()
+    }
+
+    fun sendMessage(token: String, message: String, type: SocketChatType) {
+        val chat = SocketChat(
+            authorization = token,
+            message = message,
+            type = type.name
+        )
+        Log.d("send", moshi.adapter(SocketChat::class.java).toJson(chat))
+        webSocket?.send(moshi.adapter(SocketChat::class.java).toJson(chat))
     }
 
     fun stopSocket() {

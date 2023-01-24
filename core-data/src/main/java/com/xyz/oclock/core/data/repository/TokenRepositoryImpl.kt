@@ -28,7 +28,11 @@ class TokenRepositoryImpl @Inject constructor(
     }
 
     override fun getAccessToken(): String? {
-        return sharedPreferences.getAccessToken()
+        return "Bearer " + sharedPreferences.getAccessToken()
+    }
+
+    override fun getSocketAccessToken(): String? {
+        return "accessToken:" + sharedPreferences.getAccessToken()
     }
 
     override fun clear() {

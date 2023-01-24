@@ -6,14 +6,12 @@ import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.LogoutHelper
 import com.xyz.oclock.common.utils.ResourceProvider
 import com.xyz.oclock.core.data.repository.*
-import com.xyz.oclock.core.model.Chat
-import com.xyz.oclock.core.model.CommonResponse
-import com.xyz.oclock.core.model.MatchingUser
-import com.xyz.oclock.core.model.User
+import com.xyz.oclock.core.model.*
 import com.xyz.oclock.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
@@ -223,20 +221,29 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 chatRepository.openSocket().consumeEach {
-                    if (it.exception == null) {
-                        println("Collecting : ${it.text}")
+                    if (it.type != SocketChatType.EXEPTION.name) {
+                        println("Collecting : ${it.message}")
                     } else {
-                        onSocketError(it.exception!!)
+                        onSocketError(it)
                     }
                 }
             } catch (ex: java.lang.Exception) {
-                onSocketError(ex)
+                println("Error occurred : ${ex}")
             }
         }
     }
 
-    private fun onSocketError(ex: Throwable) {
-        println("Error occurred : ${ex.message}")
+    private fun onSocketError(msg: SocketChat) {
+        println("Error occurred : ${msg}")
+    }
+
+    fun sendMessage() = viewModelScope.launch(Dispatchers.IO) {
+        delay(1000L)
+        val token = tokenRepository.getSocketAccessToken()
+        token?.let {
+            val msg = "테스트 메세지" + Math.random()
+            chatRepository.sendMessage(it, msg, SocketChatType.MESSAGE)
+        }
     }
 
     override fun onCleared() {

@@ -120,6 +120,7 @@ class HomeFragment:
             onSuccess = {
                 binding.title.text = it.nickname
                 viewModel.subscribeToSocketEvents()
+                viewModel.sendMessage()
             },
             onFail = {
                 binding.title.text = "알 수 없음"
