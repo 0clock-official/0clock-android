@@ -65,6 +65,9 @@ dependencies {
     // fcm
     implementation(libs.gms.play.service.framework)
 
+    //okhttp
+    implementation(libs.okhttp3)
+
     // unit test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

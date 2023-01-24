@@ -1,19 +1,14 @@
 package com.xyz.oclock.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.view.Gravity.RIGHT
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.navigation.NavigationView
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
-import com.xyz.oclock.common.extensions.BindingAdapter.visibility
 import com.xyz.oclock.core.model.ChattingTime
 import com.xyz.oclock.databinding.FragmentHomeBinding
 import com.xyz.oclock.ui.dialog.DefaultDialog
@@ -124,6 +119,7 @@ class HomeFragment:
         viewModel.getMatchingUserInfo(
             onSuccess = {
                 binding.title.text = it.nickname
+                viewModel.subscribeToSocketEvents()
             },
             onFail = {
                 binding.title.text = "알 수 없음"

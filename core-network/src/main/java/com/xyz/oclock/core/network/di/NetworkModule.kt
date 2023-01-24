@@ -6,6 +6,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.xyz.oclock.core.network.model.interceptor.HttpRequestInterceptor
 import com.xyz.oclock.core.network.service.*
+import com.xyz.oclock.core.network.util.WebServicesProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -80,5 +81,10 @@ object NetworkModule {
     @Singleton
     fun provideCommonClient(commonService: CommonService): CommonClient {
         return CommonClient(commonService)
+    }
+
+    @Provides
+    fun provideWebServicesProvider(): WebServicesProvider {
+        return WebServicesProvider()
     }
 }

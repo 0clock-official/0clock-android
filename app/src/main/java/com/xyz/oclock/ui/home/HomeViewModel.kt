@@ -2,7 +2,6 @@ package com.xyz.oclock.ui.home
 
 import androidx.databinding.Bindable
 import androidx.lifecycle.viewModelScope
-import com.skydoves.bindables.asBindingProperty
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.LogoutHelper
 import com.xyz.oclock.common.utils.ResourceProvider
@@ -13,11 +12,12 @@ import com.xyz.oclock.core.model.MatchingUser
 import com.xyz.oclock.core.model.User
 import com.xyz.oclock.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -217,5 +217,30 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun subscribeToSocketEvents() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                chatRepository.openSocket().consumeEach {
+                    if (it.exception == null) {
+                        println("Collecting : ${it.text}")
+                    } else {
+                        onSocketError(it.exception!!)
+                    }
+                }
+            } catch (ex: java.lang.Exception) {
+                onSocketError(ex)
+            }
+        }
+    }
+
+    private fun onSocketError(ex: Throwable) {
+        println("Error occurred : ${ex.message}")
+    }
+
+    override fun onCleared() {
+        chatRepository.closeSocket()
+        super.onCleared()
     }
 }

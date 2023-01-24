@@ -5,17 +5,21 @@ import com.skydoves.sandwich.suspendOnError
 import com.skydoves.sandwich.suspendOnSuccess
 import com.xyz.oclock.core.model.CommonResponse
 import com.xyz.oclock.core.model.MatchingUser
+import com.xyz.oclock.core.model.SocketUpdate
 import com.xyz.oclock.core.model.User
 import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
 import com.xyz.oclock.core.network.service.ChatClient
+import com.xyz.oclock.core.network.util.WebServicesProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 class ChatRepositoryImpl @Inject constructor(
-    private val chatClient: ChatClient
+    private val chatClient: ChatClient,
+    private val webServicesProvider: WebServicesProvider
 ): ChatRepository {
 
     override fun startMatching(
@@ -125,16 +129,23 @@ class ChatRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
+    override fun openSocket(): Channel<SocketUpdate> {
+        return webServicesProvider.startSocket()
+    }
+
+    override fun closeSocket() {
+        webServicesProvider.stopSocket()
+    }
 
     private fun String?.convertToLocalCalendar(): Calendar? {
         // Tue, 24 Jan 2023 06:55:42 GMT
         val formatter = SimpleDateFormat("EEE',' dd MMM yyyy HH:mm:ss 'GMT'", Locale.UK)
         return try {
             val date = formatter.parse(this!!)
-            val c = Calendar.getInstance()
-            c.time = date
-            c.add(Calendar.HOUR_OF_DAY, +9)
-            c
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.add(Calendar.HOUR_OF_DAY, +9)
+            calendar
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             null
