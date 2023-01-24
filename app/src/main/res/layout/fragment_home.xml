@@ -7,6 +7,10 @@
         <variable
             name="vm"
             type="com.xyz.oclock.ui.home.HomeViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.xyz.oclock.ui.home.ChatAdapter" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -105,6 +109,8 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
+                            app:adapter="@{adapter}"
+                            app:submitList="@{vm.chatList}"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>

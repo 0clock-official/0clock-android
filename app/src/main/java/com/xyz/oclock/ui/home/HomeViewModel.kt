@@ -2,21 +2,22 @@ package com.xyz.oclock.ui.home
 
 import androidx.databinding.Bindable
 import androidx.lifecycle.viewModelScope
-import com.skydoves.bindables.BindingViewModel
-import com.skydoves.bindables.bindingProperty
+import com.skydoves.bindables.asBindingProperty
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.LogoutHelper
 import com.xyz.oclock.common.utils.ResourceProvider
 import com.xyz.oclock.core.data.repository.*
+import com.xyz.oclock.core.model.Chat
 import com.xyz.oclock.core.model.CommonResponse
 import com.xyz.oclock.core.model.MatchingUser
 import com.xyz.oclock.core.model.User
 import com.xyz.oclock.ui.BaseViewModel
-import com.xyz.oclock.ui.dialog.DefaultDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -28,6 +29,12 @@ class HomeViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider,
     private val deviceStateRepository: DeviceStateRepository
 ): BaseViewModel() {
+
+    var calendar = Calendar.getInstance()
+
+    @get:Bindable
+    val chatList: List<Chat> = arrayListOf()
+
 
     fun getNewToken() = viewModelScope.launch {
         val token = tokenRepository.getRefreshToken()
@@ -139,8 +146,28 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun getServerTime() = viewModelScope.launch {
+        val token = tokenRepository.getAccessToken()
+        if (token == null) {
+            logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
+            return@launch
+        }
+        chatRepository.getServerTime(
+            token = token
+        ).collectLatest {
+            when (it) {
+                is CommonResponse.Success<*> -> {
+                    val c = it.data as Calendar
+                    calendar = c
+                }
+                else -> {}
+            }
+        }
+    }
+
     fun getMyInfo(
         onSuccess: (User) -> Unit,
+        onGetDate: (Calendar) -> Unit,
         onFail: () -> Unit
     ) = viewModelScope.launch {
         val token = tokenRepository.getAccessToken()
@@ -158,8 +185,16 @@ class HomeViewModel @Inject constructor(
         ).collectLatest {
             when (it) {
                 is CommonResponse.Success<*> -> {
-                    val user = it.data as User
-                    onSuccess(user)
+                    if (it.data is User) {
+                        val user = it.data as User
+                        onSuccess(user)
+                    } else if (it.data is Calendar) {
+                        val c = it.data as Calendar
+                        calendar = c
+                        onGetDate(c)
+                    } else if (it.data == null) {
+
+                    }
                 }
                 is CommonResponse.Fail ->  {
                     when (it.code) {

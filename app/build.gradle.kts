@@ -56,6 +56,12 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.viewpager)
 
+    // whatIf
+    implementation(libs.whatif)
+
+    // recyclerView
+    implementation(libs.recyclerview)
+
     // fcm
     implementation(libs.gms.play.service.framework)
 

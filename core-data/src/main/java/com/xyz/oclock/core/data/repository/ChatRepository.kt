@@ -25,4 +25,8 @@ interface ChatRepository {
         onComplete: () -> Unit,
         onError: (String?) -> Unit
     ): Flow<CommonResponse>
+
+    fun getServerTime(
+        token: String
+    ): Flow<CommonResponse>
 }

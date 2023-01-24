@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.skydoves.bindables.BindingListAdapter
+import com.skydoves.whatif.whatIfNotNullAs
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.OnThrottleClickListener
 
@@ -100,5 +103,21 @@ object BindingAdapter {
     @BindingAdapter("clockTimer")
     fun TextView.clockTimer(second: Int) {
         this.text = second.toTimeClock()
+    }
+
+    @JvmStatic
+    @BindingAdapter("adapter")
+    fun bindAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
+        view.adapter = adapter.apply {
+            stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("submitList")
+    fun bindSubmitList(view: RecyclerView, itemList: List<Any>?) {
+        view.adapter.whatIfNotNullAs<BindingListAdapter<Any, *>> { adapter ->
+            adapter.submitList(itemList)
+        }
     }
 }

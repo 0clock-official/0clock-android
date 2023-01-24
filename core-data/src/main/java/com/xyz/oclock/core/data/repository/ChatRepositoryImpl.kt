@@ -10,6 +10,8 @@ import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
 import com.xyz.oclock.core.network.service.ChatClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class ChatRepositoryImpl @Inject constructor(
@@ -107,5 +109,36 @@ class ChatRepositoryImpl @Inject constructor(
         onComplete()
     }.flowOn(Dispatchers.IO)
 
+
+    override fun getServerTime(token: String): Flow<CommonResponse> = flow {
+        // 내 정보 가져오는 api의 헤더값으로 시간받음
+        val response = chatClient.getMyInfo(token)
+        response.suspendOnSuccess {
+            val data = this.data.data
+            data?.let {
+                val date = this.headers["Date"].convertToLocalCalendar()
+                emit(CommonResponse.Success("Date", date))
+            }
+        }.suspendOnError {
+            val date = this.headers["Date"].convertToLocalCalendar()
+            emit(CommonResponse.Success("Date", date))
+        }
+    }.flowOn(Dispatchers.IO)
+
+
+    private fun String?.convertToLocalCalendar(): Calendar? {
+        // Tue, 24 Jan 2023 06:55:42 GMT
+        val formatter = SimpleDateFormat("EEE',' dd MMM yyyy HH:mm:ss 'GMT'", Locale.UK)
+        return try {
+            val date = formatter.parse(this!!)
+            val c = Calendar.getInstance()
+            c.time = date
+            c.add(Calendar.HOUR_OF_DAY, +9)
+            c
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 
 }

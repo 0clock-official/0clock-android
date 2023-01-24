@@ -1,6 +1,7 @@
 package com.xyz.oclock.ui.pending
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -40,7 +41,6 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkPendingState()
         getMyInfo()
         setListener()
     }
@@ -110,6 +110,7 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
                     chatTime = ChattingTime.values().filter { it.index == user.chattingTime }[0].desc,
                     major = "경영학과"
                 )
+                checkPendingState()
             },
             onFail = {
                 setDrawerHeaderView(
@@ -118,6 +119,7 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
                     chatTime = "데이터를 불러오는 데 실패했습니다.",
                     major = ""
                 )
+                checkPendingState()
             }
         )
     }
@@ -137,12 +139,17 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
     }
 
     private fun initApproveView() {
-        binding.pendingImage.setImageResource(R.drawable.img_pending_approve)
-        binding.pendingTitle.text = String.format(getString(R.string.welcome), viewModel.nickname)
-        binding.pendingDesc.setText(R.string.pending_description_approve)
-        binding.bottomButton.apply {
-            setText(R.string.start)
-            setOnClickListener { moveToHome() }
+        lifecycleScope.launch {
+            binding.pendingImage.setImageResource(R.drawable.img_pending_approve)
+            binding.pendingDesc.setText(R.string.pending_description_approve)
+            binding.bottomButton.apply {
+                setText(R.string.start)
+                setOnClickListener { moveToHome() }
+            }
+        }
+        viewModel.nickname.observe(this.viewLifecycleOwner) {
+            binding.pendingTitle.text =
+                String.format(getString(R.string.welcome), viewModel.nickname.value)
         }
     }
 

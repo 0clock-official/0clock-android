@@ -34,6 +34,7 @@ class HomeFragment:
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         return binding {
+            adapter = ChatAdapter()
             vm = viewModel
         }.root
     }
@@ -41,8 +42,13 @@ class HomeFragment:
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListener()
+        getServerTime()
         getMyInfo()
         startMatching()
+    }
+
+    private fun getServerTime() {
+        viewModel.getServerTime()
     }
 
     private fun getMyInfo() {
@@ -54,6 +60,8 @@ class HomeFragment:
                     chatTime = ChattingTime.values().filter { it.index == user.chattingTime }[0].desc,
                     major = "경영학과"
                 )
+            },
+            onGetDate = {
             },
             onFail = {
                 setDrawerHeaderView(

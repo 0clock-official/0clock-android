@@ -1,5 +1,7 @@
 package com.xyz.oclock.ui.pending
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.LogoutHelper
@@ -27,7 +29,7 @@ class PendingViewModel @Inject constructor(
     private val deviceStateRepository: DeviceStateRepository
 ): BaseViewModel() {
 
-    var nickname = "";
+    val nickname = MutableLiveData("")
 
     fun checkPendingState(
         onPending: suspend ()->Unit,
@@ -93,7 +95,7 @@ class PendingViewModel @Inject constructor(
             when (it) {
                 is CommonResponse.Success<*> -> {
                     val user = it.data as User
-                    nickname = user.nickname
+                    nickname.value = user.nickname
                     onSuccess(user)
                 }
                 is CommonResponse.Fail ->  {
