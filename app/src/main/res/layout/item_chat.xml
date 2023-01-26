@@ -19,7 +19,6 @@
         android:orientation="vertical">
 
         <LinearLayout
-            app:visibility="@{chat.type == ChatType.CHAT_U1 ? true : null}"
             android:id="@+id/chat_u1_layout"
             android:gravity="end"
             android:layout_marginBottom="5dp"
@@ -40,7 +39,6 @@
         </LinearLayout>
 
         <LinearLayout
-            app:visibility="@{chat.type == ChatType.CHAT_U2 ? true : null}"
             android:id="@+id/chat_u2_layout"
             android:gravity="start"
             android:layout_marginBottom="5dp"
@@ -71,7 +69,6 @@
         
         <LinearLayout
             android:id="@+id/alert_layout"
-            app:visibility="@{chat.type == ChatType.ALERT ? true : null}"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,7 +106,6 @@
                     android:fontFamily="@font/pretendard_light"/>
             </LinearLayout>
             <LinearLayout
-                app:visibility="@{chat.type == ChatType.SELECT ? true : null}"
                 android:id="@+id/alert_button_layout"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"

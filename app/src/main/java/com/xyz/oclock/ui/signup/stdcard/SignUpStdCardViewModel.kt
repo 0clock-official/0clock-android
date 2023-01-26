@@ -52,7 +52,7 @@ class SignUpStdCardViewModel @AssistedInject constructor(
                 }
             },
             onSuccess = { accessToken, refreshToken ->
-                tokenRepository.setAccessToken("$accessToken")
+                tokenRepository.setAccessToken(accessToken)
                 tokenRepository.setRefreshToken("refreshToken:$refreshToken")
                 uploadStdCard()
             }

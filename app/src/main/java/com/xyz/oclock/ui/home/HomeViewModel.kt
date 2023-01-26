@@ -1,8 +1,12 @@
 package com.xyz.oclock.ui.home
 
+import androidx.compose.ui.res.stringResource
 import androidx.databinding.Bindable
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.skydoves.bindables.asBindingProperty
 import com.xyz.oclock.R
+import com.xyz.oclock.common.extensions.asChat
 import com.xyz.oclock.common.utils.LogoutHelper
 import com.xyz.oclock.common.utils.ResourceProvider
 import com.xyz.oclock.core.data.repository.*
@@ -16,6 +20,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -30,8 +35,14 @@ class HomeViewModel @Inject constructor(
 
     var calendar = Calendar.getInstance()
 
+    val chatFlow = MutableStateFlow<List<Chat>>(arrayListOf(Chat(
+        message = resourceProvider.getString(R.string.waiting_chat_description),
+        type = ChatType.ALERT,
+        timeStamp = 0
+    )))
+
     @get:Bindable
-    val chatList: List<Chat> = arrayListOf()
+    val chatList: List<Chat> by chatFlow.asBindingProperty()
 
 
     fun getNewToken() = viewModelScope.launch {
@@ -221,8 +232,8 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 chatRepository.openSocket().consumeEach {
-                    if (it.type != SocketChatType.EXEPTION.name) {
-                        println("Collecting : ${it.message}")
+                    if (it.type != SocketChatType.EXCEPTION.name) {
+                        addMessage(it.asChat())
                     } else {
                         onSocketError(it)
                     }
@@ -233,17 +244,24 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun onSocketError(msg: SocketChat) {
+    private fun onSocketError(msg: SocketChatResponse) {
         println("Error occurred : ${msg}")
     }
 
     fun sendMessage() = viewModelScope.launch(Dispatchers.IO) {
-        delay(1000L)
         val token = tokenRepository.getSocketAccessToken()
         token?.let {
-            val msg = "테스트 메세지" + Math.random()
-            chatRepository.sendMessage(it, msg, SocketChatType.MESSAGE)
+            repeat(20) {
+                delay(1000)
+                val msg = "테스트 메세지" + Math.random()
+                chatRepository.sendMessage(token, msg, SocketChatType.MESSAGE)
+            }
         }
+    }
+
+    fun addMessage(chat: Chat) = viewModelScope.launch {
+        println("Chat : ${chat}")
+        chatFlow.emit(ArrayList(chatFlow.value).plus(chat))
     }
 
     override fun onCleared() {

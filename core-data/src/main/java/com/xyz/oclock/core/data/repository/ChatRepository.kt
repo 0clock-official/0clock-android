@@ -1,14 +1,18 @@
 package com.xyz.oclock.core.data.repository
 
-import com.xyz.oclock.core.model.CommonResponse
-import com.xyz.oclock.core.model.SocketChat
-import com.xyz.oclock.core.model.SocketChatType
-import com.xyz.oclock.core.model.SocketUpdate
+import com.xyz.oclock.core.model.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 
 interface ChatRepository {
 
+    companion object {
+        fun getWaitingChat(msg: String): Chat = Chat(
+            message = msg,
+            type = ChatType.ALERT,
+            timeStamp = 0
+        )
+    }
     fun startMatching(
         token: String,
         onStart: () -> Unit,
@@ -34,7 +38,7 @@ interface ChatRepository {
         token: String
     ): Flow<CommonResponse>
 
-    fun openSocket(): Channel<SocketChat>
+    fun openSocket(): Channel<SocketChatResponse>
 
     fun closeSocket()
 

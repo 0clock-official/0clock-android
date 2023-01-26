@@ -25,7 +25,7 @@ class WebServicesProvider {
 
     private val moshi: Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
-    fun startSocket(): Channel<SocketChat> =
+    fun startSocket(): Channel<SocketChatResponse> =
         with(OClockWebSocketListener()) {
             startSocket(this)
             this@with.socketEventChannel
@@ -45,13 +45,22 @@ class WebServicesProvider {
     }
 
     fun sendMessage(token: String, message: String, type: SocketChatType) {
-        val chat = SocketChat(
-            authorization = token,
+//        val chat = SocketChatRequest(
+//            authorization = token,
+//            message = message,
+//            type = type.name
+//        )
+//        Log.d("send", moshi.adapter(SocketChatRequest::class.java).toJson(chat))
+//        webSocket?.send(moshi.adapter(SocketChatRequest::class.java).toJson(chat))
+
+        val chat = SocketChatResponse(
+            timestamp = "2023-01-23T16:45:36.840977",
             message = message,
             type = type.name
         )
-        Log.d("send", moshi.adapter(SocketChat::class.java).toJson(chat))
-        webSocket?.send(moshi.adapter(SocketChat::class.java).toJson(chat))
+        Log.d("send", moshi.adapter(SocketChatResponse::class.java).toJson(chat))
+        webSocket?.send(moshi.adapter(SocketChatResponse::class.java).toJson(chat))
+
     }
 
     fun stopSocket() {

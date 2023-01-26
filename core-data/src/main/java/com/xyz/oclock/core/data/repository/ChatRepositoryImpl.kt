@@ -9,6 +9,8 @@ import com.xyz.oclock.core.network.service.ChatClient
 import com.xyz.oclock.core.network.util.WebServicesProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.consume
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -126,7 +128,7 @@ class ChatRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun openSocket(): Channel<SocketChat> {
+    override fun openSocket(): Channel<SocketChatResponse> {
         return webServicesProvider.startSocket()
     }
 

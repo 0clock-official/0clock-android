@@ -13,6 +13,7 @@ import com.xyz.oclock.core.model.ChattingTime
 import com.xyz.oclock.databinding.FragmentHomeBinding
 import com.xyz.oclock.ui.dialog.DefaultDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -121,6 +122,7 @@ class HomeFragment:
                 binding.title.text = it.nickname
                 viewModel.subscribeToSocketEvents()
                 viewModel.sendMessage()
+
             },
             onFail = {
                 binding.title.text = "알 수 없음"

@@ -4,12 +4,20 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.os.SystemClock
 import android.util.Base64
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
+import androidx.compose.ui.res.stringResource
 import androidx.core.app.ActivityCompat
+import com.google.android.gms.cast.framework.media.internal.ResourceProvider
+import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.OnThrottleClickListener
+import com.xyz.oclock.core.model.Chat
+import com.xyz.oclock.core.model.ChatType
+import com.xyz.oclock.core.model.SocketChatResponse
+import com.xyz.oclock.core.model.SocketChatType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.File
@@ -91,5 +99,52 @@ fun Int.toTimeClock(): String {
         } else {
             "$min:00"
         }
+    }
+}
+
+
+fun SocketChatResponse.asChat(): Chat {
+    return Chat(
+        message = this.message?: "",
+        timeStamp = this.timestamp.convertToLocalTimeMillis(),
+        type = this.type?.let {
+            when (it) {
+                SocketChatType.MESSAGE.name -> {
+                    ChatType.CHAT_YOU
+                }
+                SocketChatType.MESSAGE_OK.name -> {
+                    ChatType.NOTHING //임시
+                }
+                SocketChatType.TIME_CHANGE_REQ.name -> {
+                    ChatType.SELECT
+                }
+                SocketChatType.TIME_CHANGE_ACCEPT.name -> {
+                    ChatType.ALERT
+                }
+                SocketChatType.EXIT_CHATTINGROOM.name -> {
+                    ChatType.ALERT
+                }
+                SocketChatType.EXCEPTION.name -> {
+                    ChatType.EXCEPTION
+                }
+                else -> {
+                    ChatType.NOTHING
+                }
+            }
+        }?: ChatType.NOTHING
+    )
+}
+
+fun String?.convertToLocalTimeMillis(): Long {
+    val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.UK)
+    return try {
+        val date = formatter.parse(this!!)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.add(Calendar.HOUR_OF_DAY, +9)
+        calendar.timeInMillis
+    } catch (e: java.lang.Exception) {
+        e.printStackTrace()
+        0
     }
 }
