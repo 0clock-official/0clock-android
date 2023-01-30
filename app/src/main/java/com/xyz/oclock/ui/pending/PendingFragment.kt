@@ -164,6 +164,7 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
         binding.pendingImage.setImageResource(R.drawable.img_pending_reject)
         binding.pendingTitle.setText(R.string.please_re_certify)
         binding.pendingDesc.setText(R.string.pending_description_reject)
+        binding.bottomButton.visibility = View.VISIBLE
         binding.bottomButton.apply {
             setText(R.string.retry_verify_std_card)
             setOnClickListener {

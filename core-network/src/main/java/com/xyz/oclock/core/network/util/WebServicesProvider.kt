@@ -33,33 +33,33 @@ class WebServicesProvider {
 
     fun startSocket(webSocketListener: OClockWebSocketListener) {
         this.webSocketListener = webSocketListener
-//        webSocket = socketOkHttpClient.newWebSocket(
-//            Request.Builder().url("ws://api.0clock.xyz:34216/websocket/chatting").build(),
-//            webSocketListener
-//        )
         webSocket = socketOkHttpClient.newWebSocket(
-            Request.Builder().url("ws://websocket-echo.com").build(),
+            Request.Builder().url("ws://api.0clock.xyz:34216/websocket/chatting").build(),
             webSocketListener
         )
+//        webSocket = socketOkHttpClient.newWebSocket(
+//            Request.Builder().url("ws://websocket-echo.com").build(),
+//            webSocketListener
+//        )
         socketOkHttpClient.dispatcher.executorService.shutdown()
     }
 
     fun sendMessage(token: String, message: String, type: SocketChatType) {
-//        val chat = SocketChatRequest(
-//            authorization = token,
-//            message = message,
-//            type = type.name
-//        )
-//        Log.d("send", moshi.adapter(SocketChatRequest::class.java).toJson(chat))
-//        webSocket?.send(moshi.adapter(SocketChatRequest::class.java).toJson(chat))
-
-        val chat = SocketChatResponse(
-            timestamp = "2023-01-23T16:45:36.840977",
+        val chat = SocketChatRequest(
+            authorization = token,
             message = message,
             type = type.name
         )
-        Log.d("send", moshi.adapter(SocketChatResponse::class.java).toJson(chat))
-        webSocket?.send(moshi.adapter(SocketChatResponse::class.java).toJson(chat))
+        Log.d("send", moshi.adapter(SocketChatRequest::class.java).toJson(chat))
+        webSocket?.send(moshi.adapter(SocketChatRequest::class.java).toJson(chat))
+
+//        val chat = SocketChatResponse(
+//            timestamp = "2023-01-23T16:45:36.840977",
+//            message = message,
+//            type = type.name
+//        )
+//        Log.d("send", moshi.adapter(SocketChatResponse::class.java).toJson(chat))
+//        webSocket?.send(moshi.adapter(SocketChatResponse::class.java).toJson(chat))
 
     }
 

@@ -1,8 +1,6 @@
 package com.xyz.oclock.ui.home
 
-import androidx.compose.ui.res.stringResource
 import androidx.databinding.Bindable
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.skydoves.bindables.asBindingProperty
 import com.xyz.oclock.R
@@ -15,7 +13,6 @@ import com.xyz.oclock.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.consumeEach
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
@@ -33,17 +30,17 @@ class HomeViewModel @Inject constructor(
     private val deviceStateRepository: DeviceStateRepository
 ): BaseViewModel() {
 
-    var calendar = Calendar.getInstance()
+    private var calendar = Calendar.getInstance()
 
-    val chatFlow = MutableStateFlow<List<Chat>>(arrayListOf(Chat(
-        message = resourceProvider.getString(R.string.waiting_chat_description),
-        type = ChatType.ALERT,
-        timeStamp = 0
-    )))
+    val chatFlow = MutableStateFlow<List<Chat>>(arrayListOf())
 
     @get:Bindable
     val chatList: List<Chat> by chatFlow.asBindingProperty()
 
+
+    fun isChattingTime(): Boolean {
+        return true
+    }
 
     fun getNewToken() = viewModelScope.launch {
         val token = tokenRepository.getRefreshToken()
@@ -233,7 +230,7 @@ class HomeViewModel @Inject constructor(
             try {
                 chatRepository.openSocket().consumeEach {
                     if (it.type != SocketChatType.EXCEPTION.name) {
-                        addMessage(it.asChat())
+                        addNewChat(it.asChat())
                     } else {
                         onSocketError(it)
                     }
@@ -248,19 +245,14 @@ class HomeViewModel @Inject constructor(
         println("Error occurred : ${msg}")
     }
 
-    fun sendMessage() = viewModelScope.launch(Dispatchers.IO) {
+    fun sendMessage(msg: String) = viewModelScope.launch(Dispatchers.IO) {
         val token = tokenRepository.getSocketAccessToken()
         token?.let {
-            repeat(20) {
-                delay(1000)
-                val msg = "테스트 메세지" + Math.random()
-                chatRepository.sendMessage(token, msg, SocketChatType.MESSAGE)
-            }
+            chatRepository.sendMessage(token, msg, SocketChatType.MESSAGE)
         }
     }
 
-    fun addMessage(chat: Chat) = viewModelScope.launch {
-        println("Chat : ${chat}")
+    fun addNewChat(chat: Chat) = viewModelScope.launch {
         chatFlow.emit(ArrayList(chatFlow.value).plus(chat))
     }
 

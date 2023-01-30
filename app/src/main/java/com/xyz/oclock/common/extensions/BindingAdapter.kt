@@ -2,17 +2,21 @@ package com.xyz.oclock.common.extensions
 
 import android.animation.ObjectAnimator
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.skydoves.bindables.BindingListAdapter
 import com.skydoves.whatif.whatIfNotNullAs
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.OnThrottleClickListener
+import java.util.logging.Handler
 
 
 object BindingAdapter {
@@ -107,15 +111,18 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("adapter")
-    fun bindAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
-        view.adapter = adapter.apply {
-            stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+    fun bindAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>?) {
+        adapter?.let {
+            view.adapter = adapter.apply {
+//                stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            }
         }
     }
 
     @JvmStatic
     @BindingAdapter("submitList")
     fun bindSubmitList(view: RecyclerView, itemList: List<Any>?) {
+        view.itemAnimator = null
         view.adapter.whatIfNotNullAs<BindingListAdapter<Any, *>> { adapter ->
             adapter.submitList(itemList)
         }

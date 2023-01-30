@@ -18,6 +18,7 @@ class OClockWebSocketListener : WebSocketListener(){
     private val moshi: Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
+        println("onOpen")
 //        webSocket.send("Hi")
 //        webSocket.send("Hi again")
 //        webSocket.send("Hi again again")
@@ -35,9 +36,9 @@ class OClockWebSocketListener : WebSocketListener(){
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
         GlobalScope.launch {
             socketEventChannel.send(SocketChatResponse(type = SocketChatType.EXCEPTION.name))
+            webSocket.close(NORMAL_CLOSURE_STATUS, null)
+            socketEventChannel.close()
         }
-        webSocket.close(NORMAL_CLOSURE_STATUS, null)
-        socketEventChannel.close()
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {

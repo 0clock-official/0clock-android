@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.xyz.oclock.core.model.ChatType"/>
+        <variable
+            name="chat"
+            type="com.xyz.oclock.core.model.Chat" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/chat_u1_layout"
+            android:gravity="end"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:background="@drawable/bg_border_stroke_rounded"
+                android:id="@+id/chat_u1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="15dp"
+                android:text="@{chat.message}"
+                tools:text="가나다라마바사"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/pretendard_regular"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
