@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit
 
 class WebServicesProvider {
 
+    private val tag: String = this.javaClass.simpleName
     private var webSocket: WebSocket? = null
 
     private val socketOkHttpClient = OkHttpClient.Builder()
@@ -50,7 +51,7 @@ class WebServicesProvider {
             message = message,
             type = type.name
         )
-        Log.d("send", moshi.adapter(SocketChatRequest::class.java).toJson(chat))
+        Log.d(tag, "sendMessage: $chat")
         webSocket?.send(moshi.adapter(SocketChatRequest::class.java).toJson(chat))
 
 //        val chat = SocketChatResponse(

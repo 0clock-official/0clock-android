@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.xyz.oclock.R
 import com.xyz.oclock.common.utils.OClockFirebaseMessagingService
+import com.xyz.oclock.ui.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 

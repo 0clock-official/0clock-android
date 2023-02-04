@@ -22,8 +22,12 @@ class CommonRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success(this.data.response, Any()))
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(null)
         }
@@ -45,8 +49,12 @@ class CommonRepositoryImpl @Inject constructor(
                 emit(CommonResponse.Success(data = pair))
             }
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(null)
         }

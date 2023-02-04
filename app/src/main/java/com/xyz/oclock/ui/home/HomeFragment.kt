@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -21,12 +22,28 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class HomeFragment:
-    BindingFragment<FragmentHomeBinding>(R.layout.fragment_home)
-{
+class HomeFragment: BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var layoutManager: LinearLayoutManager
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(onBackPressedCallback)
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (binding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                binding.drawerLayout.closeDrawer(GravityCompat.END)
+            } else if (binding.chatTextfield.hasFocus()) {
+                binding.chatTextfield.clearFocus()
+            } else {
+                viewModel.closeSocket()
+                activity?.finishAffinity()
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -214,4 +231,5 @@ class HomeFragment:
             binding.drawerLayout.closeDrawer(GravityCompat.END)
         }
     }
+
 }

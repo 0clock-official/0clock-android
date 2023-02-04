@@ -26,8 +26,12 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success<Nothing>())
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(this.message)
         }
@@ -45,8 +49,12 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success<Nothing>(this.data.response))
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(this.message)
         }
@@ -64,8 +72,12 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success<Nothing>())
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(this.message)
         }
@@ -85,8 +97,12 @@ class SignUpRepositoryImpl @Inject constructor(
         response.suspendOnSuccess {
             emit(CommonResponse.Success<Nothing>())
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(null)
         }
@@ -109,8 +125,12 @@ class SignUpRepositoryImpl @Inject constructor(
                 emit(CommonResponse.Success(data = pair))
             }
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(null)
         }
@@ -141,8 +161,12 @@ class SignUpRepositoryImpl @Inject constructor(
                 }
             }
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(null)
         }

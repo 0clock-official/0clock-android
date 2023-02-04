@@ -36,8 +36,12 @@ class ChatRepositoryImpl @Inject constructor(
                 emit(CommonResponse.Success(this.data.response, this.data.data!!.chattingRoomId))
             }
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(this.message)
         }
@@ -67,8 +71,12 @@ class ChatRepositoryImpl @Inject constructor(
                 emit(CommonResponse.Success(this.data.response, matchingUser))
             }
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(this.message)
         }
@@ -101,8 +109,12 @@ class ChatRepositoryImpl @Inject constructor(
                 emit(CommonResponse.Success(this.data.response, user))
             }
         }.suspendOnError {
-            val errorResponse = ErrorResponseMapper.map(this)
-            emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
         }.onException {
             onError(this.message)
         }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -27,6 +28,17 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>( R.layout.fragment_l
 
     @Inject
     lateinit var tokenRepository: TokenRepository
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(onBackPressedCallback)
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            activity?.finishAffinity()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

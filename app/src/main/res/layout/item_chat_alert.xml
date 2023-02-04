@@ -48,7 +48,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/waiting_chat_description"
+                    android:text="@{chat.message}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:fontFamily="@font/pretendard_light"/>

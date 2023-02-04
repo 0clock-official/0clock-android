@@ -1,5 +1,6 @@
 package com.xyz.oclock.ui.home
 
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.lifecycle.viewModelScope
 import com.skydoves.bindables.asBindingProperty
@@ -30,6 +31,7 @@ class HomeViewModel @Inject constructor(
     private val deviceStateRepository: DeviceStateRepository
 ): BaseViewModel() {
 
+    private val tag = this.javaClass.simpleName
     private var calendar = Calendar.getInstance()
 
     val chatFlow = MutableStateFlow<List<Chat>>(arrayListOf())
@@ -183,6 +185,7 @@ class HomeViewModel @Inject constructor(
         }
         chatRepository.getMyInfo(
             token = token,
+//            token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX01FTUJFUiJdLCJpc3MiOiJvY2xvY2siLCJleHAiOjE2NzUzNDY2MzgsImlhdCI6MTY3NTMzOTQzOCwidXNlcktleSI6M30.FffvlDmgurLMqZjltAAflM74UqpM4eND2KBbZSjoRKNYCy6sHq1wPTb8ajaGBNKkUDLQOwWeTLSsfMGUWIzBjw",
             onStart = { showLoading() },
             onComplete = { hideLoading() },
             onError = {
@@ -229,10 +232,19 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 chatRepository.openSocket().consumeEach {
-                    if (it.type != SocketChatType.EXCEPTION.name) {
-                        addNewChat(it.asChat())
-                    } else {
-                        onSocketError(it)
+                    when (it.type) {
+                        SocketChatType.MESSAGE.name,
+                        SocketChatType.TIME_CHANGE_REQ.name,
+                        SocketChatType.TIME_CHANGE_ACCEPT.name,
+                        SocketChatType.EXIT_CHATTINGROOM.name -> {
+                            addNewChat(it.asChat())
+                        }
+                        SocketChatType.CLOSING.name -> {
+                            addNewChat(it.asChat())
+                        }
+                        SocketChatType.EXCEPTION.name -> {
+                            onSocketError(it)
+                        }
                     }
                 }
             } catch (ex: java.lang.Exception) {
@@ -242,7 +254,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun onSocketError(msg: SocketChatResponse) {
-        println("Error occurred : ${msg}")
+        Log.d(tag, "onSocketError")
     }
 
     fun sendMessage(msg: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -256,8 +268,12 @@ class HomeViewModel @Inject constructor(
         chatFlow.emit(ArrayList(chatFlow.value).plus(chat))
     }
 
-    override fun onCleared() {
+    fun closeSocket(){
         chatRepository.closeSocket()
+    }
+
+    override fun onCleared() {
+        closeSocket()
         super.onCleared()
     }
 }

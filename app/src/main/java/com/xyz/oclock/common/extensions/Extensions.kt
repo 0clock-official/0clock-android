@@ -127,6 +127,9 @@ fun SocketChatResponse.asChat(): Chat {
                 SocketChatType.EXCEPTION.name -> {
                     ChatType.EXCEPTION
                 }
+                SocketChatType.CLOSING.name -> {
+                    ChatType.ALERT
+                }
                 else -> {
                     ChatType.NOTHING
                 }
