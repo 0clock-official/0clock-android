@@ -126,6 +126,7 @@ class HomeViewModel @Inject constructor(
             onStart = { showLoading() },
             onComplete = { hideLoading() },
             onError = {
+                onFail()
                 showToast(it?: resourceProvider.getString(R.string.unknown_error))
             },
         ).collectLatest {
@@ -140,12 +141,11 @@ class HomeViewModel @Inject constructor(
                             logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
                         }
                         404 -> {
-                            showToast(it.message)
-                        }
-                        409 -> {
+                            onFail()
                             showToast(it.message)
                         }
                         else -> {
+                            onFail()
                             showToast(it.message)
                         }
                     }
@@ -189,6 +189,7 @@ class HomeViewModel @Inject constructor(
             onStart = { showLoading() },
             onComplete = { hideLoading() },
             onError = {
+                onFail()
                 showToast(it?: resourceProvider.getString(R.string.unknown_error))
             },
         ).collectLatest {

@@ -37,7 +37,7 @@ class LoginViewModel @Inject constructor(
         deviceStateRepository.noLongerFirstRun()
     }
 
-    fun login(onSuccess: ()->Unit) =  viewModelScope.launch {
+    fun login(onSuccess: ()->Unit, onFail: ()->Unit) =  viewModelScope.launch {
         if (email.isEmpty() || password.isEmpty()) {
             showToast("이메일과 비밀번호를 입력해주세요.")
             return@launch
@@ -61,7 +61,7 @@ class LoginViewModel @Inject constructor(
                     onSuccess()
                 }
                 is CommonResponse.Fail ->  {
-                    showToast(it.message)
+                    onFail()
                 }
             }
         }

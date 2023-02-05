@@ -141,7 +141,8 @@ fun SocketChatResponse.asChat(): Chat {
 fun String?.convertToLocalTimeMillis(): Long {
     val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.UK)
     return try {
-        val date = formatter.parse(this!!)
+        if (this == null) return 0
+        val date = formatter.parse(this)
         val calendar = Calendar.getInstance()
         calendar.time = date
         calendar.add(Calendar.HOUR_OF_DAY, +9)

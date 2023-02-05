@@ -16,13 +16,6 @@
         android:background="@color/main"
         toast="@{vm.toastMessage}">
 
-        <EditText
-            android:id="@+id/fcm_sample"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toTopOf="parent"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,6 +90,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/login_error_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

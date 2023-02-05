@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.skydoves.bindables.BindingFragment
 import com.xyz.oclock.R
+import com.xyz.oclock.common.extensions.BindingAdapter.visibility
 import com.xyz.oclock.common.extensions.onThrottleClick
 import com.xyz.oclock.databinding.FragmentLoginBinding
 import com.xyz.oclock.core.data.repository.TokenRepository
@@ -59,12 +60,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>( R.layout.fragment_l
             moveToOnBoardingFragment()
             return
         }
-
         setOnClickListener()
-        registerBackBtnCallback()
-        lifecycleScope.launch {
-            fcmToken()
-        }
     }
 
     private fun moveToOnBoardingFragment() {
@@ -84,32 +80,16 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>( R.layout.fragment_l
         }
 
         binding.loginBtn.onThrottleClick {
-            viewModel.login {
+            viewModel.login(onSuccess = {
                 moveToPending()
-            }
+            }, onFail = {
+                binding.loginErrorHint.visibility = View.VISIBLE
+            })
         }
     }
 
     private fun moveToPending() {
         val action = LoginFragmentDirections.actionLoginFragmentToPendingFragment()
         findNavController().navigate(action)
-    }
-
-    private fun registerBackBtnCallback() {
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    activity?.finish()
-                }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(this.viewLifecycleOwner, callback)
-    }
-
-    private suspend fun fcmToken() {
-        delay(3000)
-        view?.run {
-            val token = tokenRepository.getFcmToken()?: "토큰없음"
-            binding.fcmSample.setText(token)
-        }
     }
 }
