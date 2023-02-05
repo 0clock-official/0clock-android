@@ -57,7 +57,7 @@ class LoginViewModel @Inject constructor(
                     val accessToken = pair.first as String
                     val refreshToken = pair.second as String
                     tokenRepository.setAccessToken(accessToken)
-                    tokenRepository.setRefreshToken("refreshToken:$refreshToken")
+                    tokenRepository.setRefreshToken(refreshToken)
                     onSuccess()
                 }
                 is CommonResponse.Fail ->  {

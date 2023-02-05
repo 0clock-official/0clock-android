@@ -1,9 +1,14 @@
 package com.xyz.oclock.core.data.repository
 
 import com.xyz.oclock.core.database.SharedPreferences
+import com.xyz.oclock.core.model.CommonResponse
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TokenRepositoryImpl @Inject constructor(
+    private val commonRepository: CommonRepository,
     private val sharedPreferences: SharedPreferences
 ): TokenRepository {
 
@@ -38,4 +43,5 @@ class TokenRepositoryImpl @Inject constructor(
     override fun clear() {
         return sharedPreferences.clear()
     }
+
 }

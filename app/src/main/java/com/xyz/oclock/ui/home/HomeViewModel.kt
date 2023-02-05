@@ -44,31 +44,6 @@ class HomeViewModel @Inject constructor(
         return true
     }
 
-    fun getNewToken() = viewModelScope.launch {
-        val token = tokenRepository.getRefreshToken()
-        if (token == null) {
-            logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
-            return@launch
-        }
-        commonRepository.getNewToken(
-            refreshToken = token,
-            onError = {}
-        ).collectLatest {
-            when (it) {
-                is CommonResponse.Success<*> -> {
-                    val pair = it.data as Pair<*, *>
-                    val accessToken = pair.first as String
-                    val refreshToken = pair.second as String
-                    tokenRepository.setAccessToken(accessToken)
-                    tokenRepository.setRefreshToken(refreshToken)
-                }
-                is CommonResponse.Fail ->  {
-                    showToast(it.message)
-                }
-            }
-        }
-    }
-
     fun startMatching(
         onSuccess: () -> Unit,
         onFail: (String) -> Unit,
@@ -95,7 +70,6 @@ class HomeViewModel @Inject constructor(
                 is CommonResponse.Fail ->  {
                     when (it.code) {
                         401 -> {
-                            logoutHelper.logout(resourceProvider.getString(R.string.forced_logout))
                         }
                         404 -> {
                             onFail(it.message)

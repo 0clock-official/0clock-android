@@ -14,25 +14,6 @@ class CommonRepositoryImpl @Inject constructor(
     private val commonClient: CommonClient
 ): CommonRepository {
 
-    override fun getNewToken(
-        refreshToken: String,
-        onError: (String?) -> Unit
-    ) = flow {
-        val response = commonClient.getNewToken(refreshToken)
-        response.suspendOnSuccess {
-            emit(CommonResponse.Success(this.data.response, Any()))
-        }.suspendOnError {
-            try {
-                val errorResponse = ErrorResponseMapper.map(this)
-                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
-            } catch (e: Exception) {
-                onError(null)
-            }
-        }.onException {
-            onError(null)
-        }
-    }.flowOn(Dispatchers.IO)
-
     override fun login(
         email: String,
         password: String,

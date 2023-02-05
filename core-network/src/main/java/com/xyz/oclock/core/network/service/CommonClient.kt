@@ -9,9 +9,6 @@ import javax.inject.Inject
 class CommonClient @Inject constructor(
     private val commonService: CommonService
 ) {
-    suspend fun getNewToken(refreshToken: String): ApiResponse<OClockResponse<Any>> {
-        return commonService.getNewToken(refreshToken)
-    }
 
     suspend fun login(email: String, password: String): ApiResponse<OClockResponse<TokenResponse>> {
         return commonService.login(LoginRequest(email, password))

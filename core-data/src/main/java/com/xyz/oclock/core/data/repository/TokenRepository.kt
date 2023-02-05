@@ -1,5 +1,8 @@
 package com.xyz.oclock.core.data.repository
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+
 interface TokenRepository {
 
     fun setFcmToken(token: String)
@@ -17,5 +20,4 @@ interface TokenRepository {
     fun getSocketAccessToken(): String?
 
     fun clear()
-
 }

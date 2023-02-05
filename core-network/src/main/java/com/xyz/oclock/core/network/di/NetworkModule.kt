@@ -4,6 +4,7 @@ import android.content.Context
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.xyz.oclock.core.database.SharedPreferences
 import com.xyz.oclock.core.network.model.interceptor.HttpRequestInterceptor
 import com.xyz.oclock.core.network.service.*
 import com.xyz.oclock.core.network.util.WebServicesProvider
@@ -22,15 +23,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "http://api.0clock.xyz:34216/"
-    private val moshi: Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+    const val BASE_URL = "http://api.0clock.xyz:34216/"
+    public val moshi: Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(authAuthenticator: AuthAuthenticator): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(HttpRequestInterceptor())
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .authenticator(authAuthenticator)
             .build()
     }
 

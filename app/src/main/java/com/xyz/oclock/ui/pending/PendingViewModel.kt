@@ -89,6 +89,7 @@ class PendingViewModel @Inject constructor(
             onStart = { showLoading() },
             onComplete = { hideLoading() },
             onError = {
+                onFail()
                 showToast(it?: resourceProvider.getString(R.string.unknown_error))
             },
         ).collectLatest {

@@ -4,12 +4,6 @@ import com.xyz.oclock.core.model.CommonResponse
 import kotlinx.coroutines.flow.Flow
 
 interface CommonRepository {
-
-    fun getNewToken(
-        refreshToken: String,
-        onError: (String?) -> Unit
-    ): Flow<CommonResponse>
-
     fun login(
         email: String,
         password: String,
