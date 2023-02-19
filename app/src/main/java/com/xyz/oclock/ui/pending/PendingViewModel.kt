@@ -29,7 +29,7 @@ class PendingViewModel @Inject constructor(
     private val deviceStateRepository: DeviceStateRepository
 ): BaseViewModel() {
 
-    val nickname = MutableLiveData("")
+    val user = MutableLiveData<User>()
 
     fun checkPendingState(
         onPending: suspend ()->Unit,
@@ -95,9 +95,11 @@ class PendingViewModel @Inject constructor(
         ).collectLatest {
             when (it) {
                 is CommonResponse.Success<*> -> {
-                    val user = it.data as User
-                    nickname.value = user.nickname
-                    onSuccess(user)
+                    val u = it.data as User
+                    onSuccess(u)
+                    viewModelScope.launch {
+                        user.value = u
+                    }
                 }
                 is CommonResponse.Fail ->  {
                     when (it.code) {

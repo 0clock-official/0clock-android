@@ -60,6 +60,9 @@
             <action
                 android:id="@+id/action_pendingFragment_to_loginFragment"
                 app:destination="@id/loginFragment" />
+            <action
+                android:id="@+id/action_pendingFragment_to_profileFragment"
+                app:destination="@id/profileFragment" />
         </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -80,6 +83,9 @@
         <action
             android:id="@+id/action_homeFragment_to_pendingFragment"
             app:destination="@id/pendingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/findPwdFragment"
@@ -117,5 +123,19 @@
         <action
             android:id="@+id/action_uploadStdCardFragment_to_pendingFragment"
             app:destination="@id/pendingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.xyz.oclock.ui.drawer.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="chattime"
+            app:argType="integer" />
+        <argument android:name="matchingSex"
+            app:argType="integer" />
+
     </fragment>
 </navigation>

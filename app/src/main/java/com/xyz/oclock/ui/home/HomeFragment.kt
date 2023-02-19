@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.skydoves.bindables.BindingFragment
@@ -17,6 +18,8 @@ import com.xyz.oclock.core.model.ChatType
 import com.xyz.oclock.core.model.ChattingTime
 import com.xyz.oclock.databinding.FragmentHomeBinding
 import com.xyz.oclock.ui.dialog.DefaultDialog
+import com.xyz.oclock.ui.login.LoginFragmentDirections
+import com.xyz.oclock.ui.pending.PendingFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -213,7 +216,7 @@ class HomeFragment: BindingFragment<FragmentHomeBinding>(R.layout.fragment_home)
         binding.navigationView.setNavigationItemSelectedListener { it: MenuItem ->
             when (it.itemId) {
                 R.id.menu_edit_profile -> {
-                    viewModel.showToast("edit_profile")
+                    moveToProfile()
                     true
                 }
                 R.id.menu_setting -> {
@@ -229,6 +232,13 @@ class HomeFragment: BindingFragment<FragmentHomeBinding>(R.layout.fragment_home)
         val navigationCloseBtn = headerView.findViewById<ImageView>(R.id.drawer_close_btn)
         navigationCloseBtn.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
+        }
+    }
+
+    private fun moveToProfile() {
+        viewModel.user?.let {
+            val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment(it.nickname, it.chattingTime, it.matchingSex)
+            view?.findNavController()?.navigate(action)
         }
     }
 

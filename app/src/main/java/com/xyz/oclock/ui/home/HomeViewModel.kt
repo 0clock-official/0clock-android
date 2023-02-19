@@ -39,6 +39,7 @@ class HomeViewModel @Inject constructor(
     @get:Bindable
     val chatList: List<Chat> by chatFlow.asBindingProperty()
 
+    var user: User? = null
 
     fun isChattingTime(): Boolean {
         return true
@@ -170,8 +171,9 @@ class HomeViewModel @Inject constructor(
             when (it) {
                 is CommonResponse.Success<*> -> {
                     if (it.data is User) {
-                        val user = it.data as User
-                        onSuccess(user)
+                        val u = it.data as User
+                        user = u
+                        onSuccess(u)
                     } else if (it.data is Calendar) {
                         val c = it.data as Calendar
                         calendar = c

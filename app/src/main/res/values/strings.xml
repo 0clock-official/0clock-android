@@ -42,7 +42,7 @@
     <string name="pending_description_approve">그동안 전공 관련 이야기 털어놓을 곳이 없어서 힘들었죠?\n같은 전공생과 이야기를 나눠볼까요?</string>
     <string name="sign_up_nickname_description">민감한 개인정보 또는 홍보목적이나 부적절한 키워드는 관리자에 의해 예고없이 이용정지 될 수 있어요.\n한글 10글자로 본인을 개성있게 표현해보세요!</string>
     <string name="sign_up_please_enter_nickname">사용하실 닉네임을 입력해주세요</string>
-    <string name="within_10characters_korean">한글 10자 이내</string>
+    <string name="within_10characters_korean">한글/영어 10자 이내</string>
     <string name="error_nickname_format1">10자 이내로 입력해주세요</string>
     <string name="error_nickname_format2">숫자가 포함되어 있어요</string>
     <string name="error_nickname_format3">특수문자가 포함되어 있어요</string>
@@ -82,5 +82,9 @@
     <string name="send_message">메세지 보내기</string>
     <string name="accept">수락</string>
     <string name="reject">거절</string>
+    <string name="save_edited_data">변경 사항 저장하기</string>
+    <string name="nickname">닉네임</string>
+    <string name="chattime">채팅 시간</string>
+    <string name="matching_sex">매칭 성별</string>
 
 </resources>

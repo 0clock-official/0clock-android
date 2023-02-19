@@ -52,7 +52,7 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
         binding.navigationView.setNavigationItemSelectedListener { it: MenuItem ->
             when (it.itemId) {
                 R.id.menu_edit_profile -> {
-                    viewModel.showToast("edit_profile")
+                    moveToProfile()
                     true
                 }
                 R.id.menu_setting -> {
@@ -148,9 +148,9 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
                 setOnClickListener { moveToHome() }
             }
         }
-        viewModel.nickname.observe(this.viewLifecycleOwner) {
+        viewModel.user.observe(this.viewLifecycleOwner) {
             binding.pendingTitle.text =
-                String.format(getString(R.string.welcome), viewModel.nickname.value)
+                String.format(getString(R.string.welcome), it.nickname)
         }
     }
 
@@ -189,4 +189,10 @@ class PendingFragment : BindingFragment<FragmentSignUpPendingBinding>(R.layout.f
         view?.findNavController()?.navigate(action)
     }
 
+    private fun moveToProfile() {
+        viewModel.user.value?.let {
+            val action = PendingFragmentDirections.actionPendingFragmentToProfileFragment(it.nickname, it.chattingTime, it.matchingSex)
+            view?.findNavController()?.navigate(action)
+        }
+    }
 }

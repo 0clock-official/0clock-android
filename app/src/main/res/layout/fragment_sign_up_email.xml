@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/sign_up_viewpager_verify_code_layout"
+                android:id="@+id/profile_nickname_layout"
                 style="@style/OutlinedLoginInputTextLayout"
                 app:boxStrokeColor= "@{vm.verifyError? @color/error : @color/purple}"
                 android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                 app:boxCornerRadiusTopStart="18dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sign_up_viewpager_verify_edit_text"
+                    android:id="@+id/profile_nickname_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/verify_char"
@@ -149,7 +149,7 @@
         </FrameLayout>
 
         <TextView
-            android:id="@+id/sign_up_viewpager_verify_error_hint"
+            android:id="@+id/profile_nickname_error_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"

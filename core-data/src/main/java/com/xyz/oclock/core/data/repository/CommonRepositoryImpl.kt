@@ -3,7 +3,9 @@ package com.xyz.oclock.core.data.repository
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.suspendOnError
 import com.skydoves.sandwich.suspendOnSuccess
+import com.xyz.oclock.core.model.ChattingTime
 import com.xyz.oclock.core.model.CommonResponse
+import com.xyz.oclock.core.model.Sex
 import com.xyz.oclock.core.network.model.mapper.ErrorResponseMapper
 import com.xyz.oclock.core.network.service.CommonClient
 import kotlinx.coroutines.Dispatchers
@@ -43,5 +45,35 @@ class CommonRepositoryImpl @Inject constructor(
         .onCompletion { onComplete() }
         .flowOn(Dispatchers.IO)
 
+
+    override fun editProfile(
+        token: String,
+        nickname: String,
+        chattingTime: ChattingTime,
+        matchingSex: Sex,
+        onError: (String?) -> Unit,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+    ) = flow {
+        val response = commonClient.editProfile(token, nickname, chattingTime, matchingSex)
+        response.suspendOnSuccess {
+            if (this.data.code == "200") {
+                emit(CommonResponse.Success(data = null))
+            } else {
+                onError(null)
+            }
+        }.suspendOnError {
+            try {
+                val errorResponse = ErrorResponseMapper.map(this)
+                emit(CommonResponse.Fail(errorResponse.message, errorResponse.code))
+            } catch (e: Exception) {
+                onError(null)
+            }
+        }.onException {
+            onError(null)
+        }
+    }.onStart { onStart() }
+        .onCompletion { onComplete() }
+        .flowOn(Dispatchers.IO)
 
 }
